@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ai6101:harness:schema:tool-kb:1",
+  "title": "Tool KB (tool-kb/1)",
+  "description": "Tool knowledge base exchanged between the Rust harness and the Python benchmark runner. Version 1.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kb_id", "release_id", "server_version", "cards"],
+  "properties": {
+    "schema_version": { "const": "tool-kb/1" },
+    "kb_id": { "$ref": "#/$defs/nonempty_string" },
+    "release_id": { "$ref": "#/$defs/nonempty_string" },
+    "server_version": { "$ref": "#/$defs/nonempty_string" },
+    "cards": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/card" }
+    }
+  },
+  "$defs": {
+    "nonempty_string": { "type": "string", "minLength": 1 },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["release_id", "source_file", "source_pointer"],
+      "properties": {
+        "release_id": { "$ref": "#/$defs/nonempty_string" },
+        "source_file": { "$ref": "#/$defs/nonempty_string" },
+        "source_pointer": { "type": ["string", "null"] }
+      }
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lineage_id",
+        "server_id",
+        "tool_id",
+        "name",
+        "server_version",
+        "description",
+        "input_schema",
+        "output_schema",
+        "usage_rules",
+        "provenance"
+      ],
+      "properties": {
+        "lineage_id": { "$ref": "#/$defs/nonempty_string" },
+        "server_id": { "$ref": "#/$defs/nonempty_string" },
+        "tool_id": { "$ref": "#/$defs/nonempty_string" },
+        "name": { "$ref": "#/$defs/nonempty_string" },
+        "server_version": { "$ref": "#/$defs/nonempty_string" },
+        "description": { "type": "string" },
+        "input_schema": { "type": "object" },
+        "output_schema": { "type": ["object", "null"] },
+        "usage_rules": { "type": "array", "items": { "type": "string" } },
+        "provenance": { "$ref": "#/$defs/provenance" }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+# Build output
+target/
+
+# Secrets and local credentials
+.env
+.env.*
+*.key
+*.pem
+
+# OS noise
+.DS_Store
+
+# Scratch space inside run directories (raw run JSONL and manifests are NOT ignored)
+runs/**/scratch/
+
+# Local coding-agent state (session transcripts and per-workspace config)
+.harness/
+.mcpe/

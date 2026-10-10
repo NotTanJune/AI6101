@@ -1,0 +1,79 @@
+{
+  "alpha-notes": {
+    "create_note": {
+      "evolution_summary": "Tightened create_note.",
+      "parameter_changes": [
+        {
+          "name": "tags",
+          "action": "add",
+          "required": false,
+          "description_old": "",
+          "description_new": "Tags for the note.",
+          "reason": "Tagging."
+        },
+        {
+          "name": "legacy_flag",
+          "action": "remove",
+          "required": false,
+          "description_old": "Old flag.",
+          "description_new": "",
+          "reason": "Unused."
+        },
+        {
+          "name": "body",
+          "change_type": "required",
+          "old_value": "optional string",
+          "new_value": "required string"
+        },
+        {
+          "name": "title",
+          "change_type": "constraint",
+          "old_value": "string",
+          "new_value": "string (trimmed, min 3)"
+        }
+      ],
+      "tool_description_change": {
+        "old_description": "Create a note.",
+        "new_description": "Create a note with optional priority and tags.",
+        "reason": "Clarity."
+      },
+      "diff_hunks": [
+        {
+          "old_code": "// old",
+          "new_code": "// new",
+          "file_name": "alpha/index.js"
+        }
+      ]
+    },
+    "mutation_type": "PARAM",
+    "task_idx": 3
+  },
+  "@beta/calendar": {
+    "addition_summary": "Added bulk_add_events.",
+    "new_tool_name": "bulk_add_events",
+    "auto_optimizations": [
+      {
+        "tool_name": "add_event",
+        "reason": "Overlap.",
+        "changes": "Added a note pointing to bulk_add_events."
+      }
+    ],
+    "diff_hunks": [
+      {
+        "old_code": "// old",
+        "new_code": "// new",
+        "file_name": "alpha/index.js"
+      }
+    ],
+    "mutation_type": "TOOL",
+    "task_idx": 1
+  },
+  "gamma-docs": {
+    "get_other": {
+      "original_description": "Fetch another document.",
+      "modified_description": "Fetch another document by query."
+    },
+    "mutation_type": "DESC",
+    "task_idx": 4
+  }
+}

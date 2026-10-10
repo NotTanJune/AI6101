@@ -1,0 +1,211 @@
+{
+  "alpha-notes": {
+    "description": "Invented note server for tests.",
+    "tools": [
+      {
+        "name": "create_note",
+        "description": "Create a note.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Title."
+            },
+            "body": {
+              "type": "string",
+              "description": "Body."
+            },
+            "priority": {
+              "type": "string",
+              "enum": [
+                "low",
+                "high"
+              ],
+              "description": "Note priority."
+            }
+          },
+          "required": [
+            "title"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_notes",
+        "description": "List notes.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "description": "Max notes."
+            },
+            "sort": {
+              "type": "string",
+              "description": "Sort order."
+            }
+          }
+        },
+        "outputSchema": {
+          "type": "object",
+          "properties": {
+            "notes": {
+              "type": "array"
+            }
+          }
+        }
+      },
+      {
+        "name": "delete_note",
+        "description": "Delete a note.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  },
+  "@beta/calendar": {
+    "description": "Invented calendar server for tests.",
+    "tools": [
+      {
+        "name": "add_event",
+        "description": "Add an event.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "when": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "title",
+            "when"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "remove_event",
+        "description": "Remove an event.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_events",
+        "description": "List events.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "find_event",
+        "description": "Find an event by title.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Title text."
+            }
+          },
+          "required": [
+            "query"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "bulk_add_events",
+        "description": "Add several events at once.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "events": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "required": [
+            "events"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  },
+  "gamma-docs": {
+    "description": "Invented document server for tests.",
+    "tools": [
+      {
+        "name": "get_doc",
+        "description": "",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "path"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_other",
+        "description": "Fetch another document.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "q": {
+              "type": "string",
+              "description": "Query."
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_plain",
+        "description": "Fetch a plain document.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            }
+          }
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

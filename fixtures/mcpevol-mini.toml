@@ -1,0 +1,45 @@
+# Offline run over the invented MCPEvol-Bench miniature in fixtures/mcpevol-mini/.
+# Same file shapes as the real benchmark, invented content, mock provider, fixture runner.
+# The mcpevol adapter reads its two data directories from environment variables:
+#
+#   MCP_DATA_DIR=fixtures/mcpevol-mini/data EVAL_DATA_DIR=fixtures/mcpevol-mini/data \
+#     harness run --config fixtures/mcpevol-mini.toml --output target/harness-mcpevol-mini
+
+[run]
+name = "mcpevol-mini"
+seed = 1
+repetitions = 1
+strategies = ["no_update", "full_rewrite", "selective_patch"]
+
+[inputs]
+adapter = "mcpevol"
+catalog_env = "MCP_DATA_DIR"
+eval_env = "EVAL_DATA_DIR"
+
+[versions]
+source = "original"
+target = "iter2"
+stages = { early = "original", middle = "iter2", late = "iter4" }
+
+[tasks]
+ids = ["0"]
+
+[provider]
+kind = "mock"
+model = "mock-1"
+mock_responses_dir = "mcpevol-mini/provider"
+
+[judge]
+version = "mock-judge-1"
+
+[budget]
+cap_usd = 100.0
+
+[budget.rate_card]
+id = "mini-mock-rates"
+date = "2026-01-01"
+entries = []
+
+[runner]
+kind = "fixture"
+fixture_dir = "mcpevol-mini/runner"

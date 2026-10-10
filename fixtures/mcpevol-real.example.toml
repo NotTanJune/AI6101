@@ -1,0 +1,48 @@
+# Example configuration for the REAL MCPEvol-Bench data. Env vars only, no absolute paths.
+#
+#   export MCP_DATA_DIR=<MCPEvol-Bench clone>/src/custom/data
+#   export EVAL_DATA_DIR=<MCPEvol-Bench clone>/src/custom/data
+#   harness validate --config fixtures/mcpevol-real.example.toml
+#
+# This file is for validation and browsing. It selects only `no_update` with the mock provider
+# and a placeholder process runner, so it never makes a paid call. A real strategy run needs
+# the frozen provider, rate card and the agreed Python runner (see docs/experiment-protocol.md).
+# No secrets belong in this file.
+
+[run]
+name = "mcpevol-real-validate"
+seed = 1
+repetitions = 1
+strategies = ["no_update"]
+
+[inputs]
+adapter = "mcpevol"
+# Names of environment variables; the values (directories) live in your shell.
+catalog_env = "MCP_DATA_DIR"
+eval_env = "EVAL_DATA_DIR"
+
+[versions]
+# Version labels exposed by the adapter: original, iter1, iter2, iter3, iter4
+# (iterN = evolution files 1..N applied cumulatively, oldest first).
+source = "original"
+target = "iter4"
+# Project decision: Early = original, Middle = iter2, Late = iter4.
+stages = { early = "original", middle = "iter2", late = "iter4" }
+
+[tasks]
+# Task ids are the idx values of the 201 tasks in chosen_idx.json.
+ids = ["0", "3", "16"]
+
+[provider]
+kind = "mock"
+model = "mock-1"
+
+[judge]
+version = "TODO-judge-version"
+
+[budget]
+cap_usd = 100.0
+
+[runner]
+kind = "process"
+executable = "TODO-runner-executable"

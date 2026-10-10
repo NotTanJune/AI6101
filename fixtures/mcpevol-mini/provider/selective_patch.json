@@ -1,0 +1,62 @@
+{
+  "ops": [
+    {
+      "op": "set_field",
+      "lineage_id": "alpha-notes::create_note",
+      "field_path": "input_schema.properties.priority",
+      "value": {
+        "description": "Note priority.",
+        "enum": [
+          "low",
+          "high"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "op": "set_field",
+      "lineage_id": "alpha-notes::list_notes",
+      "field_path": "description",
+      "value": "List notes, newest first."
+    },
+    {
+      "op": "set_field",
+      "lineage_id": "alpha-notes::list_notes",
+      "field_path": "input_schema.properties.limit",
+      "value": {
+        "description": "Maximum number of notes to return.",
+        "type": "integer"
+      }
+    },
+    {
+      "op": "add_card",
+      "card": {
+        "lineage_id": "@beta/calendar::find_event",
+        "server_id": "@beta/calendar",
+        "tool_id": "find_event",
+        "name": "find_event",
+        "server_version": "iter2",
+        "description": "Find an event by title.",
+        "input_schema": {
+          "properties": {
+            "query": {
+              "description": "Title text.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "type": "object"
+        },
+        "output_schema": null,
+        "usage_rules": [],
+        "provenance": {
+          "release_id": "mcpevol-7bd9d7066499",
+          "source_file": "test_cases/status_dict.json",
+          "source_pointer": "status_dict:/@beta~1calendar/tools/3; evolution:d2:@beta/calendar/find_event#new_tool"
+        }
+      }
+    }
+  ]
+}

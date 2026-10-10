@@ -1,0 +1,145 @@
+{
+  "schema_version": "tool-kb/1",
+  "kb_id": "kb-mcpevol-mini-iter2-rewrite",
+  "release_id": "mcpevol-7bd9d7066499",
+  "server_version": "iter2",
+  "cards": [
+    {
+      "lineage_id": "@beta/calendar::add_event",
+      "server_id": "@beta/calendar",
+      "tool_id": "add_event",
+      "name": "add_event",
+      "server_version": "iter2",
+      "description": "Add an event.",
+      "input_schema": {
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "when": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "when"
+        ],
+        "type": "object"
+      },
+      "output_schema": null,
+      "usage_rules": [],
+      "provenance": {
+        "release_id": "mcpevol-7bd9d7066499",
+        "source_file": "test_cases/status_dict.json",
+        "source_pointer": "status_dict:/@beta~1calendar/tools/0"
+      }
+    },
+    {
+      "lineage_id": "@beta/calendar::find_event",
+      "server_id": "@beta/calendar",
+      "tool_id": "find_event",
+      "name": "find_event",
+      "server_version": "iter2",
+      "description": "Find an event by title.",
+      "input_schema": {
+        "properties": {
+          "query": {
+            "description": "Title text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "type": "object"
+      },
+      "output_schema": null,
+      "usage_rules": [],
+      "provenance": {
+        "release_id": "mcpevol-7bd9d7066499",
+        "source_file": "test_cases/status_dict.json",
+        "source_pointer": "status_dict:/@beta~1calendar/tools/3; evolution:d2:@beta/calendar/find_event#new_tool"
+      }
+    },
+    {
+      "lineage_id": "alpha-notes::create_note",
+      "server_id": "alpha-notes",
+      "tool_id": "create_note",
+      "name": "create_note",
+      "server_version": "iter2",
+      "description": "Create a note.",
+      "input_schema": {
+        "properties": {
+          "body": {
+            "description": "Body.",
+            "type": "string"
+          },
+          "legacy_flag": {
+            "description": "Old flag."
+          },
+          "priority": {
+            "description": "Note priority.",
+            "enum": [
+              "low",
+              "high"
+            ],
+            "type": "string"
+          },
+          "title": {
+            "description": "Title.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "type": "object"
+      },
+      "output_schema": null,
+      "usage_rules": [],
+      "provenance": {
+        "release_id": "mcpevol-7bd9d7066499",
+        "source_file": "test_cases/status_dict.json",
+        "source_pointer": "status_dict:/alpha-notes/tools/0; rewind:d3:alpha-notes/create_note#parameter_changes; rewind:d1:alpha-notes/create_note#parameter_additions; evolution:d1:alpha-notes/create_note#parameter_additions"
+      }
+    },
+    {
+      "lineage_id": "alpha-notes::list_notes",
+      "server_id": "alpha-notes",
+      "tool_id": "list_notes",
+      "name": "list_notes",
+      "server_version": "iter2",
+      "description": "List notes, newest first.",
+      "input_schema": {
+        "properties": {
+          "limit": {
+            "description": "Maximum number of notes to return.",
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "sort": {
+            "description": "Sort order.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "output_schema": {
+        "properties": {
+          "notes": {
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "usage_rules": [],
+      "provenance": {
+        "release_id": "mcpevol-7bd9d7066499",
+        "source_file": "test_cases/status_dict.json",
+        "source_pointer": "status_dict:/alpha-notes/tools/1; rewind:d4:alpha-notes/list_notes#parameter_removals; evolution:d2:alpha-notes/list_notes#tool; evolution:d2:alpha-notes/list_notes#parameters[limit]"
+      }
+    }
+  ]
+}

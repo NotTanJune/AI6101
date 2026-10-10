@@ -1,0 +1,40 @@
+[workspace]
+resolver = "3"
+members = ["crates/harness-core", "crates/harness-tui", "crates/harness-cli", "crates/harness-agent"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.98"
+license = "MIT"
+publish = false
+
+[workspace.dependencies]
+harness-core = { path = "crates/harness-core" }
+harness-tui = { path = "crates/harness-tui" }
+harness-agent = { path = "crates/harness-agent" }
+
+anyhow = "1.0"
+chrono = { version = "0.4", default-features = false, features = ["clock", "serde"] }
+clap = { version = "4.6", features = ["derive"] }
+hex = "0.4"
+jsonschema = { version = "0.58", default-features = false }
+ratatui = "0.30"
+regex = "1.13"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = "0.11"
+tempfile = "3.27"
+thiserror = "2.0"
+toml = "1.1"
+futures-util = "0.3"
+globset = "0.4"
+ignore = "0.4"
+reqwest = { version = "0.13", default-features = false, features = ["json", "stream", "rustls"] }
+rmcp = { version = "3.5", default-features = false, features = ["client", "transport-child-process", "transport-streamable-http-client-reqwest"] }
+tokio = { version = "1.53", features = ["rt-multi-thread", "macros", "sync", "time", "process", "io-util", "fs", "net"] }
+tokio-util = "0.7"
+uuid = { version = "1.27", features = ["v4"] }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"

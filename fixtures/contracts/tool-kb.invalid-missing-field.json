@@ -1,0 +1,23 @@
+{
+  "schema_version": "tool-kb/1",
+  "kb_id": "kb-fixture-broken",
+  "release_id": "fixture-release-0",
+  "server_version": "early",
+  "cards": [
+    {
+      "server_id": "weather",
+      "tool_id": "get_forecast",
+      "name": "get_forecast",
+      "server_version": "early",
+      "description": "Return the daily forecast for a city (this card lacks lineage_id).",
+      "input_schema": { "type": "object" },
+      "output_schema": null,
+      "usage_rules": [],
+      "provenance": {
+        "release_id": "fixture-release-0",
+        "source_file": "catalog/weather/early.json",
+        "source_pointer": null
+      }
+    }
+  ]
+}

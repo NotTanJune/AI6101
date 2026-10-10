@@ -1,0 +1,11 @@
+{
+  "text": "I will create hello.txt.",
+  "tool_calls": [
+    {
+      "call_id": "call_write_1",
+      "name": "write_file",
+      "arguments": {"path": "hello.txt", "content": "hello from the agent\n"}
+    }
+  ],
+  "usage": {"input": 160, "output_including_reasoning": 40}
+}

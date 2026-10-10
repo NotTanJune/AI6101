@@ -1,0 +1,9 @@
+[
+  {
+    "task_id": "tracker-create-high-priority",
+    "server_id": "tracker",
+    "prompt": "File an issue titled \"Login page returns 500\" in project APOLLO with high priority.",
+    "stage": "late",
+    "change_classes": ["parameter"]
+  }
+]

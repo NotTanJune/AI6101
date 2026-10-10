@@ -1,0 +1,52 @@
+{
+  "alpha-notes": {
+    "list_notes": {
+      "tool": {
+        "original_description": "List notes.",
+        "modified_description": "List notes, newest first."
+      },
+      "parameters": [
+        {
+          "parameter_name": "limit",
+          "original_description": "Max notes.",
+          "modified_description": "Maximum number of notes to return."
+        }
+      ]
+    },
+    "mutation_type": "DESC",
+    "task_idx": 3
+  },
+  "calendar": {
+    "integration_summary": "Added find_event.",
+    "new_tool_config": {
+      "name": "find_event",
+      "description": "Find events by title text.",
+      "input_schema": {
+        "query": {
+          "type": "string"
+        }
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    "diff_hunks": [
+      {
+        "old_code": "// old",
+        "new_code": "// new",
+        "file_name": "alpha/index.js"
+      }
+    ],
+    "mutation_type": "TOOL",
+    "task_idx": 1
+  },
+  "gamma-docs": {
+    "get_doc": {
+      "unexpected_section": {
+        "note": "a shape this adapter does not know"
+      }
+    },
+    "mutation_type": "DESC",
+    "task_idx": 2
+  }
+}

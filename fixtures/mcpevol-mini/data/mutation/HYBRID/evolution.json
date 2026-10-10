@@ -1,0 +1,65 @@
+{
+  "alpha-notes": {
+    "create_note": {
+      "evolution_summary": "Added an optional priority parameter.",
+      "parameter_additions": [
+        {
+          "name": "priority",
+          "type": "string (enum: 'low' | 'high')",
+          "required": false,
+          "description": "Note priority."
+        }
+      ],
+      "diff_hunks": [
+        {
+          "old_code": "// old",
+          "new_code": "// new",
+          "file_name": "alpha/index.js"
+        }
+      ]
+    },
+    "mutation_type": "PARAM",
+    "task_idx": 3
+  },
+  "@beta/calendar": {
+    "deletion_summary": "Removed the obsolete legacy_event tool.",
+    "deleted_tool_name": "legacy_event",
+    "migration_target_tool": "add_event",
+    "diff_hunks": [
+      {
+        "old_code": "// old",
+        "new_code": "// new",
+        "file_name": "alpha/index.js"
+      }
+    ],
+    "mutation_type": "TOOL",
+    "task_idx": 1
+  },
+  "gamma-docs": {
+    "get_doc": {
+      "tool": {
+        "original_description": null,
+        "modified_description": "Fetch a document by its path."
+      },
+      "parameters": [
+        {
+          "parameter_name": "path",
+          "original_description": null,
+          "modified_description": "Path of the document."
+        }
+      ]
+    },
+    "mutation_type": "DESC",
+    "task_idx": 2
+  },
+  "ghost-server": {
+    "ping": {
+      "tool": {
+        "original_description": "Ping.",
+        "modified_description": "Ping the server and return its status."
+      }
+    },
+    "mutation_type": "DESC",
+    "task_idx": 4
+  }
+}

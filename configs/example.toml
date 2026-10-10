@@ -1,0 +1,118 @@
+# Example experiment configuration for the harness (`harness validate|run|tui --config <this file>`).
+#
+# As shipped, this file is safe to run offline: it uses the checked-in smoke fixtures, the
+# deterministic mock provider and the fixture runner. No network access, no paid calls.
+#
+# It is NOT the frozen experiment configuration. The real pilot and full runs need values that
+# the project owner decides (see docs/experiment-protocol.md): the frozen task IDs, model and
+# decoding, judge version, repetition count, rate card. For the supplied MCPEvol-Bench data
+# start from fixtures/mcpevol-real.example.toml.
+# Values marked PLACEHOLDER below must be replaced; values marked TODO are owner decisions.
+#
+# This file holds NO secrets. Credentials are referenced by environment variable NAME only
+# (`api_key_env`), and the harness rejects values that look like secrets in those fields.
+# Relative paths are resolved against the directory of this config file.
+# Unknown keys are rejected.
+
+[run]
+name = "example-mock"      # free text; used in the manifest
+seed = 42                  # experiment seed, recorded in every config event
+repetitions = 1            # TODO(owner): 1 or 3, decided after the pilot cost review
+# Strategies to run: no_update | full_rewrite | selective_patch (no duplicates).
+strategies = ["no_update", "full_rewrite", "selective_patch"]
+
+[inputs]
+# "fixture" reads checked-in smoke inputs. "mcpevol" reads the supplied MCPEvol-Bench data
+# directories named by catalog_env and eval_env (see fixtures/mcpevol-real.example.toml).
+adapter = "fixture"
+root = "../fixtures/smoke"          # PLACEHOLDER path; fixture adapter only
+# Names of the environment variables that hold the local data roots. The values (absolute
+# paths) live in your shell, never in this file.
+catalog_env = "MCP_DATA_DIR"
+eval_env = "EVAL_DATA_DIR"
+
+[versions]
+# Version labels of the Tool KB being adapted from (source) and to (target).
+source = "early"
+target = "late"
+# Optional mapping of stages to release version labels. PLACEHOLDER labels.
+stages = { early = "early", middle = "middle", late = "late" }
+
+[tasks]
+# PLACEHOLDER: this is the id of the single smoke fixture task. The proposed pilot ids for the
+# supplied benchmark are in docs/experiment-protocol.md (PROPOSED, NOT FROZEN).
+ids = ["tracker-create-high-priority"]
+
+[provider]
+# kind = "mock" | "openai" | "gemini" | "local". The default is the deterministic mock.
+kind = "mock"
+model = "mock-model"
+# Canned responses for the mock provider (mock only; PLACEHOLDER path pointing at the smoke fixtures).
+mock_responses_dir = "../fixtures/smoke/provider"
+# Decoding settings are optional for the mock. For a real run, decide them once and keep them
+# identical for every strategy.
+# temperature = 0.0        # TODO(owner)
+# top_p = 1.0              # TODO(owner)
+# max_output_tokens = 4096 # required for paid providers so each call can be reserved; TODO(owner)
+# seed = 42                # provider-side sampling seed, if the provider supports it
+
+# --- Variant: OpenAI (paid). Needs a rate card entry below, otherwise validation fails. ---
+# [provider]
+# kind = "openai"
+# model = "TODO-model-id"           # TODO(owner): the frozen base model
+# api_key_env = "OPENAI_API_KEY"    # env var NAME only; export the value in your shell
+# temperature = 0.0
+# max_output_tokens = 4096
+
+# --- Variant: Gemini (paid). Needs a rate card entry below, otherwise validation fails. ---
+# [provider]
+# kind = "gemini"
+# model = "TODO-model-id"           # TODO(owner): the frozen base model
+# api_key_env = "GEMINI_API_KEY"    # env var NAME only; export the value in your shell
+# temperature = 0.0
+# max_output_tokens = 4096
+
+# --- Variant: local OpenAI-compatible endpoint (not billed; tracked as local time). ---
+# [provider]
+# kind = "local"
+# model = "TODO-local-model-id"
+# base_url = "http://localhost:11434/v1"   # PLACEHOLDER; must not embed credentials
+# api_key_env = "LOCAL_LLM_API_KEY"        # optional env var NAME, if your endpoint needs a key
+
+[judge]
+# TODO(owner): the judge version of the supplied benchmark has not been recorded. Placeholder
+# for the mock.
+version = "judge-v1"
+
+[budget]
+# Local dispatch cap in USD. It stops the harness from DISPATCHING paid calls once reserved
+# plus spent cost would exceed the cap. It is not the provider's bill and does not guarantee it.
+cap_usd = 100.0
+
+# Rate card: required for paid providers. Paid calls are BLOCKED when no rate is configured for
+# the provider/model pair. Prices are intentionally left empty: the owner fills in current
+# published prices and the date they were taken. Do not guess prices.
+# NOTE: `entries` is mandatory whenever [budget.rate_card] is present.
+#
+# [budget.rate_card]
+# id = "TODO-rate-card-id"
+# date = "YYYY-MM-DD"                    # TODO(owner): date the prices were taken
+#
+# [[budget.rate_card.entries]]
+# provider = "openai"                    # must match [provider].kind
+# model = "TODO-model-id"                # must match [provider].model
+# input_usd_per_mtok = 0.0               # TODO(owner): USD per million input tokens
+# output_usd_per_mtok = 0.0              # TODO(owner): USD per million output tokens
+
+[runner]
+# "fixture" replays checked-in python-source event logs (offline). "process" launches the
+# external Python benchmark runner. The process runner contract is PROPOSED and NOT YET
+# AGREED with the Python workstream owner (docs/experiment-protocol.md).
+kind = "fixture"
+fixture_dir = "../fixtures/smoke/runner"   # PLACEHOLDER path; fixture runner only
+
+# --- Variant: external process runner (argv array only, never a shell string). ---
+# [runner]
+# kind = "process"
+# executable = "TODO-runner-executable"         # TODO(Python owner): agreed entry point
+# fixed_args = []                               # for example a module flag; NEVER secrets

@@ -1,0 +1,119 @@
+{
+  "schema_version": "tool-kb/1",
+  "kb_id": "kb-smoke-late-rewrite",
+  "release_id": "smoke-release-0",
+  "server_version": "late",
+  "cards": [
+    {
+      "lineage_id": "tracker.create_issue",
+      "server_id": "tracker",
+      "tool_id": "create_issue",
+      "name": "create_issue",
+      "server_version": "late",
+      "description": "Create an issue in a project.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": { "type": "string", "description": "Project key." },
+          "title": { "type": "string", "description": "Issue title." },
+          "labels": { "type": "array", "items": { "type": "string" } },
+          "priority": { "type": "string", "enum": ["low", "medium", "high"], "description": "Issue priority." }
+        },
+        "required": ["project", "title", "priority"]
+      },
+      "output_schema": { "type": "object", "properties": { "issue_id": { "type": "string" } } },
+      "usage_rules": ["Titles must be unique within a project."],
+      "provenance": {
+        "release_id": "smoke-release-0",
+        "source_file": "catalog/tracker/late.json",
+        "source_pointer": "/tools/0"
+      }
+    },
+    {
+      "lineage_id": "tracker.list_issues",
+      "server_id": "tracker",
+      "tool_id": "list_issues",
+      "name": "list_issues",
+      "server_version": "late",
+      "description": "List issues in a project, newest first. Closed issues are excluded unless state is closed.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": { "type": "string", "description": "Project key." },
+          "state": { "type": "string", "enum": ["open", "closed"] }
+        },
+        "required": ["project"]
+      },
+      "output_schema": { "type": "object", "properties": { "issues": { "type": "array", "items": { "type": "object" } } } },
+      "usage_rules": [],
+      "provenance": {
+        "release_id": "smoke-release-0",
+        "source_file": "catalog/tracker/late.json",
+        "source_pointer": "/tools/1"
+      }
+    },
+    {
+      "lineage_id": "tracker.search",
+      "server_id": "tracker",
+      "tool_id": "find_issues",
+      "name": "find_issues",
+      "server_version": "late",
+      "description": "Search issues by free text.",
+      "input_schema": {
+        "type": "object",
+        "properties": { "query": { "type": "string" } },
+        "required": ["query"]
+      },
+      "output_schema": null,
+      "usage_rules": ["Queries are case-insensitive."],
+      "provenance": {
+        "release_id": "smoke-release-0",
+        "source_file": "catalog/tracker/late.json",
+        "source_pointer": "/tools/2"
+      }
+    },
+    {
+      "lineage_id": "tracker.get_issue",
+      "server_id": "tracker",
+      "tool_id": "get_issue",
+      "name": "get_issue",
+      "server_version": "late",
+      "description": "Fetch one issue by id.",
+      "input_schema": {
+        "type": "object",
+        "properties": { "issue_id": { "type": "string" } },
+        "required": ["issue_id"]
+      },
+      "output_schema": { "type": "object", "properties": { "issue": { "type": "object" } } },
+      "usage_rules": [],
+      "provenance": {
+        "release_id": "smoke-release-0",
+        "source_file": "catalog/tracker/late.json",
+        "source_pointer": "/tools/3"
+      }
+    },
+    {
+      "lineage_id": "tracker.add_comment",
+      "server_id": "tracker",
+      "tool_id": "add_comment",
+      "name": "add_comment",
+      "server_version": "late",
+      "description": "Add a comment to an existing issue.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "issue_id": { "type": "string" },
+          "body": { "type": "string" }
+        },
+        "required": ["issue_id", "body"]
+      },
+      "output_schema": { "type": "object", "properties": { "comment_id": { "type": "string" } } },
+      "usage_rules": ["Comments cannot be edited after posting."],
+      "provenance": {
+        "release_id": "smoke-release-0",
+        "source_file": "catalog/tracker/late.json",
+        "source_pointer": "/tools/4"
+      }
+    }
+  ]
+}

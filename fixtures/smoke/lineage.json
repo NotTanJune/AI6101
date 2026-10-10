@@ -1,0 +1,4 @@
+[
+  { "server_id": "tracker", "tool_id": "search_issues", "from_version": "early", "lineage_id": "tracker.search" },
+  { "server_id": "tracker", "tool_id": "find_issues", "from_version": "middle", "lineage_id": "tracker.search" }
+]

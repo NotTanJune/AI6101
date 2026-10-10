@@ -1,0 +1,6 @@
+{"schema_version":"run-event/1","run_id":"fx-bad","seq":0,"ts":"2026-09-01T10:00:00Z"
+{"schema_version":"run-event/1","run_id":"fx-bad","seq":1,"ts":"2026-09-01T10:00:01Z","source":"rust","strategy":null,"event_type":"error","message":"missing the fatal field"}
+{"schema_version":"run-event/1","run_id":"fx-bad","seq":2,"ts":"2026-09-01T10:00:02Z","source":"rust","strategy":null,"event_type":"teleport","message":"unknown event type"}
+{"schema_version":"run-event/2","run_id":"fx-bad","seq":3,"ts":"2026-09-01T10:00:03Z","source":"rust","strategy":null,"event_type":"error","message":"future schema","fatal":false}
+{"schema_version":"run-event/1","run_id":"fx-bad","seq":4,"ts":"2026-09-01T10:00:04Z","source":"rust","strategy":null,"event_type":"error","message":"extra field","fatal":false,"surprise":true}
+{"schema_version":"run-event/1","run_id":"fx-bad","seq":"five","ts":"2026-09-01T10:00:05Z","source":"rust","strategy":null,"event_type":"error","message":"seq is a string","fatal":false}

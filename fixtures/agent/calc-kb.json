@@ -1,0 +1,24 @@
+{
+  "schema_version": "tool-kb/1",
+  "kb_id": "calc-kb",
+  "release_id": "sample",
+  "server_version": "kb-1",
+  "cards": [
+    {
+      "lineage_id": "calc::add",
+      "server_id": "calc",
+      "tool_id": "add",
+      "name": "add",
+      "server_version": "kb-1",
+      "description": "KB add description",
+      "input_schema": {
+        "type": "object",
+        "properties": {"a": {"type": "integer"}, "b": {"type": "integer"}},
+        "required": ["a", "b"]
+      },
+      "output_schema": null,
+      "usage_rules": [],
+      "provenance": {"release_id": "sample", "source_file": "calc-catalog.json", "source_pointer": null}
+    }
+  ]
+}

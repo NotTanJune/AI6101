@@ -1,0 +1,78 @@
+{
+  "alpha-notes": {
+    "list_notes": {
+      "evolution_summary": "Pruned sort and offset.",
+      "parameter_removals": [
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "offset",
+          "type": "int",
+          "required": false
+        }
+      ],
+      "diff_hunks": [
+        {
+          "old_code": "// old",
+          "new_code": "// new",
+          "file_name": "alpha/index.js"
+        }
+      ]
+    },
+    "mutation_type": "PARAM",
+    "task_idx": 3
+  },
+  "@beta/calendar": {
+    "deletion_summary": "Removed remove_event.",
+    "deleted_tool_name": "remove_event",
+    "migration_target_tool": "add_event",
+    "diff_hunks": [
+      {
+        "old_code": "// old",
+        "new_code": "// new",
+        "file_name": "alpha/index.js"
+      }
+    ],
+    "mutation_type": "TOOL",
+    "task_idx": 1
+  },
+  "gamma-docs": {
+    "integration_summary": "Added get_summary.",
+    "new_tool_config": {
+      "name": "get_summary",
+      "description": "Summarize a document.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Document path."
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "diff_hunks": [
+      {
+        "old_code": "// old",
+        "new_code": "// new",
+        "file_name": "alpha/index.js"
+      }
+    ],
+    "mutation_type": "TOOL",
+    "task_idx": 2
+  }
+}
