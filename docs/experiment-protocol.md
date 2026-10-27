@@ -1,6 +1,7 @@
 # Experiment protocol
 
-Status date: 2026-10-03. Scope: plan `plans/001-mcp-harness-tui.md`, Steps 1 and 7.
+Original status date: 2026-10-03. Integration update: 2026-10-26. Scope: plan
+`plans/001-mcp-harness-tui.md`, Steps 1 and 7.
 
 This document records what the supplied benchmark data gave us, what the adapter does with it,
 and what is still open. Every number in sections 1 and 2 was produced by the commands in
@@ -19,12 +20,12 @@ Known now (from the supplied MCPEvol-Bench checkout, section 1):
 Still open:
 
 - The pilot is a proposal. The plan requires the project owner to review pilot cost before the
-  task set and settings are frozen. No real-provider pilot has been run by the implementation
-  executor, and none may be.
+  task set and settings are frozen. No combined live pilot has been run.
 - Model, decoding settings, judge version, repetition count, and rate card are project-owner
   decisions. They are shown as `TO BE DECIDED BY PROJECT OWNER`.
-- The Python runner contract in section 6 is a PROPOSAL. It is NOT YET AGREED with Person B
-  (the Python workstream owner). Live integration with the Python runner is BLOCKED.
+- The Rust process contract and `benchmark/integration/rust_runner.py` adapter are implemented
+  and documented in section 6. Live evaluation still needs configured MCP server versions and
+  frozen provider settings. No end-to-end live run has been verified.
 - The adapter reconstructs server versions from a snapshot. It does not have the real evolved
   server definitions (section 1.5). Results on `original`, `iter1`, and `iter2` are
   reconstructions, not live server definitions.
@@ -35,7 +36,6 @@ Legend used in this document:
 |--------|---------|
 | `BLOCKED` | Cannot be done with what this repository has. The cell names the missing input. |
 | `TO BE DECIDED BY PROJECT OWNER` | A decision, not a measurement. Nobody else may fill it in. |
-| `PROPOSED, NOT YET AGREED` | Rust side implements it; Person B has not agreed to it. |
 | `PROPOSED, NOT FROZEN` | A concrete proposal from the data. The owner reviews it before it becomes the protocol. |
 | `IMPLEMENTED` | Exists in the repository and is covered by the automated checks named next to it. |
 
@@ -265,6 +265,7 @@ The selection is deterministic and lives in `crates/harness-core/src/pilot.rs` (
 The rule:
 
 0. Leave out tasks that name an unresolved server or tool (section 1.2). They are not eligible.
+   Leave out tasks 299 and 401 as well: their external servers crash on a pilot run (section 2.3).
    The rest of the rule uses eligible tasks only.
 1. Take every non-empty (stage, class) cell. Process them scarcest first (fewest member
    tasks), ties by stage then class order.
@@ -281,7 +282,7 @@ cost; it does not include the task's model calls or the length of its trajectory
 
 ```toml
 [tasks]
-ids = ["5", "6", "12", "29", "30", "64", "92", "94", "127", "225", "229", "235", "249", "281", "291", "299", "385", "401", "440", "448"]
+ids = ["5", "6", "12", "26", "29", "30", "64", "78", "92", "127", "225", "229", "235", "249", "273", "281", "291", "385", "440", "448"]
 ```
 
 Coverage matrix of these 20 tasks:
@@ -290,7 +291,7 @@ Coverage matrix of these 20 tasks:
 |-------|-------|------|-----------|-------------|-----------|
 | Early | 5 | 0 | 0 | 0 | 5 |
 | Middle | 8 | 5 | 5 | 5 | 0 |
-| Late | 7 | 4 | 1 | 6 | 0 |
+| Late | 7 | 3 | 1 | 6 | 0 |
 
 Cells below 3: Late x Parameter has 1 task chosen and 1 eligible task in the whole inventory.
 The three Early change cells are empty in the inventory.
@@ -302,39 +303,44 @@ Per-task detail. "Servers" and "Tools" are the counts the task lists.
 | 5 | Middle | 2 | 2 | Description | Middle x Description |
 | 6 | Late | 2 | 3 | Description | Late x Description |
 | 12 | Late | 2 | 3 | Description | balance, Late x Description |
+| 26 | Middle | 2 | 3 | Tool, Parameter | balance, Middle x Tool |
 | 29 | Middle | 2 | 2 | Tool, Parameter, Description | Middle x Tool |
 | 30 | Middle | 2 | 2 | Tool, Parameter, Description | Middle x Tool |
 | 64 | Middle | 2 | 2 | Description | balance, Middle x Description |
+| 78 | Middle | 2 | 2 | Description | balance, Middle x Description |
 | 92 | Early | 2 | 3 | none | Early control |
-| 94 | Middle | 2 | 2 | Parameter, Description | balance, Middle x Parameter |
 | 127 | Late | 2 | 3 | Tool, Parameter | Late x Parameter |
 | 225 | Middle | 2 | 2 | Tool, Parameter | Middle x Tool |
 | 229 | Middle | 2 | 2 | Tool, Parameter | balance, Middle x Tool |
 | 235 | Early | 1 | 3 | none | Early control |
 | 249 | Early | 1 | 2 | none | Early control |
-| 281 | Late | 3 | 5 | Tool, Description | balance, Late x Tool |
+| 273 | Late | 2 | 4 | Description | balance, Late x Description |
+| 281 | Late | 3 | 5 | Tool, Description | Late x Tool |
 | 291 | Early | 1 | 2 | none | Early control |
-| 299 | Late | 2 | 3 | Tool, Description | Late x Tool |
 | 385 | Late | 3 | 4 | Tool, Description | Late x Tool |
-| 401 | Middle | 2 | 2 | Tool | balance, Middle x Tool |
 | 440 | Late | 2 | 3 | Description | balance, Late x Description |
 | 448 | Early | 1 | 2 | none | Early control |
 
-Sum over the pilot: 38 server slots and 52 tool slots.
+Sum over the pilot: 38 server slots and 54 tool slots.
 
 This is a proposal for the project owner to review. Changing the rule's parameters (cell
-target, controls, total) changes the ids; rerun the example and replace this section. The pilot
-is not frozen until the owner has reviewed the cost of the no-update baseline run.
+target, controls, total) or `EXCLUDE_FOR_CAUSE` in
+`crates/harness-core/examples/pilot_candidates.rs` changes the ids; rerun the example and
+replace this section. The pilot is not frozen until the owner has reviewed the cost of the
+no-update baseline run.
 
 ### 2.3 Excluded tasks
 
-Excluded by the proposed rule, with a reason: 7 tasks that name an unresolved server or tool
-(section 1.2), ids 8, 74, 85, 89, 90, 112, 289. The Tool KB lacks those servers or tools, so it
-cannot represent these tasks fully. They stay in the 201-task inventory.
+Excluded because they name an unresolved server or tool (section 1.2): 7 tasks, ids 8, 74, 85,
+89, 90, 112, 289. The Tool KB lacks those servers or tools, so it cannot represent these tasks
+fully. They stay in the 201-task inventory.
 
-The other 174 tasks outside the 20 proposed ids are not in the pilot, and they are not excluded
-for a defect. A task is excluded for cause only if the owner finds one during the cost review,
-and the cause is then recorded here. The owner may also decide to keep the 7 tasks above.
+Excluded because their external servers crash on a pilot run: ids 299 and 401. They stay in the
+201-task inventory. The selector skips them and fills the 20 from the remaining eligible tasks.
+Those ids are `EXCLUDE_FOR_CAUSE` in `crates/harness-core/examples/pilot_candidates.rs`.
+
+The other 172 tasks outside the 20 proposed ids are not in the pilot, and they are not excluded
+for a defect. The owner may also decide to keep the 7 unresolved tasks above.
 
 ## 3. Frozen settings (identical for all strategies)
 
@@ -442,13 +448,14 @@ Schema field changes require a new schema version (see `CONTRIBUTING.md`).
 Rust must not reimplement benchmark task execution, verification, judging, scoring, or failure
 analysis. No Python files live in this repository.
 
-## 6. Python runner contract (PROPOSED, NOT YET AGREED with Person B)
+## 6. Rust-to-Python process runner (IMPLEMENTED, live run pending)
 
-Everything in this section is a proposal implemented on the Rust side (`ProcessRunner` and
-`build_argv` in `crates/harness-core/src/runner.rs`). Person B has not agreed to it. Until the
-runner exists and the contract is agreed, live benchmark integration is BLOCKED and the harness
-uses the fixture runner. If any part changes, update Rust, the fixtures, and this section
-together.
+Rust `ProcessRunner` launches `benchmark/integration/rust_runner.py`. The adapter consumes the
+active Rust Tool KB and uses the imported Python agent and judge. Rust owns KB adaptation and
+canary execution; this adapter does not run the teammate's original Python adaptation scripts.
+The new combined results must remain separate from the teammate's historical Python scores.
+No end-to-end live run has been performed. Live evaluation still requires a matching MCP server
+and frozen provider settings. See `benchmark/INTEGRATION.md` for the run procedure.
 
 ### 6.1 Invocation
 
@@ -458,8 +465,12 @@ configured `fixed_args` come first, then the following arguments.
 ```text
 <executable> [fixed_args...] run
   --run-id <id>
+  --strategy <strategy>
   --tool-kb <path>
-  --server-version <label>
+  --server-version <active-kb-label>
+  --source-version <label>
+  --eval-data-env <env-name>
+  [--api-key-env <env-name>]
   --task-id <id>            (repeated once per task)
   --provider <name>
   --model <id>
@@ -468,13 +479,18 @@ configured `fixed_args` come first, then the following arguments.
   --judge-version <v>
   --output-jsonl <path>
   --remaining-budget-usd <f>
-  [--mock]                                                         (offline, no paid calls)
+  [--rate-card-json <json>]
+  [--mock]                                                         (adapter fails closed)
 ```
 
-Meaning: `--tool-kb` is a `tool-kb/1` file for the strategy being evaluated; `--output-jsonl` is
-the file the runner writes `run-event/1` lines to (the Rust side tails it while the child runs);
-`--remaining-budget-usd` is the stage limit the runner must enforce and report against.
-`--server-version` carries one of the adapter's labels (`original`, `iter1` to `iter4`).
+`--tool-kb` is the `tool-kb/1` file for the strategy being evaluated. `--output-jsonl` is the
+path for `run-event/1` lines, tailed while the child runs. `--remaining-budget-usd` is the
+remaining run cap after Rust adaptation calls. The adapter emits `model_call`, `mcp_action`,
+task-level `metric_score` events for `tf`, `grounding`, and `pe`, then `run_complete`.
+`--server-version` identifies the active KB file, which may remain at the source version if an
+adaptation is blocked. `--source-version` and `--eval-data-env` preserve run context. The
+adapter supports `openai` with a matching rate-card entry and OpenAI-compatible `local`; it
+rejects `gemini` because the imported agent uses the OpenAI chat-completions client.
 
 ### 6.2 Environment
 
@@ -483,6 +499,8 @@ the file the runner writes `run-event/1` lines to (the Rust side tails it while 
 | `MCP_DATA_DIR` | Catalog root (name configurable via `[inputs].catalog_env`) |
 | `EVAL_DATA_DIR` | Evaluation root (name configurable via `[inputs].eval_env`) |
 | Provider key variable, for example the name in `[provider].api_key_env` | Credential; value never appears in argv, config, logs, or events |
+| `MODEL_URL` | Provider base URL, passed when `[provider].base_url` is configured |
+| `PYTHON_DOTENV_DISABLED` | Set to `1` in the child so imported dotenv helpers cannot load a local credential file |
 
 The child receives a cleared environment plus a small base (`PATH`, `HOME`, `USER`, locale
 variables, temp directory variables, `SYSTEMROOT`, `VIRTUAL_ENV`, `PYTHONHOME`, `PYTHONPATH`) plus
@@ -493,8 +511,8 @@ only the variables explicitly named for passthrough.
 | Code | Meaning |
 |------|---------|
 | 0 | Stage completed |
-| 2 | Stage budget exhausted; the partial JSONL log is valid and is kept |
-| any other | Failure; the partial log is preserved and the error names the exit status |
+| 2 | Child budget exhausted; partial JSONL is retained and Rust stops the matrix |
+| 1 | Adapter error; partial JSONL is retained and the Rust stage fails |
 
 ### 6.4 Parsing rules
 
@@ -502,12 +520,15 @@ Rust validates every line against `run-event/1` while the child runs. A malforme
 unsupported line fails closed with an error naming the line. Human-readable console output of
 the child is never parsed. Raw lines are preserved verbatim in the run output directory.
 
-### 6.5 Open items for Person B
+### 6.5 Remaining live-run requirements
 
-`PROPOSED, NOT YET AGREED`: executable name and entry point, the flag set above, the exit code
-table, budget enforcement behavior, that `model_call` events are emitted for every Python model
-request, and the mock mode semantics of `--mock`. A non-paid integration check against the real
-mock mode is `BLOCKED` until the runner exists.
+- Install and configure each target MCP server on the endpoint used by the runner. The imported
+  MCP config files contain machine-specific paths and do not provide portable server bundles.
+- Freeze a provider/model, decoding settings, rate-card values for paid calls, judge label,
+  repetition count, and task set. The checked-in process examples use a placeholder local model.
+- Verify one live task and retain its Tool KB, answer, judge artifact, raw JSONL, and Rust events.
+- A separate state-based completion verifier remains unavailable. The adapter does not emit
+  verifier events or treat a normal agent stop as proof of task completion.
 
 ## 7. Canary versus completion verifier
 
@@ -556,8 +577,9 @@ be isolated at all, stop and report (plan STOP condition).
 | `fixture` (checked-in smoke inputs under `fixtures/smoke/`: one server, three versions, one task) | IMPLEMENTED, offline only |
 | `mcpevol` (the supplied MCPEvol-Bench release) | IMPLEMENTED. Reads the seven files in section 1.1 read-only, exposes the labels `original` and `iter1` to `iter4`, the 201 inventory tasks with stage and change classes, and Tool KBs per label. Design and limits are in section 1.5. Checked offline against the invented miniature in `fixtures/mcpevol-mini/` and, when `MCP_DATA_DIR` and `EVAL_DATA_DIR` are set, against the real data (`crates/harness-core/tests/mcpevol_real.rs`). |
 
-The full 201-task inventory is selectable in the harness. A real strategy run still needs the
-agreed Python runner and the owner's frozen settings (sections 3 and 6).
+The full 201-task inventory is selectable in the harness. A live strategy run needs the
+configured MCP server, an available model endpoint, and the owner's frozen settings (sections 3
+and 6).
 
 ## 10. Output layout
 
@@ -580,13 +602,13 @@ Raw result artifacts intended for the project deliverable are not git-ignored.
 | Protocol document names input checksums, actual counts, fixed task IDs, version stages, change classes, model and judge configuration, repetition count | Satisfied for checksums (1.1), actual counts (1.2), version stages (1.3), and change-class coverage (2.1). OPEN: fixed task IDs (a PROPOSED pilot is in 2.2; freezing waits for the owner's cost review). TO BE DECIDED BY PROJECT OWNER: model, decoding, judge version, repetitions, rate card. |
 | TUI and headless CLI run the same core pipeline for the three strategies | Verify with the smoke command in the README. |
 | Full supplied evaluation selectable; pilot covers Early/Middle/Late and Tool/Parameter/Description | The 201-task inventory is selectable through the `mcpevol` adapter. The proposed pilot covers every non-empty cell. Not fully satisfied as written: the Early change cells are empty by construction under the project's stage mapping (Early holds only controls), and Late x Parameter has one task. The frozen pilot is pending the owner's cost review. |
-| Canary distinct from verifier; `not_applicable` for no update; failed or inconclusive canary does not promote | Rust logic and tests exist in `canary.rs`. Canary isolation on the real benchmark's MCP servers is BLOCKED: this repository has no live servers and no runner. |
-| Bridge validates and displays verifier events (three outcomes) | Fixture-backed. Live Python emission is BLOCKED (runner not available, contract not agreed). |
-| UI displays and preserves metric and under/over-update events | Fixture-backed. Live Python emission is BLOCKED (same reason). |
-| Every Rust adaptation and canary call cost logged; Python cost events aggregated; remaining budget passed before a stage | Rust side implemented and fixture-tested. Live Python cost events are BLOCKED. |
+| Canary distinct from verifier; `not_applicable` for no update; failed or inconclusive canary does not promote | Rust logic and tests exist in `canary.rs`. Real canary use still needs isolated, resettable MCP server configuration. |
+| Bridge validates and displays verifier events (three outcomes) | Fixture-backed. The Python process adapter does not implement a state-based completion verifier, so no live verifier events are available. |
+| UI displays and preserves metric and under/over-update events | Fixture-backed. The process adapter emits task-level `tf`, `grounding`, and `pe`; live output is not yet verified. |
+| Every Rust adaptation and canary call cost logged; Python cost events aggregated; remaining budget passed before a stage | Rust-side metering is implemented. The process adapter emits agent/judge usage for Rust ledger ingestion and applies a per-stage reservation cap; no live paid run has been made. |
 | All verification commands exit 0; smoke makes no external request | See the README for the commands. |
 | No supplied labels, judge, or server definitions modified; no secrets or source datasets committed | The adapter only reads the supplied files, and no benchmark content is in the repository. Judge version: pending. No secrets are stored by design. |
-| No Python files created; live runner integration verified or reported BLOCKED | No Python files are in this repository. Live runner integration is BLOCKED. |
+| Python process integration and live-run status | `benchmark/integration/rust_runner.py` implements the process contract. No end-to-end live run has been performed; target MCP servers and frozen settings are still required. |
 | True evolved server definitions | Not available. The adapter reconstructs versions from a snapshot (sections 1.4 and 1.5). Real evolved definitions need the Hugging Face server bundles, which this project does not use. |
 | Files outside scope unchanged; `plans/README.md` status updated | Owned by the orchestrating agent. |
 
@@ -595,7 +617,8 @@ Raw result artifacts intended for the project deliverable are not git-ignored.
 1. Review the proposed pilot in section 2.2, or change the rule's parameters in
    `PilotRule` and rerun the example. Decide how to treat the 7 tasks that touch unresolved servers
    or tools (section 2.3).
-2. Agree the runner contract in section 6 with Person B, or amend it and update Rust.
+2. Prepare the matching target MCP server versions and run one task through the process adapter.
+   Confirm the Rust Tool KB, task, model calls, tool events, and judge scores in the output.
 3. Run the no-update pilot yourself (with the rate card filled in and a cap set) and review
    the cost.
 4. Decide model, decoding, judge version, repetitions, cap, and rate card date; fill section 3;
@@ -632,7 +655,8 @@ cargo run -q -p harness-cli -- validate --config fixtures/mcpevol-real.example.t
 ```
 
 The coverage matrix (section 2.1), the proposed pilot (section 2.2), the `ids` line, and the
-per-task table:
+per-task table. The example leaves out tasks 299 and 401 (`EXCLUDE_FOR_CAUSE`) because their
+external servers crash:
 
 ```sh
 cargo run -q -p harness-core --example pilot_candidates

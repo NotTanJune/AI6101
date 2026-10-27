@@ -1,0 +1,34 @@
+{
+  "imported_source_files": 719,
+  "teammate_changed_files": 435,
+  "local_import_edits": 6,
+  "python_tests_passed": 19,
+  "compiled_python_files": 12,
+  "audited_trajectories": 180,
+  "valid_judge_assessments": 900,
+  "matched_reported_means": 27,
+  "matched_ecs_values": 3,
+  "patch_audits_checked": 60,
+  "snapshot_cards_roundtripped": 1384,
+  "rust_contract_check": "passed with converted KB and existing synthetic event fixture",
+  "offline_patch_smoke": {
+    "tasks": 20,
+    "model_calls": 0,
+    "changed_cards": 0,
+    "unchanged_hash_checks": "all passed"
+  },
+  "live_benchmark_executed": false,
+  "paid_model_calls_executed": false,
+  "commit_created": false,
+  "pushed": false,
+  "not_run": [
+    "live MCP execution",
+    "FastChat mode",
+    "full Rust workspace tests in this integration turn"
+  ],
+  "resolved_setup_issues": [
+    "GitHub/uv sandbox access retried through approved tool escalation",
+    "uv macOS sandbox panic resolved by locked offline check outside sandbox",
+    "Converter initially imposed Draft 2020-12 keyword validation; aligned it with the shared contract, preserving mixed-dialect input_schema objects"
+  ]
+}

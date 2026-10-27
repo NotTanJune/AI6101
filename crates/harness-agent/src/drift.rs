@@ -9,7 +9,8 @@ use std::sync::Arc;
 
 use harness_core::HarnessError;
 use harness_core::canary::{
-    CanaryGate, CanaryReport, PromotionDecision, SimulatedTargetExecutor, decide_promotion,
+    CanaryGate, CanaryReport, Probe, ProbeError, ProbeExecutor, ProbeObservation,
+    PromotionDecision, decide_promotion,
 };
 use harness_core::clock::SystemClock;
 use harness_core::config::Strategy;
@@ -140,19 +141,17 @@ pub struct AdaptationOutcome {
     pub decision: PromotionDecision,
 }
 
-/// Run an adaptation strategy against the live definitions, then the canary.
+/// Prepare and validate a strategy's candidate against the source and live definitions.
 ///
 /// `kb_subset` should come from [`kb_subset`], and `live_kb` and `diff` from [`detect_drift`].
-/// The call sequence follows core's pipeline: adapt, validate against the source, canary
-/// (simulated against the live KB), promotion decision. The result is a proposal only; apply
-/// it with [`SessionKb::accept`].
-pub fn run_adaptation(
+/// This performs no probes and changes no session state.
+pub fn prepare_candidate(
     strategy: Strategy,
     kb_subset: &ToolKb,
     live_kb: &ToolKb,
     diff: &KbDiff,
     provider: &mut MeteredProvider<'_>,
-) -> Result<AdaptationOutcome, DriftError> {
+) -> Result<Candidate, DriftError> {
     let strat = strategy_for(strategy);
     let candidate = {
         let mut ctx = AdaptationContext {
@@ -164,24 +163,31 @@ pub fn run_adaptation(
         strat.adapt(&mut ctx)?
     };
     validate_candidate_against_source(kb_subset, &candidate.kb, live_kb, diff, strategy)?;
+    Ok(candidate)
+}
 
-    let mut emitter = EventEmitter::new(
-        "drift-canary",
-        EventSource::Rust,
-        Arc::new(SystemClock),
-        Redactor::default(),
-        Box::new(VecSink::new()),
-    );
+/// Evaluate a prepared candidate with the caller's executor and durable event emitter.
+///
+/// Use [`prepare_candidate`] first. For live servers use
+/// [`LiveCanaryExecutor`](crate::live_canary::LiveCanaryExecutor) inside a blocking task.
+/// The outcome remains a proposal until the caller explicitly accepts it.
+pub fn evaluate_candidate(
+    strategy: Strategy,
+    kb_subset: &ToolKb,
+    live_kb: &ToolKb,
+    candidate: Candidate,
+    executor: &mut dyn ProbeExecutor,
+    emitter: &mut EventEmitter,
+) -> Result<AdaptationOutcome, DriftError> {
     let canary = if strategy == Strategy::NoUpdate {
-        CanaryGate::not_applicable(&mut emitter, strategy)
+        CanaryGate::not_applicable(emitter, strategy)
     } else {
-        let mut executor = SimulatedTargetExecutor::from_target_kb(live_kb);
         CanaryGate::run(
             &candidate.kb,
             &candidate.changes,
             Some(live_kb),
-            &mut executor,
-            &mut emitter,
+            executor,
+            emitter,
             strategy,
         )
     }
@@ -193,6 +199,56 @@ pub fn run_adaptation(
         canary,
         decision,
     })
+}
+
+/// Prepare a candidate without permission to execute any live probes.
+///
+/// This compatibility entry point fails closed: updating strategies receive an
+/// inconclusive canary and cannot be promoted. Supply a live executor and persistent
+/// emitter through [`prepare_candidate`] and [`evaluate_candidate`] to run a live check.
+pub fn run_adaptation(
+    strategy: Strategy,
+    kb_subset: &ToolKb,
+    live_kb: &ToolKb,
+    diff: &KbDiff,
+    provider: &mut MeteredProvider<'_>,
+) -> Result<AdaptationOutcome, DriftError> {
+    let candidate = prepare_candidate(strategy, kb_subset, live_kb, diff, provider)?;
+    let mut emitter = EventEmitter::new(
+        "drift-canary",
+        EventSource::Rust,
+        Arc::new(SystemClock),
+        Redactor::default(),
+        Box::new(VecSink::new()),
+    );
+    evaluate_candidate(
+        strategy,
+        kb_subset,
+        live_kb,
+        candidate,
+        &mut NoLivePermission,
+        &mut emitter,
+    )
+}
+
+struct NoLivePermission;
+
+impl ProbeExecutor for NoLivePermission {
+    fn is_isolated(&self) -> bool {
+        false
+    }
+
+    fn reset(&mut self) -> Result<(), ProbeError> {
+        Err(ProbeError::Reset(
+            "live canary permission not supplied".into(),
+        ))
+    }
+
+    fn execute(&mut self, _probe: &Probe) -> Result<ProbeObservation, ProbeError> {
+        Err(ProbeError::Execution(
+            "live canary permission not supplied".into(),
+        ))
+    }
 }
 
 /// The KB a session works from. It changes only through an explicit [`accept`](Self::accept).

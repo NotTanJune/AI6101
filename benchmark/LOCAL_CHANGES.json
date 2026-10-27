@@ -1,0 +1,47 @@
+{
+  "source_commit": "bcc2be50ea1fef8923f0e6b454856eced7dffca6",
+  "modified_imported_files": [
+    {
+      "path": ".gitignore",
+      "reason": "Ignore local Python environments and bytecode. Ignore the downloaded evolved-server bundles (servers/iter3_servers*, servers/iter5_servers*).",
+      "imported_sha256": "07d2089a389ad0b1570b42acd7da518c72c05f58ad9d17d52f74744373c5a880",
+      "integrated_sha256": "9f9b5e499197c935d4467b751810d712e80217418edd6695b10c153716770505",
+      "integrated_bytes": 330
+    },
+    {
+      "path": "src/custom/agents/SimpleOpenAIAgent.py",
+      "reason": "Load optional FastChat only on demand and use an absolute annotation resource path. Add the Rust process-runner hooks: request_dispatch (budget-guarded model calls) and on_tool_action (mcp_action events), plus forced-finalization tracking.",
+      "imported_sha256": "31c8148b559effad12ad83de711e682af4aa3b18656d12ab91b8958ca28bc862",
+      "integrated_sha256": "071a1ad7475a02658f1d66bf7df9aeec97019ca8dbc0a604f5157aba914150c3",
+      "integrated_bytes": 16418
+    },
+    {
+      "path": "src/custom/analysis/answer/evaluation.py",
+      "reason": "Remove import-time MCP access; use saved or explicit tool context; validate score ranges and record new judge provenance. Accept a caller-supplied RNG for dimension shuffling and record judge metadata for the Rust process runner.",
+      "imported_sha256": "50c6c3320dd572301ba9ad9a9b75f74aafeeb3abfbdf1635ea36bd038d6405f0",
+      "integrated_sha256": "83bf82c69744255eb9df1d107f6657a8c6131ef4b99ee6db4b1837a5c88a58c6",
+      "integrated_bytes": 21815
+    },
+    {
+      "path": "src/custom/analysis/answer/evolutionary_volatility.py",
+      "reason": "Correct missing-file set precedence without changing ECS arithmetic.",
+      "imported_sha256": "7ac5164cf66149e2acee7369f1bb590e6ea153404aa786a6493860bc2a6a8a45",
+      "integrated_sha256": "8d10af5c02b58e80872b6a1fa9bd0811b3d586c9c73b1484ac74ca069eb8c0b8",
+      "integrated_bytes": 8818
+    },
+    {
+      "path": "src/custom/real_mcp/tool_level_test.py",
+      "reason": "Resolve the optional FastChat path locally and preserve frozen chart schemas.",
+      "imported_sha256": "8b12d623960f152dd7050087e47a3822fdecf5d00a56a46b845d057005bf92df",
+      "integrated_sha256": "3b1039edb5f832b6d83905f0ce6d64083c5b633ae240696e6bb6c005b742deb5",
+      "integrated_bytes": 34841
+    },
+    {
+      "path": "src/custom/utils/test_utils.py",
+      "reason": "Resolve annotation resources independently of the working directory.",
+      "imported_sha256": "a53d08ea3a8e92d8d3cc134264a9e537f7bb87af488e4360308392591fdd6609",
+      "integrated_sha256": "4469bfec9bfa060bccba6df85d770c880049e537324a3d5dc15bbd08db972a29",
+      "integrated_bytes": 23397
+    }
+  ]
+}

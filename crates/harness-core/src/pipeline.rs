@@ -634,6 +634,7 @@ fn stage_word(status: StageStatus) -> &'static str {
 fn metric_word(metric: Metric) -> &'static str {
     match metric {
         Metric::Tf => "tf",
+        Metric::Grounding => "grounding",
         Metric::Pe => "pe",
         Metric::Ecs => "ecs",
         Metric::Recovery => "recovery",
@@ -1530,13 +1531,16 @@ fn build_default_runner(
             ];
             passthrough.extend(config.provider.api_key_env.clone());
             let env = Arc::clone(env);
-            Ok(Box::new(
-                ProcessRunner::new(executable, config.runner.fixed_args.clone())
-                    .with_passthrough_env(passthrough)
-                    .with_redactor(redactor.clone())
-                    .with_env_lookup(move |name| env(name))
-                    .with_cancel_flag(Arc::clone(cancel)),
-            ))
+            let mut runner = ProcessRunner::new(executable, config.runner.fixed_args.clone())
+                .with_passthrough_env(passthrough)
+                .with_redactor(redactor.clone())
+                .with_env_lookup(move |name| env(name))
+                .with_cancel_flag(Arc::clone(cancel));
+            if let Some(base_url) = &config.provider.base_url {
+                runner = runner.with_env("MODEL_URL", base_url.clone());
+            }
+            runner = runner.with_env("PYTHON_DOTENV_DISABLED", "1");
+            Ok(Box::new(runner))
         }
     }
 }
@@ -2043,9 +2047,12 @@ impl Pipeline {
             run_id: self.run_id.clone(),
             strategy,
             tool_kb_path: self.output.join(&kb_rel),
-            server_version: self.config.versions.target.clone(),
+            server_version: active.server_version.clone(),
+            source_version: self.config.versions.source.clone(),
             task_ids: self.config.tasks.ids.clone(),
             provider: self.config.provider.kind.name().to_owned(),
+            api_key_env: self.config.provider.api_key_env.clone(),
+            eval_data_env: self.config.inputs.eval_env.clone(),
             model: self.config.provider.model.clone(),
             temperature: self.config.provider.temperature,
             top_p: self.config.provider.top_p,
@@ -2057,6 +2064,7 @@ impl Pipeline {
                 strategy.as_str()
             )),
             remaining_budget_usd: remaining,
+            rate_card: self.config.budget.rate_card.clone(),
             mock: self.config.provider.kind == ConfigProviderKind::Mock,
         };
 

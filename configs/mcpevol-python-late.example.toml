@@ -1,0 +1,42 @@
+# One of three local-provider configurations for the Rust-to-Python pilot.
+# Run from the repository root after setting MCP_DATA_DIR and EVAL_DATA_DIR.
+# Configure the matching iter2 MCP server at http://127.0.0.1:3050/mcp.
+
+[run]
+name = "mcpevol-python-late"
+seed = 42
+repetitions = 1
+strategies = ["no_update", "selective_patch", "full_rewrite"]
+
+[inputs]
+adapter = "mcpevol"
+catalog_env = "MCP_DATA_DIR"
+eval_env = "EVAL_DATA_DIR"
+
+[versions]
+source = "original"
+target = "iter2"
+stages = { early = "original", middle = "iter1", late = "iter2" }
+
+[tasks]
+ids = ["2", "5", "8", "21", "22", "26", "29", "30", "34", "40", "94", "161", "225", "229", "235", "249", "281", "291", "385", "448"]
+
+[provider]
+# Local OpenAI-compatible endpoint. Set a real compatible model before running.
+kind = "local"
+model = "REPLACE_WITH_LOCAL_MODEL_ID"
+base_url = "http://127.0.0.1:11434/v1"
+temperature = 0.0
+top_p = 1.0
+max_output_tokens = 4096
+
+[judge]
+version = "ai6101-judge/1"
+
+[budget]
+cap_usd = 100.0
+
+[runner]
+kind = "process"
+executable = "../benchmark/.venv/bin/python"
+fixed_args = ["benchmark/integration/rust_runner.py", "--mcp-server-url", "http://127.0.0.1:3050/mcp"]

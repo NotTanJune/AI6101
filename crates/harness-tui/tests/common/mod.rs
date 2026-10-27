@@ -10,7 +10,7 @@ use std::time::{Duration, Instant};
 use harness_agent::agent::{Agent, AgentConfig, AgentParts};
 use harness_agent::approval::ApprovalPolicy;
 use harness_agent::drift::SessionKb;
-use harness_agent::mcp::{McpConnection, McpError};
+use harness_agent::mcp::{McpCanaryConfig, McpConnection, McpError};
 use harness_agent::model::ModelClient;
 use harness_agent::model::mock::{MockModelClient, Scripted};
 use harness_agent::pricing::rate_card;
@@ -189,6 +189,7 @@ pub struct ShoutArgs {
 #[derive(Debug, Clone)]
 pub struct TestMcpServer {
     tool_router: ToolRouter<Self>,
+    secret_output: bool,
 }
 
 impl Default for TestMcpServer {
@@ -202,12 +203,17 @@ impl TestMcpServer {
     pub fn new() -> Self {
         Self {
             tool_router: Self::tool_router(),
+            secret_output: false,
         }
     }
 
     #[tool(name = "add", description = "LIVE add description")]
     pub fn add(&self, Parameters(AddArgs { a, b }): Parameters<AddArgs>) -> String {
-        (a + b).to_string()
+        if self.secret_output {
+            format!("{} {TEST_MCP_SECRET}", a + b)
+        } else {
+            (a + b).to_string()
+        }
     }
 
     #[tool(name = "shout", description = "LIVE shout description")]
@@ -233,9 +239,17 @@ impl ServerHandler for TestMcpServer {}
 
 /// Connect a client to a fresh in-process [`TestMcpServer`] over `tokio::io::duplex`.
 pub async fn connect_test_server(name: &str) -> McpConnection {
+    connect_test_server_with_secret(name, false).await
+}
+
+pub const TEST_MCP_SECRET: &str = "fixture_private_credential_123456789";
+
+pub async fn connect_test_server_with_secret(name: &str, secret_output: bool) -> McpConnection {
     let (server_io, client_io) = tokio::io::duplex(64 * 1024);
     tokio::spawn(async move {
-        if let Ok(server) = TestMcpServer::new().serve(server_io).await {
+        let mut server = TestMcpServer::new();
+        server.secret_output = secret_output;
+        if let Ok(server) = server.serve(server_io).await {
             let _ = server.waiting().await;
         }
     });
@@ -248,9 +262,24 @@ pub async fn connect_test_server(name: &str) -> McpConnection {
 #[derive(Debug, Clone, Default)]
 pub struct TestLauncher {
     pub fail: Vec<String>,
+    pub canary: bool,
+    pub secret_output: bool,
 }
 
 impl McpLauncher for TestLauncher {
+    fn artifact_redactor(&self) -> Redactor {
+        Redactor::new(vec![TEST_MCP_SECRET.to_owned()])
+    }
+
+    fn canary_config(&self, _name: &str) -> Option<McpCanaryConfig> {
+        // This fixture has no mutable state. `mixed` is its successful baseline probe.
+        self.canary.then(|| McpCanaryConfig {
+            isolated: true,
+            reset_tool: "mixed".to_owned(),
+            reset_arguments: serde_json::json!({}),
+        })
+    }
+
     fn connect<'a>(&'a self, name: &'a str) -> ConnectFuture<'a> {
         Box::pin(async move {
             if self.fail.iter().any(|f| f == name) {
@@ -259,7 +288,7 @@ impl McpLauncher for TestLauncher {
                     message: "no such program".to_owned(),
                 });
             }
-            Ok(connect_test_server(name).await)
+            Ok(connect_test_server_with_secret(name, self.secret_output).await)
         })
     }
 }
@@ -315,6 +344,8 @@ pub struct SetupOpts {
     pub cap_usd: f64,
     pub policy: ApprovalPolicy,
     pub transcript: bool,
+    pub canary: bool,
+    pub secret_output: bool,
 }
 
 impl SetupOpts {
@@ -329,6 +360,8 @@ impl SetupOpts {
             cap_usd: 5.0,
             policy: ApprovalPolicy::default(),
             transcript: true,
+            canary: false,
+            secret_output: false,
         }
     }
 }
@@ -398,6 +431,8 @@ pub fn spawn(opts: SetupOpts) -> Fixture {
         mcp_servers: opts.servers.iter().map(|s| (*s).to_owned()).collect(),
         launcher: Arc::new(TestLauncher {
             fail: opts.failing_servers,
+            canary: opts.canary,
+            secret_output: opts.secret_output,
         }),
     })
     .expect("spawn");

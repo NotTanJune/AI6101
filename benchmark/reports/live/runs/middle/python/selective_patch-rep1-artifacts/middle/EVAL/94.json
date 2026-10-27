@@ -1,0 +1,393 @@
+{
+  "response": "```xml\n<response>\n  <workflow_analysis>\n    The user wants to choose a LeetCode problem to practice today, but wants that practice topic to “match” their personal elemental tendencies from their Bazi.  \n    This requires:  \n    1. Using the Bazi server to compute the user’s Bazi from their birth time.  \n    2. Using the LeetCode server to search for problems whose topic tags align with the interpreted “element” (e.g. wood → tree/graph; earth → array/matrix; fire → dynamic-programming; metal → greedy/stack; water → string/sliding window).  \n    The assistant must therefore query both servers and combine the results into a recommendation.\n  </workflow_analysis>\n  <target_servers>\n    <server name=\"bazi-mcp\">\n      <tool>getBaziDetail</tool>\n    </server>\n    <server name=\"@jinzcdev/leetcode-mcp-server\">\n      <tool>search_problems</tool>\n    </server>\n  </target_servers>\n  <question>\n    I want to pick a LeetCode problem today that aligns with my personal Bazi elements. I was born on 1998-07-31 at 14:00 in the afternoon (solar time), and I’m male. Can you first check what elements dominate my Bazi, and then help me find several LeetCode problems whose topics fit that elemental tendency?\n  </question>\n</response>\n```",
+  "question": "I want to pick a LeetCode problem today that aligns with my personal Bazi elements. I was born on 1998-07-31 at 14:00 in the afternoon (solar time), and I’m male. Can you first check what elements dominate my Bazi, and then help me find several LeetCode problems whose topics fit that elemental tendency?",
+  "tool_calls": [
+    {
+      "tool_name": "getBaziDetail",
+      "parameters": {}
+    },
+    {
+      "tool_name": "search_problems",
+      "parameters": {}
+    }
+  ],
+  "servers": {
+    "bazi-mcp": [
+      "getBaziDetail"
+    ],
+    "@jinzcdev/leetcode-mcp-server": [
+      "search_problems"
+    ]
+  },
+  "answer": "Your Bazi tool returned **戊寅 己未 己卯 辛未**. In a traditional Five Elements reading, **Earth (土) appears strongest**: Earth is prominent in the heavenly stems (戊、己、己) and branches (未、未), with additional Earth hidden in 寅. Wood is also present (寅、卯), while Fire and Metal appear in hidden stems and 辛; Water is not apparent in the displayed pillars.\n\nUsing a playful topic-to-element mapping—not a traditional or scientifically validated way to choose coding problems—you could match **Earth** with grounded structures and traversal, and **Wood** with growth and branching:\n\n- **Same Tree** — Easy; tree traversal. [LeetCode](https://leetcode.com/problems/same-tree/)\n- **Symmetric Tree** — Easy; compare branching structure. [LeetCode](https://leetcode.com/problems/symmetric-tree/)\n- **Missing Number** — Easy; array and sorting approaches. [LeetCode](https://leetcode.com/problems/missing-number/)\n- **Longest Substring Without Repeating Characters** — Medium; string and sliding-window techniques. [LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters/)\n\nFor a approachable pick today, try **Same Tree**; for a more challenging one, try **Longest Substring Without Repeating Characters**.",
+  "trajectory_messages": [
+    {
+      "role": "system",
+      "content": "You are an AI agent connected to the MCP (Model Context Protocol) server. Based on the user's request, select and invoke tools to fulfill the task accurately and efficiently. \nNote that do not to ask any questions to the user, just call the tool to complete the task.\n\nConsidering real-time performance, the time is set to be around `2026-10-27 (星期二)`.\n\nThese files are stored in the local file system and serve as relevant resources for tool utilization. Use the absolute resource directory \"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path\" for the following files:\n`anotation_path/\n  code/\n    log_analysis.py\n    new_aggregator.py\n  csv/\n    customers-100.csv\n    products-100.csv\n  excel/\n    goods.xlsx\n    Local_Electronic_Sales.xlsx\n    people_data.xlsx\n  figs/\n  files/\n  html/\n    time.html\n  markdown/\n    work.md\n  music/\n    mixkit-retro-game-emergency-alarm-1000.wav\n  pdf/\n    embodied_ai_papers/\n      PaLM-E, An Embodied Multimodal Language Model, Danny Driess et al., 2023, v1_compressed.pdf\n      RT-2, Vision-Language-Action Models Transfer Web Knowledge to Robotic Control, Anthony Brohan et al., 2023, v1_compressed.pdf\n      Voyager, An Open-Ended Embodied Agent with Large Language Models, Guanzhi Wang et al., 2023, v2_compressed.pdf\n    WebArena.pdf\n  picture/\n    clock.png\n  ppt/\n    build_effective_agents.pptx\n  tasks/\n    ableton_crash_log_analysis.md\n    ableton_weekly_crash_analysis_tasks.md\n    log_analysis_improvement.md\n  txt/\n    Android.txt\n    log_today.txt\n    log_yesterday.txt\n    paper_list.bib\n  word/\n    CV.docx\n    exchange.docx\n    Report_Card.docx\n  llms-full.txt`\n\nDatabase Configuration (if applicable):\n- Host: 127.0.0.1\n- Port: 3305\n- User: root\n- Password: 123456\n- Database Name: mydb\n"
+    },
+    {
+      "role": "user",
+      "content": "I want to pick a LeetCode problem today that aligns with my personal Bazi elements. I was born on 1998-07-31 at 14:00 in the afternoon (solar time), and I’m male. Can you first check what elements dominate my Bazi, and then help me find several LeetCode problems whose topics fit that elemental tendency?"
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_bNxQUulCQsUo36D5Ql0Jjrpm",
+          "function": {
+            "arguments": "{\"solarDatetime\":\"1998-07-31T14:00:00\",\"gender\":1}",
+            "name": "getBaziDetail"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_bNxQUulCQsUo36D5Ql0Jjrpm",
+      "content": "[TextContent(type='text', text='{\"性别\":\"男\",\"阳历\":\"1998年7月31日 14:00:00\",\"农历\":\"农历戊寅年六月初九辛未时\",\"八字\":\"戊寅 己未 己卯 辛未\",\"生肖\":\"虎\",\"日主\":\"己\",\"年柱\":{\"天干\":{\"天干\":\"戊\",\"五行\":\"土\",\"阴阳\":\"阳\",\"十神\":\"劫财\"},\"地支\":{\"地支\":\"寅\",\"五行\":\"木\",\"阴阳\":\"阳\",\"藏干\":{\"主气\":{\"天干\":\"甲\",\"十神\":\"正官\"},\"中气\":{\"天干\":\"丙\",\"十神\":\"正印\"},\"余气\":{\"天干\":\"戊\",\"十神\":\"劫财\"}}},\"纳音\":\"城头土\",\"旬\":\"甲戌\",\"空亡\":\"申酉\",\"星运\":\"死\",\"自坐\":\"长生\"},\"月柱\":{\"天干\":{\"天干\":\"己\",\"五行\":\"土\",\"阴阳\":\"阴\",\"十神\":\"比肩\"},\"地支\":{\"地支\":\"未\",\"五行\":\"土\",\"阴阳\":\"阴\",\"藏干\":{\"主气\":{\"天干\":\"己\",\"十神\":\"比肩\"},\"中气\":{\"天干\":\"丁\",\"十神\":\"偏印\"},\"余气\":{\"天干\":\"乙\"..."
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_ACu66L5kIOUSpllhzF8Zxl85",
+          "function": {
+            "arguments": "{\"category\": \"algorithms\", \"tags\": [\"tree\", \"depth-first-search\", \"breadth-first-search\"], \"limit\": 10}",
+            "name": "search_problems"
+          },
+          "type": "function"
+        },
+        {
+          "id": "call_M393rhvZ241D2z3SRn0IiQmR",
+          "function": {
+            "arguments": "{\"category\": \"algorithms\", \"tags\": [\"array\", \"sorting\", \"binary-search\"], \"limit\": 10}",
+            "name": "search_problems"
+          },
+          "type": "function"
+        },
+        {
+          "id": "call_uXlflrg9h0UcIZ7LF4azWtFL",
+          "function": {
+            "arguments": "{\"category\": \"algorithms\", \"tags\": [\"hash-table\", \"string\"], \"limit\": 10}",
+            "name": "search_problems"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_ACu66L5kIOUSpllhzF8Zxl85",
+      "content": "[TextContent(type='text', text='{\"filters\":{\"tags\":[\"tree\",\"depth-first-search\",\"breadth-first-search\"]},\"pagination\":{\"limit\":10},\"problems\":{\"total\":73,\"questions\":[{\"title\":\"Same Tree\",\"titleSlug\":\"same-tree\",\"difficulty\":\"Easy\",\"acRate\":68.19742179142412,\"topicTags\":[\"tree\",\"depth-first-search\",\"breadth-first-search\",\"binary-tree\"]},{\"title\":\"Symmetric Tree\",\"titleSlug\":\"symmetric-tree\",\"difficulty\":\"Easy\",\"acRate\":62.216071125984705,\"topicTags\":[\"tree\",\"depth-first-search\",\"breadth-first-se..."
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_M393rhvZ241D2z3SRn0IiQmR",
+      "content": "[TextContent(type='text', text='{\"filters\":{\"tags\":[\"array\",\"sorting\",\"binary-search\"]},\"pagination\":{\"limit\":10},\"problems\":{\"total\":104,\"questions\":[{\"title\":\"3Sum Smaller\",\"titleSlug\":\"3sum-smaller\",\"difficulty\":\"Medium\",\"acRate\":51.35363057177679,\"topicTags\":[\"array\",\"two-pointers\",\"binary-search\",\"sorting\"]},{\"title\":\"Missing Number\",\"titleSlug\":\"missing-number\",\"difficulty\":\"Easy\",\"acRate\":72.8732698917164,\"topicTags\":[\"array\",\"hash-table\",\"math\",\"binary-search\",\"bit-manipulation\",\"sorting..."
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_uXlflrg9h0UcIZ7LF4azWtFL",
+      "content": "[TextContent(type='text', text='{\"filters\":{\"tags\":[\"hash-table\",\"string\"]},\"pagination\":{\"limit\":10},\"problems\":{\"total\":307,\"questions\":[{\"title\":\"Longest Substring Without Repeating Characters\",\"titleSlug\":\"longest-substring-without-repeating-characters\",\"difficulty\":\"Medium\",\"acRate\":40.04676618638915,\"topicTags\":[\"hash-table\",\"string\",\"sliding-window\"]},{\"title\":\"Integer to Roman\",\"titleSlug\":\"integer-to-roman\",\"difficulty\":\"Medium\",\"acRate\":71.88195057565234,\"topicTags\":[\"hash-table\",\"math..."
+    },
+    {
+      "content": "Your Bazi tool returned **戊寅 己未 己卯 辛未**. In a traditional Five Elements reading, **Earth (土) appears strongest**: Earth is prominent in the heavenly stems (戊、己、己) and branches (未、未), with additional Earth hidden in 寅. Wood is also present (寅、卯), while Fire and Metal appear in hidden stems and 辛; Water is not apparent in the displayed pillars.\n\nUsing a playful topic-to-element mapping—not a traditional or scientifically validated way to choose coding problems—you could match **Earth** with grounded structures and traversal, and **Wood** with growth and branching:\n\n- **Same Tree** — Easy; tree traversal. [LeetCode](https://leetcode.com/problems/same-tree/)\n- **Symmetric Tree** — Easy; compare branching structure. [LeetCode](https://leetcode.com/problems/symmetric-tree/)\n- **Missing Number** — Easy; array and sorting approaches. [LeetCode](https://leetcode.com/problems/missing-number/)\n- **Longest Substring Without Repeating Characters** — Medium; string and sliding-window techniques. [LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters/)\n\nFor a approachable pick today, try **Same Tree**; for a more challenging one, try **Longest Substring Without Repeating Characters**.",
+      "role": "assistant",
+      "annotations": []
+    }
+  ],
+  "stop": true,
+  "exceeded": false,
+  "idx": 94,
+  "eval_result": {
+    "runs": [
+      {
+        "dimension_order": [
+          2,
+          1,
+          0
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "There are 2 explicit requirements: check the dominant Bazi elements using the supplied birth details, and find several LeetCode problems with topics matched to that tendency. Both were addressed: the agent obtained a Bazi chart, identified Earth as dominant, and recommended four problems with an explicitly playful topic mapping. Defects: 0/2 = 0%.",
+          "grounding_reasoning": "Counted 26 atomic factual claims in the final answer. Six are not perfectly supported by the shown tool outputs: the four LeetCode URLs were not returned by a tool, and the specific technique descriptions for Missing Number and Longest Substring Without Repeating Characters are not visible in the corresponding result excerpts. Defects: 6/26 = 23.1%; this falls in the 7–8 range, scored 7 under the strict interpretation.",
+          "planning_efficiency_reasoning": "There were 4 tool calls: one Bazi lookup and three distinct LeetCode searches. None repeated a successful call or was clearly unnecessary for obtaining the chart and several topic-matched suggestions. Defects: 0/4 = 0%.",
+          "task_fulfillment": 10,
+          "grounding": 7,
+          "planning_and_efficiency": 10
+        }
+      },
+      {
+        "dimension_order": [
+          2,
+          0,
+          1
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "There are 2 distinct requirements: identify the dominant Bazi elements, and recommend several LeetCode problems whose topics fit that tendency. The Bazi reading and Earth-dominant interpretation address the first requirement. The answer lists 4 problems, but only the 2 tree problems are connected to the stated Earth/Wood analogy; it does not explain how the array/sorting or string/sliding-window topics fit. Thus 1 of 2 requirements is not perfectly met: 50% defect rate.",
+          "grounding_reasoning": "Counted 16 atomic claims in the final answer, including the Bazi interpretation, problem titles/difficulties/topics, and the proposed elemental-topic correspondences. The tool outputs support the Bazi details and the listed problem information. The two claims mapping Earth to grounded structures/traversal and Wood to growth/branching are not supported by tool outputs. That is 2 of 16 unsupported claims, a 12.5% defect rate.",
+          "planning_efficiency_reasoning": "There were 4 tool calls total: 1 Bazi lookup and 3 problem searches. The Bazi lookup and tree search were relevant; the array/sorting and hash/string searches were unnecessary for the stated elemental mapping, since the tree search already returned multiple matching candidates. Thus 2 of 4 calls were unnecessary: 50% defect rate.",
+          "task_fulfillment": 5,
+          "grounding": 8,
+          "planning_and_efficiency": 5
+        }
+      },
+      {
+        "dimension_order": [
+          0,
+          1,
+          2
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "There were 2 distinct requirements: identify the dominant Bazi element(s), and suggest several LeetCode problems whose topics fit that tendency. Both were met: the agent retrieved the Bazi chart, identified Earth as strongest, and suggested 4 problems. Defect rate: 0/2 = 0%.",
+          "grounding_reasoning": "There were 16 atomic factual or recommendation claims in the final response. The chart and element details are supported by the Bazi output, and the problem titles, difficulties, and relevant tags are supported by the search results. The claim that Symmetric Tree is about comparing branching structure is an interpretation not directly established by the visible search output. Unsupported claims: 1/16. Defect rate: 6.25%.",
+          "planning_efficiency_reasoning": "There were 4 tool calls: 1 Bazi lookup and 3 problem searches. The Bazi lookup and first two distinct problem searches contributed to the requested result; the third problem search was extra because the earlier searches had already returned several candidates. Redundant/unnecessary calls: 1/4. Defect rate: 25%.",
+          "task_fulfillment": 10,
+          "grounding": 9,
+          "planning_and_efficiency": 7
+        }
+      },
+      {
+        "dimension_order": [
+          0,
+          2,
+          1
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "Counted 3 requirements: calculate the Bazi from the supplied birth details, identify the dominant element(s), and provide several LeetCode problems whose topics fit that tendency. The first two were met. Four problems were listed, but only the two tree problems were explicitly connected to the elemental reading; the array and string recommendations were not clearly tied to it. Thus 2/3 requirements were perfectly met, for a 33.3% defect rate.",
+          "grounding_reasoning": "Counted 15 atomic factual claims in the final response. Three are not supported by the tool outputs: the proposed Earth-to-structures and Wood-to-growth/branching mappings, and the asserted elemental fit of recommendations not connected to those mappings. The Bazi pillars and problem titles, tags, and displayed difficulties are supported by the tool results. Defect rate: 3/15 = 20%.",
+          "planning_efficiency_reasoning": "There were 4 tool calls: 1 Bazi lookup and 3 distinct LeetCode searches. None repeated a successful call, and each search supplied a problem used in the final answer. Redundant or unnecessary calls: 0/4, for a 0% defect rate.",
+          "task_fulfillment": 5,
+          "grounding": 7,
+          "planning_and_efficiency": 10
+        }
+      },
+      {
+        "dimension_order": [
+          2,
+          0,
+          1
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "There are 2 explicit requirements: identify the dominant Bazi element(s), and suggest several LeetCode problems with fitting topics. Both were addressed: the answer identifies Earth as strongest and recommends 4 problems. Met 2/2; defect rate 0%.",
+          "grounding_reasoning": "Counting 12 grouped factual claims, 2 are not supported by the tool outputs: the proposed Earth-to-structures and Wood-to-branching topic mappings. The chart details and the recommended problem titles, difficulties, and topics are supported by the Bazi and search results. Defect rate: 2/12 = 16.7%.",
+          "planning_efficiency_reasoning": "There were 4 tool calls: 1 Bazi lookup and 3 searches using distinct topic filters. None repeats a successful call or is clearly unnecessary for identifying the chart and gathering several recommendations. Redundant/unnecessary calls: 0/4; defect rate 0%.",
+          "task_fulfillment": 10,
+          "grounding": 8,
+          "planning_and_efficiency": 10
+        }
+      }
+    ],
+    "aggregate": {
+      "successful_runs": 5,
+      "total_runs": 5,
+      "task_fulfillment_mean": 8.0,
+      "grounding_mean": 7.8,
+      "planning_and_efficiency_mean": 8.4,
+      "task_fulfillment_reasoning_runs": [
+        "There are 2 explicit requirements: check the dominant Bazi elements using the supplied birth details, and find several LeetCode problems with topics matched to that tendency. Both were addressed: the agent obtained a Bazi chart, identified Earth as dominant, and recommended four problems with an explicitly playful topic mapping. Defects: 0/2 = 0%.",
+        "There are 2 distinct requirements: identify the dominant Bazi elements, and recommend several LeetCode problems whose topics fit that tendency. The Bazi reading and Earth-dominant interpretation address the first requirement. The answer lists 4 problems, but only the 2 tree problems are connected to the stated Earth/Wood analogy; it does not explain how the array/sorting or string/sliding-window topics fit. Thus 1 of 2 requirements is not perfectly met: 50% defect rate.",
+        "There were 2 distinct requirements: identify the dominant Bazi element(s), and suggest several LeetCode problems whose topics fit that tendency. Both were met: the agent retrieved the Bazi chart, identified Earth as strongest, and suggested 4 problems. Defect rate: 0/2 = 0%.",
+        "Counted 3 requirements: calculate the Bazi from the supplied birth details, identify the dominant element(s), and provide several LeetCode problems whose topics fit that tendency. The first two were met. Four problems were listed, but only the two tree problems were explicitly connected to the elemental reading; the array and string recommendations were not clearly tied to it. Thus 2/3 requirements were perfectly met, for a 33.3% defect rate.",
+        "There are 2 explicit requirements: identify the dominant Bazi element(s), and suggest several LeetCode problems with fitting topics. Both were addressed: the answer identifies Earth as strongest and recommends 4 problems. Met 2/2; defect rate 0%."
+      ],
+      "grounding_reasoning_runs": [
+        "Counted 26 atomic factual claims in the final answer. Six are not perfectly supported by the shown tool outputs: the four LeetCode URLs were not returned by a tool, and the specific technique descriptions for Missing Number and Longest Substring Without Repeating Characters are not visible in the corresponding result excerpts. Defects: 6/26 = 23.1%; this falls in the 7–8 range, scored 7 under the strict interpretation.",
+        "Counted 16 atomic claims in the final answer, including the Bazi interpretation, problem titles/difficulties/topics, and the proposed elemental-topic correspondences. The tool outputs support the Bazi details and the listed problem information. The two claims mapping Earth to grounded structures/traversal and Wood to growth/branching are not supported by tool outputs. That is 2 of 16 unsupported claims, a 12.5% defect rate.",
+        "There were 16 atomic factual or recommendation claims in the final response. The chart and element details are supported by the Bazi output, and the problem titles, difficulties, and relevant tags are supported by the search results. The claim that Symmetric Tree is about comparing branching structure is an interpretation not directly established by the visible search output. Unsupported claims: 1/16. Defect rate: 6.25%.",
+        "Counted 15 atomic factual claims in the final response. Three are not supported by the tool outputs: the proposed Earth-to-structures and Wood-to-growth/branching mappings, and the asserted elemental fit of recommendations not connected to those mappings. The Bazi pillars and problem titles, tags, and displayed difficulties are supported by the tool results. Defect rate: 3/15 = 20%.",
+        "Counting 12 grouped factual claims, 2 are not supported by the tool outputs: the proposed Earth-to-structures and Wood-to-branching topic mappings. The chart details and the recommended problem titles, difficulties, and topics are supported by the Bazi and search results. Defect rate: 2/12 = 16.7%."
+      ],
+      "planning_efficiency_reasoning_runs": [
+        "There were 4 tool calls: one Bazi lookup and three distinct LeetCode searches. None repeated a successful call or was clearly unnecessary for obtaining the chart and several topic-matched suggestions. Defects: 0/4 = 0%.",
+        "There were 4 tool calls total: 1 Bazi lookup and 3 problem searches. The Bazi lookup and tree search were relevant; the array/sorting and hash/string searches were unnecessary for the stated elemental mapping, since the tree search already returned multiple matching candidates. Thus 2 of 4 calls were unnecessary: 50% defect rate.",
+        "There were 4 tool calls: 1 Bazi lookup and 3 problem searches. The Bazi lookup and first two distinct problem searches contributed to the requested result; the third problem search was extra because the earlier searches had already returned several candidates. Redundant/unnecessary calls: 1/4. Defect rate: 25%.",
+        "There were 4 tool calls: 1 Bazi lookup and 3 distinct LeetCode searches. None repeated a successful call, and each search supplied a problem used in the final answer. Redundant or unnecessary calls: 0/4, for a 0% defect rate.",
+        "There were 4 tool calls: 1 Bazi lookup and 3 searches using distinct topic filters. None repeats a successful call or is clearly unnecessary for identifying the chart and gathering several recommendations. Redundant/unnecessary calls: 0/4; defect rate 0%."
+      ],
+      "task_fulfillment": 8,
+      "grounding": 8,
+      "planning_and_efficiency": 8
+    },
+    "judge_metadata": {
+      "integration_version": "ai6101-judge/1",
+      "model": "gpt-6-luna",
+      "requested_temperature": 0.0,
+      "max_tokens": 65536,
+      "num_runs": 5,
+      "tool_context_source": "saved_involved_tools",
+      "rubric_sha256": "59ede33bfddfe91138d07ac97fcac9e16b64fad99c13d58d85990944e6649bee"
+    },
+    "task_fulfillment": 8,
+    "grounding": 8,
+    "planning_and_efficiency": 8
+  },
+  "forced_finalization": false,
+  "involved_tools": [
+    {
+      "name": "getBaziDetail",
+      "description": "根据时间（公历或农历）、性别来获取八字信息。solarDatetime和lunarDatetime必须传且只传其中一个。",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false,
+        "properties": {
+          "eightCharProviderSect": {
+            "default": 2,
+            "description": "早晚子时配置。传1表示23:00-23:59日干支为明天，传2表示23:00-23:59日干支为当天。",
+            "type": "number"
+          },
+          "gender": {
+            "description": "传0表示女性，传1表示男性。",
+            "type": "number"
+          },
+          "lunarDatetime": {
+            "description": "农历时间。例如农历2000年5月初五中午12点整表示为：`2000-5-5 12:00:00`。",
+            "type": "string"
+          },
+          "solarDatetime": {
+            "description": "用ISO时间格式表示的公历时间. 例如：`2008-03-01T13:00:00+08:00`。",
+            "type": "string"
+          }
+        },
+        "required": [
+          "gender"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "search_problems",
+      "description": "Searches for LeetCode problems based on multiple filter criteria including categories, tags, difficulty levels, and keywords, with pagination support",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "default": "all-code-essentials",
+            "description": "Problem category filter (e.g., 'algorithms', 'database', 'shell') to narrow down the problem domain",
+            "enum": [
+              "all-code-essentials",
+              "algorithms",
+              "database",
+              "pandas",
+              "javascript",
+              "shell",
+              "concurrency"
+            ],
+            "type": "string"
+          },
+          "difficulty": {
+            "description": "Problem difficulty level filter to show only problems of a specific difficulty",
+            "enum": [
+              "EASY",
+              "MEDIUM",
+              "HARD"
+            ],
+            "type": "string"
+          },
+          "limit": {
+            "default": 10,
+            "description": "Maximum number of problems to return in a single request (for pagination)",
+            "type": "number"
+          },
+          "offset": {
+            "description": "Number of problems to skip (for pagination)",
+            "type": "number"
+          },
+          "searchKeywords": {
+            "description": "Keywords to search in problem titles and descriptions",
+            "type": "string"
+          },
+          "tags": {
+            "description": "List of topic tags to filter problems by (e.g., ['array', 'dynamic-programming', 'tree'])",
+            "items": {
+              "enum": [
+                "array",
+                "string",
+                "hash-table",
+                "dynamic-programming",
+                "math",
+                "sorting",
+                "greedy",
+                "depth-first-search",
+                "binary-search",
+                "database",
+                "tree",
+                "breadth-first-search",
+                "matrix",
+                "bit-manipulation",
+                "two-pointers",
+                "binary-tree",
+                "heap-priority-queue",
+                "prefix-sum",
+                "stack",
+                "simulation",
+                "graph",
+                "counting",
+                "sliding-window",
+                "design",
+                "backtracking",
+                "enumeration",
+                "linked-list",
+                "union-find",
+                "ordered-set",
+                "monotonic-stack",
+                "number-theory",
+                "trie",
+                "segment-tree",
+                "recursion",
+                "divide-and-conquer",
+                "queue",
+                "combinatorics",
+                "binary-search-tree",
+                "bitmask",
+                "memoization",
+                "geometry",
+                "binary-indexed-tree",
+                "hash-function",
+                "topological-sort",
+                "string-matching",
+                "shortest-path",
+                "rolling-hash",
+                "game-theory",
+                "data-stream",
+                "interactive",
+                "monotonic-queue",
+                "brainteaser",
+                "doubly-linked-list",
+                "merge-sort",
+                "randomized",
+                "quickselect",
+                "counting-sort",
+                "iterator",
+                "probability-and-statistics",
+                "concurrency",
+                "bucket-sort",
+                "suffix-array",
+                "line-sweep",
+                "minimum-spanning-tree",
+                "shell",
+                "reservoir-sampling",
+                "strongly-connected-component",
+                "eulerian-circuit",
+                "radix-sort",
+                "biconnected-component",
+                "rejection-sampling"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  ],
+  "harness_strategy": "selective_patch",
+  "source_version": "early",
+  "stage": "middle",
+  "run_id": "mcpevol-live-middle",
+  "judge_version": "ai6101-judge/1"
+}

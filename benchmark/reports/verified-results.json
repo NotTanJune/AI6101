@@ -1,0 +1,1548 @@
+{
+  "source_commit": "bcc2be50ea1fef8923f0e6b454856eced7dffca6",
+  "artifact_kind": "historical_python_benchmark_audit",
+  "task_ids": [
+    2,
+    5,
+    8,
+    21,
+    22,
+    26,
+    29,
+    30,
+    34,
+    40,
+    94,
+    161,
+    225,
+    229,
+    235,
+    249,
+    281,
+    291,
+    385,
+    448
+  ],
+  "conditions": [
+    {
+      "strategy": "no_update",
+      "version": "original",
+      "artifact_path": "benchmark_clean_r1/no_update_original/gpt-6-luna",
+      "task_count": 20,
+      "scores": {
+        "task_fulfillment": 6.12,
+        "grounding": 8.99,
+        "planning_and_efficiency": 8.42
+      },
+      "task_scores": {
+        "2": {
+          "task_fulfillment": 5,
+          "grounding": 9.4,
+          "planning_and_efficiency": 7.8
+        },
+        "5": {
+          "task_fulfillment": 1.8,
+          "grounding": 7.4,
+          "planning_and_efficiency": 9
+        },
+        "8": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "21": {
+          "task_fulfillment": 5.2,
+          "grounding": 10,
+          "planning_and_efficiency": 9.6
+        },
+        "22": {
+          "task_fulfillment": 5.2,
+          "grounding": 7.2,
+          "planning_and_efficiency": 7.6
+        },
+        "26": {
+          "task_fulfillment": 2,
+          "grounding": 10,
+          "planning_and_efficiency": 5
+        },
+        "29": {
+          "task_fulfillment": 10,
+          "grounding": 8.6,
+          "planning_and_efficiency": 8
+        },
+        "30": {
+          "task_fulfillment": 10,
+          "grounding": 8.2,
+          "planning_and_efficiency": 10
+        },
+        "34": {
+          "task_fulfillment": 5.2,
+          "grounding": 8.2,
+          "planning_and_efficiency": 10
+        },
+        "40": {
+          "task_fulfillment": 6,
+          "grounding": 6.4,
+          "planning_and_efficiency": 7.6
+        },
+        "94": {
+          "task_fulfillment": 10,
+          "grounding": 7.2,
+          "planning_and_efficiency": 5.2
+        },
+        "161": {
+          "task_fulfillment": 10,
+          "grounding": 9.4,
+          "planning_and_efficiency": 6
+        },
+        "225": {
+          "task_fulfillment": 3.4,
+          "grounding": 9.8,
+          "planning_and_efficiency": 8
+        },
+        "229": {
+          "task_fulfillment": 1.4,
+          "grounding": 8.8,
+          "planning_and_efficiency": 9
+        },
+        "235": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "249": {
+          "task_fulfillment": 2.4,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "281": {
+          "task_fulfillment": 10,
+          "grounding": 9.2,
+          "planning_and_efficiency": 9
+        },
+        "291": {
+          "task_fulfillment": 2,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "385": {
+          "task_fulfillment": 7.8,
+          "grounding": 10,
+          "planning_and_efficiency": 6.6
+        },
+        "448": {
+          "task_fulfillment": 5,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        }
+      },
+      "forced_finalization_task_ids": []
+    },
+    {
+      "strategy": "no_update",
+      "version": "iter3",
+      "artifact_path": "benchmark_clean_r1/no_update_iter3/gpt-6-luna",
+      "task_count": 20,
+      "scores": {
+        "task_fulfillment": 7.09,
+        "grounding": 8.54,
+        "planning_and_efficiency": 8.32
+      },
+      "task_scores": {
+        "2": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 8.4
+        },
+        "5": {
+          "task_fulfillment": 1,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "8": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 9
+        },
+        "21": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 7
+        },
+        "22": {
+          "task_fulfillment": 5.4,
+          "grounding": 10,
+          "planning_and_efficiency": 6.2
+        },
+        "26": {
+          "task_fulfillment": 2,
+          "grounding": 6.2,
+          "planning_and_efficiency": 5
+        },
+        "29": {
+          "task_fulfillment": 9,
+          "grounding": 8.8,
+          "planning_and_efficiency": 5.2
+        },
+        "30": {
+          "task_fulfillment": 10,
+          "grounding": 9,
+          "planning_and_efficiency": 10
+        },
+        "34": {
+          "task_fulfillment": 10,
+          "grounding": 7.4,
+          "planning_and_efficiency": 10
+        },
+        "40": {
+          "task_fulfillment": 5,
+          "grounding": 5,
+          "planning_and_efficiency": 5.4
+        },
+        "94": {
+          "task_fulfillment": 9.8,
+          "grounding": 7.8,
+          "planning_and_efficiency": 7.2
+        },
+        "161": {
+          "task_fulfillment": 10,
+          "grounding": 7.4,
+          "planning_and_efficiency": 10
+        },
+        "225": {
+          "task_fulfillment": 5,
+          "grounding": 8.2,
+          "planning_and_efficiency": 9
+        },
+        "229": {
+          "task_fulfillment": 1.2,
+          "grounding": 10,
+          "planning_and_efficiency": 9
+        },
+        "235": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "249": {
+          "task_fulfillment": 4.6,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "281": {
+          "task_fulfillment": 9.8,
+          "grounding": 7.8,
+          "planning_and_efficiency": 10
+        },
+        "291": {
+          "task_fulfillment": 5,
+          "grounding": 6.6,
+          "planning_and_efficiency": 10
+        },
+        "385": {
+          "task_fulfillment": 9.8,
+          "grounding": 9,
+          "planning_and_efficiency": 5
+        },
+        "448": {
+          "task_fulfillment": 4.2,
+          "grounding": 7.6,
+          "planning_and_efficiency": 10
+        }
+      },
+      "forced_finalization_task_ids": []
+    },
+    {
+      "strategy": "no_update",
+      "version": "iter5",
+      "artifact_path": "benchmark_clean_r1/no_update_iter5/gpt-6-luna",
+      "task_count": 20,
+      "scores": {
+        "task_fulfillment": 6.62,
+        "grounding": 9.11,
+        "planning_and_efficiency": 8.35
+      },
+      "task_scores": {
+        "2": {
+          "task_fulfillment": 5.4,
+          "grounding": 9.4,
+          "planning_and_efficiency": 9
+        },
+        "5": {
+          "task_fulfillment": 1,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "8": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "21": {
+          "task_fulfillment": 1,
+          "grounding": 10,
+          "planning_and_efficiency": 5
+        },
+        "22": {
+          "task_fulfillment": 5.2,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "26": {
+          "task_fulfillment": 10,
+          "grounding": 7.8,
+          "planning_and_efficiency": 6.6
+        },
+        "29": {
+          "task_fulfillment": 10,
+          "grounding": 9.4,
+          "planning_and_efficiency": 5
+        },
+        "30": {
+          "task_fulfillment": 10,
+          "grounding": 7.6,
+          "planning_and_efficiency": 10
+        },
+        "34": {
+          "task_fulfillment": 10,
+          "grounding": 8.4,
+          "planning_and_efficiency": 10
+        },
+        "40": {
+          "task_fulfillment": 5,
+          "grounding": 5,
+          "planning_and_efficiency": 5.6
+        },
+        "94": {
+          "task_fulfillment": 10,
+          "grounding": 7.4,
+          "planning_and_efficiency": 7
+        },
+        "161": {
+          "task_fulfillment": 9,
+          "grounding": 9.4,
+          "planning_and_efficiency": 6
+        },
+        "225": {
+          "task_fulfillment": 4.2,
+          "grounding": 9.4,
+          "planning_and_efficiency": 5
+        },
+        "229": {
+          "task_fulfillment": 1.2,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "235": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "249": {
+          "task_fulfillment": 6.4,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "281": {
+          "task_fulfillment": 10,
+          "grounding": 9.8,
+          "planning_and_efficiency": 9.6
+        },
+        "291": {
+          "task_fulfillment": 1,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "385": {
+          "task_fulfillment": 8.8,
+          "grounding": 8.6,
+          "planning_and_efficiency": 8.2
+        },
+        "448": {
+          "task_fulfillment": 4.2,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        }
+      },
+      "forced_finalization_task_ids": []
+    },
+    {
+      "strategy": "selective_patch",
+      "version": "original",
+      "artifact_path": "benchmark_clean_r2/selective_original/gpt-6-luna",
+      "task_count": 20,
+      "scores": {
+        "task_fulfillment": 6.4,
+        "grounding": 8.53,
+        "planning_and_efficiency": 9.0
+      },
+      "task_scores": {
+        "2": {
+          "task_fulfillment": 5,
+          "grounding": 9.2,
+          "planning_and_efficiency": 9
+        },
+        "5": {
+          "task_fulfillment": 1,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "8": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 9.2
+        },
+        "21": {
+          "task_fulfillment": 5,
+          "grounding": 10,
+          "planning_and_efficiency": 7
+        },
+        "22": {
+          "task_fulfillment": 5.2,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "26": {
+          "task_fulfillment": 2,
+          "grounding": 7,
+          "planning_and_efficiency": 5
+        },
+        "29": {
+          "task_fulfillment": 10,
+          "grounding": 8,
+          "planning_and_efficiency": 9.2
+        },
+        "30": {
+          "task_fulfillment": 10,
+          "grounding": 7,
+          "planning_and_efficiency": 10
+        },
+        "34": {
+          "task_fulfillment": 9,
+          "grounding": 7,
+          "planning_and_efficiency": 10
+        },
+        "40": {
+          "task_fulfillment": 4.8,
+          "grounding": 5,
+          "planning_and_efficiency": 6.6
+        },
+        "94": {
+          "task_fulfillment": 10,
+          "grounding": 7,
+          "planning_and_efficiency": 7.8
+        },
+        "161": {
+          "task_fulfillment": 10,
+          "grounding": 8.2,
+          "planning_and_efficiency": 10
+        },
+        "225": {
+          "task_fulfillment": 4.2,
+          "grounding": 7.2,
+          "planning_and_efficiency": 10
+        },
+        "229": {
+          "task_fulfillment": 1.4,
+          "grounding": 8.2,
+          "planning_and_efficiency": 9
+        },
+        "235": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "249": {
+          "task_fulfillment": 5.8,
+          "grounding": 9,
+          "planning_and_efficiency": 10
+        },
+        "281": {
+          "task_fulfillment": 10,
+          "grounding": 8.2,
+          "planning_and_efficiency": 10
+        },
+        "291": {
+          "task_fulfillment": 1.2,
+          "grounding": 10,
+          "planning_and_efficiency": 8.2
+        },
+        "385": {
+          "task_fulfillment": 9.6,
+          "grounding": 9.6,
+          "planning_and_efficiency": 9
+        },
+        "448": {
+          "task_fulfillment": 3.8,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        }
+      },
+      "forced_finalization_task_ids": [
+        2
+      ]
+    },
+    {
+      "strategy": "selective_patch",
+      "version": "iter3",
+      "artifact_path": "benchmark_clean_r2/selective_iter3/gpt-6-luna",
+      "task_count": 20,
+      "scores": {
+        "task_fulfillment": 6.48,
+        "grounding": 8.370000000000001,
+        "planning_and_efficiency": 8.38
+      },
+      "task_scores": {
+        "2": {
+          "task_fulfillment": 6.8,
+          "grounding": 8.6,
+          "planning_and_efficiency": 7.4
+        },
+        "5": {
+          "task_fulfillment": 1,
+          "grounding": 6.2,
+          "planning_and_efficiency": 7
+        },
+        "8": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "21": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 4.8
+        },
+        "22": {
+          "task_fulfillment": 5,
+          "grounding": 9.4,
+          "planning_and_efficiency": 10
+        },
+        "26": {
+          "task_fulfillment": 2.2,
+          "grounding": 8,
+          "planning_and_efficiency": 6.4
+        },
+        "29": {
+          "task_fulfillment": 5,
+          "grounding": 5.6,
+          "planning_and_efficiency": 6.6
+        },
+        "30": {
+          "task_fulfillment": 10,
+          "grounding": 9,
+          "planning_and_efficiency": 10
+        },
+        "34": {
+          "task_fulfillment": 5,
+          "grounding": 5.8,
+          "planning_and_efficiency": 10
+        },
+        "40": {
+          "task_fulfillment": 5,
+          "grounding": 5.4,
+          "planning_and_efficiency": 7.2
+        },
+        "94": {
+          "task_fulfillment": 10,
+          "grounding": 7.6,
+          "planning_and_efficiency": 7
+        },
+        "161": {
+          "task_fulfillment": 10,
+          "grounding": 9.4,
+          "planning_and_efficiency": 5.8
+        },
+        "225": {
+          "task_fulfillment": 6.2,
+          "grounding": 7.4,
+          "planning_and_efficiency": 10
+        },
+        "229": {
+          "task_fulfillment": 1.4,
+          "grounding": 8.8,
+          "planning_and_efficiency": 9.8
+        },
+        "235": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "249": {
+          "task_fulfillment": 6.4,
+          "grounding": 9.4,
+          "planning_and_efficiency": 10
+        },
+        "281": {
+          "task_fulfillment": 9,
+          "grounding": 9.4,
+          "planning_and_efficiency": 9
+        },
+        "291": {
+          "task_fulfillment": 4.4,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "385": {
+          "task_fulfillment": 7.2,
+          "grounding": 8.6,
+          "planning_and_efficiency": 6.6
+        },
+        "448": {
+          "task_fulfillment": 5,
+          "grounding": 8.8,
+          "planning_and_efficiency": 10
+        }
+      },
+      "forced_finalization_task_ids": []
+    },
+    {
+      "strategy": "selective_patch",
+      "version": "iter5",
+      "artifact_path": "benchmark_clean_r2/selective_iter5/gpt-6-luna",
+      "task_count": 20,
+      "scores": {
+        "task_fulfillment": 6.71,
+        "grounding": 8.77,
+        "planning_and_efficiency": 8.39
+      },
+      "task_scores": {
+        "2": {
+          "task_fulfillment": 10,
+          "grounding": 8.4,
+          "planning_and_efficiency": 10
+        },
+        "5": {
+          "task_fulfillment": 1,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "8": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "21": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 5
+        },
+        "22": {
+          "task_fulfillment": 5.2,
+          "grounding": 9.4,
+          "planning_and_efficiency": 7.2
+        },
+        "26": {
+          "task_fulfillment": 2,
+          "grounding": 8,
+          "planning_and_efficiency": 5
+        },
+        "29": {
+          "task_fulfillment": 4,
+          "grounding": 5.4,
+          "planning_and_efficiency": 5
+        },
+        "30": {
+          "task_fulfillment": 10,
+          "grounding": 8.8,
+          "planning_and_efficiency": 10
+        },
+        "34": {
+          "task_fulfillment": 8.2,
+          "grounding": 9.6,
+          "planning_and_efficiency": 10
+        },
+        "40": {
+          "task_fulfillment": 7,
+          "grounding": 7.2,
+          "planning_and_efficiency": 6.6
+        },
+        "94": {
+          "task_fulfillment": 10,
+          "grounding": 7.2,
+          "planning_and_efficiency": 5.8
+        },
+        "161": {
+          "task_fulfillment": 10,
+          "grounding": 9.4,
+          "planning_and_efficiency": 8
+        },
+        "225": {
+          "task_fulfillment": 4,
+          "grounding": 9.2,
+          "planning_and_efficiency": 10
+        },
+        "229": {
+          "task_fulfillment": 2.2,
+          "grounding": 9,
+          "planning_and_efficiency": 10
+        },
+        "235": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "249": {
+          "task_fulfillment": 7,
+          "grounding": 9.4,
+          "planning_and_efficiency": 10
+        },
+        "281": {
+          "task_fulfillment": 7.8,
+          "grounding": 7.8,
+          "planning_and_efficiency": 9
+        },
+        "291": {
+          "task_fulfillment": 3.4,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "385": {
+          "task_fulfillment": 7.2,
+          "grounding": 9,
+          "planning_and_efficiency": 6.2
+        },
+        "448": {
+          "task_fulfillment": 5.2,
+          "grounding": 7.6,
+          "planning_and_efficiency": 10
+        }
+      },
+      "forced_finalization_task_ids": [
+        94
+      ]
+    },
+    {
+      "strategy": "full_rewrite",
+      "version": "original",
+      "artifact_path": "benchmark_clean_r2/full_rewrite_original/gpt-6-luna",
+      "task_count": 20,
+      "scores": {
+        "task_fulfillment": 6.49,
+        "grounding": 8.91,
+        "planning_and_efficiency": 8.39
+      },
+      "task_scores": {
+        "2": {
+          "task_fulfillment": 5.2,
+          "grounding": 9.4,
+          "planning_and_efficiency": 10
+        },
+        "5": {
+          "task_fulfillment": 1,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "8": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "21": {
+          "task_fulfillment": 5,
+          "grounding": 10,
+          "planning_and_efficiency": 7.2
+        },
+        "22": {
+          "task_fulfillment": 5.2,
+          "grounding": 10,
+          "planning_and_efficiency": 7.2
+        },
+        "26": {
+          "task_fulfillment": 2,
+          "grounding": 9.2,
+          "planning_and_efficiency": 4.4
+        },
+        "29": {
+          "task_fulfillment": 10,
+          "grounding": 9.4,
+          "planning_and_efficiency": 6.2
+        },
+        "30": {
+          "task_fulfillment": 10,
+          "grounding": 8.2,
+          "planning_and_efficiency": 10
+        },
+        "34": {
+          "task_fulfillment": 10,
+          "grounding": 9.8,
+          "planning_and_efficiency": 10
+        },
+        "40": {
+          "task_fulfillment": 5,
+          "grounding": 5.2,
+          "planning_and_efficiency": 6.2
+        },
+        "94": {
+          "task_fulfillment": 10,
+          "grounding": 7.8,
+          "planning_and_efficiency": 7.4
+        },
+        "161": {
+          "task_fulfillment": 10,
+          "grounding": 8.8,
+          "planning_and_efficiency": 10
+        },
+        "225": {
+          "task_fulfillment": 3.8,
+          "grounding": 8.4,
+          "planning_and_efficiency": 9.2
+        },
+        "229": {
+          "task_fulfillment": 1.2,
+          "grounding": 10,
+          "planning_and_efficiency": 6
+        },
+        "235": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "249": {
+          "task_fulfillment": 6,
+          "grounding": 9.4,
+          "planning_and_efficiency": 10
+        },
+        "281": {
+          "task_fulfillment": 9,
+          "grounding": 7.4,
+          "planning_and_efficiency": 10
+        },
+        "291": {
+          "task_fulfillment": 2.8,
+          "grounding": 9,
+          "planning_and_efficiency": 8.2
+        },
+        "385": {
+          "task_fulfillment": 8.6,
+          "grounding": 9,
+          "planning_and_efficiency": 5.8
+        },
+        "448": {
+          "task_fulfillment": 5,
+          "grounding": 7.2,
+          "planning_and_efficiency": 10
+        }
+      },
+      "forced_finalization_task_ids": []
+    },
+    {
+      "strategy": "full_rewrite",
+      "version": "iter3",
+      "artifact_path": "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna",
+      "task_count": 20,
+      "scores": {
+        "task_fulfillment": 5.65,
+        "grounding": 8.47,
+        "planning_and_efficiency": 9.02
+      },
+      "task_scores": {
+        "2": {
+          "task_fulfillment": 7,
+          "grounding": 9,
+          "planning_and_efficiency": 8.8
+        },
+        "5": {
+          "task_fulfillment": 1,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "8": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 8
+        },
+        "21": {
+          "task_fulfillment": 5.2,
+          "grounding": 10,
+          "planning_and_efficiency": 9.2
+        },
+        "22": {
+          "task_fulfillment": 5,
+          "grounding": 8.2,
+          "planning_and_efficiency": 8
+        },
+        "26": {
+          "task_fulfillment": 2.2,
+          "grounding": 7.6,
+          "planning_and_efficiency": 8
+        },
+        "29": {
+          "task_fulfillment": 4.4,
+          "grounding": 6.2,
+          "planning_and_efficiency": 6.6
+        },
+        "30": {
+          "task_fulfillment": 10,
+          "grounding": 8.6,
+          "planning_and_efficiency": 10
+        },
+        "34": {
+          "task_fulfillment": 5,
+          "grounding": 6.6,
+          "planning_and_efficiency": 10
+        },
+        "40": {
+          "task_fulfillment": 5,
+          "grounding": 5.2,
+          "planning_and_efficiency": 6.4
+        },
+        "94": {
+          "task_fulfillment": 9.2,
+          "grounding": 7,
+          "planning_and_efficiency": 8.4
+        },
+        "161": {
+          "task_fulfillment": 10,
+          "grounding": 7.6,
+          "planning_and_efficiency": 10
+        },
+        "225": {
+          "task_fulfillment": 4,
+          "grounding": 9.4,
+          "planning_and_efficiency": 9
+        },
+        "229": {
+          "task_fulfillment": 2.6,
+          "grounding": 7,
+          "planning_and_efficiency": 10
+        },
+        "235": {
+          "task_fulfillment": 5.4,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "249": {
+          "task_fulfillment": 2.6,
+          "grounding": 9.4,
+          "planning_and_efficiency": 10
+        },
+        "281": {
+          "task_fulfillment": 8.2,
+          "grounding": 9.8,
+          "planning_and_efficiency": 10
+        },
+        "291": {
+          "task_fulfillment": 3.8,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "385": {
+          "task_fulfillment": 8.4,
+          "grounding": 9.4,
+          "planning_and_efficiency": 8
+        },
+        "448": {
+          "task_fulfillment": 4,
+          "grounding": 8.4,
+          "planning_and_efficiency": 10
+        }
+      },
+      "forced_finalization_task_ids": []
+    },
+    {
+      "strategy": "full_rewrite",
+      "version": "iter5",
+      "artifact_path": "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna",
+      "task_count": 20,
+      "scores": {
+        "task_fulfillment": 6.23,
+        "grounding": 8.66,
+        "planning_and_efficiency": 8.39
+      },
+      "task_scores": {
+        "2": {
+          "task_fulfillment": 6.4,
+          "grounding": 9,
+          "planning_and_efficiency": 9.6
+        },
+        "5": {
+          "task_fulfillment": 1,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "8": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "21": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "22": {
+          "task_fulfillment": 5.4,
+          "grounding": 9.4,
+          "planning_and_efficiency": 6.2
+        },
+        "26": {
+          "task_fulfillment": 2.2,
+          "grounding": 6.6,
+          "planning_and_efficiency": 4.8
+        },
+        "29": {
+          "task_fulfillment": 5,
+          "grounding": 5.8,
+          "planning_and_efficiency": 5
+        },
+        "30": {
+          "task_fulfillment": 10,
+          "grounding": 7.8,
+          "planning_and_efficiency": 10
+        },
+        "34": {
+          "task_fulfillment": 2.6,
+          "grounding": 5.6,
+          "planning_and_efficiency": 10
+        },
+        "40": {
+          "task_fulfillment": 5,
+          "grounding": 5.4,
+          "planning_and_efficiency": 7
+        },
+        "94": {
+          "task_fulfillment": 10,
+          "grounding": 8.2,
+          "planning_and_efficiency": 7.6
+        },
+        "161": {
+          "task_fulfillment": 10,
+          "grounding": 9,
+          "planning_and_efficiency": 8
+        },
+        "225": {
+          "task_fulfillment": 5.6,
+          "grounding": 9.4,
+          "planning_and_efficiency": 8.2
+        },
+        "229": {
+          "task_fulfillment": 1.2,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "235": {
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        },
+        "249": {
+          "task_fulfillment": 6.4,
+          "grounding": 9.2,
+          "planning_and_efficiency": 10
+        },
+        "281": {
+          "task_fulfillment": 9,
+          "grounding": 7.8,
+          "planning_and_efficiency": 7
+        },
+        "291": {
+          "task_fulfillment": 2.2,
+          "grounding": 10,
+          "planning_and_efficiency": 6.4
+        },
+        "385": {
+          "task_fulfillment": 8.8,
+          "grounding": 10,
+          "planning_and_efficiency": 8
+        },
+        "448": {
+          "task_fulfillment": 3.8,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        }
+      },
+      "forced_finalization_task_ids": []
+    }
+  ],
+  "ecs": {
+    "no_update": 5.6434888143045585,
+    "selective_patch": 5.739725326737938,
+    "full_rewrite": 5.305756741437405
+  },
+  "selective_adaptation": {
+    "original": {
+      "tasks_with_changes": 0,
+      "model_calls": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "latency_ms": 0,
+      "adaptation_time_ms": 199,
+      "estimated_usd": 0,
+      "warnings": {
+        "5": [
+          "unresolved in source and target: @agent-infra/mcp-server-commands/run_process"
+        ],
+        "8": [
+          "unresolved in source and target: fixparser-plugin-mcp/verifyOrder",
+          "unresolved in source and target: fixparser-plugin-mcp/executeOrder"
+        ]
+      }
+    },
+    "iter3": {
+      "tasks_with_changes": 8,
+      "model_calls": 11,
+      "input_tokens": 4444,
+      "output_tokens": 671,
+      "latency_ms": 18468,
+      "adaptation_time_ms": 18818,
+      "estimated_usd": null,
+      "warnings": {
+        "5": [
+          "unresolved in source and target: @agent-infra/mcp-server-commands/run_process"
+        ],
+        "8": [
+          "unresolved in source and target: fixparser-plugin-mcp/verifyOrder",
+          "unresolved in source and target: fixparser-plugin-mcp/executeOrder"
+        ]
+      }
+    },
+    "iter5": {
+      "tasks_with_changes": 11,
+      "model_calls": 19,
+      "input_tokens": 7616,
+      "output_tokens": 1433,
+      "latency_ms": 49391,
+      "adaptation_time_ms": 49529,
+      "estimated_usd": null,
+      "warnings": {
+        "5": [
+          "unresolved in source and target: @agent-infra/mcp-server-commands/run_process"
+        ],
+        "8": [
+          "unresolved in source and target: fixparser-plugin-mcp/verifyOrder",
+          "unresolved in source and target: fixparser-plugin-mcp/executeOrder"
+        ]
+      }
+    }
+  },
+  "judgments_per_trajectory": 5,
+  "saved_trajectories_per_task_condition": 1,
+  "reported_score_source": "user-provided AI Ethics rerun results, 2026-10-26",
+  "evidence_sha256": {
+    "test_cases/pilot_20_clean.json": "bf81907813d75130c1ecb1e3370f202715dc0714c38b87b943cb1900ab5d53ee",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/2.json": "59c1834e98321a0bfaaeca2496c585f5080e52350df90ebcf6d992c03b90e228",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/2.json": "3bde286435c11b90e0f290b77db3e8a4056e31d4e470d307837c8c1640f4d007",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/5.json": "b6cdf67fd2d243e83d8d4984cea3daf5c2f2333f789cc086650865a8c5bf5e09",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/5.json": "244bade92aca0f14bc3f8b707487e007ba3573b1cdc501719adec1b61c2d0557",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/8.json": "aee5adfe565689c24edaa75ae5e5f09b5a3ccdebb37d8992df32896db1dc8435",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/8.json": "06bc451410446ce208e10725750d1faa0ab8d57063cb0e34617234a817c2fae1",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/21.json": "48521bc7924476ddd9f84e18241d0185c77979e520801ad52e4616d32b3c894e",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/21.json": "cbe2b3caaa5878cdae02602c97bcbc49b1ad261631be4d25c5228e3ea3726e6e",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/22.json": "a5c2dc8d84c281326692cad64963744367879403275175e22d4775311f0b6330",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/22.json": "c5711bc10ae1a1f17712f4409f5c775ab1ee5a92d48c3c6f3c2331490a0a8582",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/26.json": "feb9bb32de42d651a4b9b180c37e3236326e0c4ca13bed8d5410694325c610c5",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/26.json": "94686c432fec529a621150a232baa6fa3ddc0f87e841d51d65dc174fd42eb4b4",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/29.json": "d97dea67cc4df3ae9a6da81a19ad41a54a9ef61d402e2c9411d7661d5bdc5031",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/29.json": "ceae260667f7ebe6af4ca878d231471d208edcdadcf6e4b0a03adf95c052a3b3",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/30.json": "ff92ef6705410fbae7b63cc4cb8ea8aee1f74a9b3ec109e09628f1e2a504723c",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/30.json": "b64311b08859dc57c9562ee14a7a6cd8cae274fc998d6ad6e5054827cd008d64",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/34.json": "af89ff1c5ac1254a4b8ab4f3f9ceb90025c122d9a9d8387e6fe99ea44b43f087",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/34.json": "d6c64e8755d4b30dfa5b579ca25d38fc81330d1b867ad659879c6a1cf505f33f",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/40.json": "9785632b61e2ed373290930e87d66b5e32b78c9a2e3dc596a9202e56d0fd4f2a",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/40.json": "890a3e84baa533c3555d6c5905047caef8e3ff38440ffa202af2ee7e540484e2",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/94.json": "04566bceb7edbf1185ecd9359e75e23d39ccbf2a23f3e5c10c48f599a9ac01c8",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/94.json": "b9d477b4776ce439180114907a773ea1a95cee1cf71899e058e8d04aac7f26a8",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/161.json": "fbf77e52a3da1589dfe516f170b732fb98cdc028f8c29c56a576f09019caf414",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/161.json": "5fbacfc207b481b676add42a4302f78d4a1cb370e4b7260b2fea2c0f2a0088f9",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/225.json": "54a99be79d304b188ef99c80bef25a46429db16970f29d872fcab582c1d0d16e",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/225.json": "7994ef38834dc31a1263b7da52c0ee24c19b0151874ffbacea72990e95b68e88",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/229.json": "9638fb954d1939ec880b5a3d9200df085f30c787b73128657283f3dac5612a8f",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/229.json": "1ba9653eb0cd777f98bfc216ba9e8ab3af0d873b7cd4cf0dfa526f96dd4f26e9",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/235.json": "237a47dbaf51c62759b976c9f20ffd1e1bdb4d5509c762aca1d8866eeafbe330",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/235.json": "90d9e835df45f4045950e202a042f40d834a9156d009a99235fee744a209ca74",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/249.json": "80161d443a424bd42a0e092fde6d80d19d7bc76080569b7f23654e7694f61211",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/249.json": "df3b15d0eae1a47bab53f10b4a0205195546f16ccc7b12f6f4048e796e0f62c0",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/281.json": "997539b48397e259750801cb424e24c6b3e360a71d4d6cb9b41bf3b3c043458d",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/281.json": "31d32bb88e356dd58b33df087b9366aaa97a5e051ab5dd68c8dd02856097ce29",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/291.json": "5b139bdba6ccc8cb526ef61ec9e86fbdffeb309f6cb99a483a558884564a30ca",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/291.json": "6fc4991ef6e42588f484dba130d03394329ae973c94c301b80a259ff662a2c1a",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/385.json": "4ec9ba745809c5c04b7f204d81f651c5de007a2bc558baf6e25ab629e929e499",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/385.json": "29d798a1ed4204ef9ae93b32a9a4f3434b3d73788803e7f9fef0294b571dc806",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/ANSWER/448.json": "4d093a7e2720616c9e676ce7cb0ee789bf4c012bce1e235cc4052fe861eeefae",
+    "benchmark_clean_r1/no_update_original/gpt-6-luna/EVAL/448.json": "362dd8b3d0a28e93892e2675e60f876b84f980c31c678446451c1f85390c9040",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/2.json": "9f19d4e20658d902120e42be5324cb18f02734c05334ca30693062151993aead",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/2.json": "77d1201a9440d3422337d0193c91080a2834f59ce9291a2d3a3a6e8a51da4622",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/5.json": "6d9197932fba51db9a019af2fd87a5650650cbd386502397fefcd728aa953e4c",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/5.json": "f1687c68bb0d72eef93e2602f8824b7830a9c77832ed988399e3ab40a3d3d75f",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/8.json": "57969008efbed0c5a7106e8f75c768623a922fa8a1592a9e3c800e111f9c09cc",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/8.json": "4e9977f171944f94aaf78d598953ad9cb2e7a731e397a9333270c45a3c652894",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/21.json": "4d974ad220e8a5c2e3fdf464219b34a371ec6f14105faf1304b42f65e0696e71",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/21.json": "32be865bef22ed73753f68c1c72c9220642f1c789938f9066910b2a5a1d8b9f5",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/22.json": "a8a6b2ac10dbfe48060aaf90aa4c6681ff405cd0f1e8debde3d2669ebdf9dabb",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/22.json": "62a026118c93611b1675505c2e4a890afe98bf7dba65f6673edb48cd03e76761",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/26.json": "7fb4c631f0381fc42e675030783c7b6824b07dcaff238f273fb887bdbe3b2fae",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/26.json": "c1f24594950987d08a2bd54b042d226c8910cad327d72ebaadb3bde7be272cbf",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/29.json": "e4c4add5c3cbf2d297c1f70829a4079b7021ef5e4e2eb4e234cd97568fde8d47",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/29.json": "f236cec9d65d34fa862714a9e378d0a01f08b3991ae1c207d10e3f4e25fd6688",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/30.json": "ef62364523cd5fc5864e768d451a72a421091b6f8f15c3d8cbcea4501f152d8d",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/30.json": "d285ba9e0956d4c6dba7b0b628180a87f5c0c3648ea8c2d8f80b4ad351fb7698",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/34.json": "754bece5331f558de5026fd51edf110917984dfaf74b868ddfc65e35f53ebb70",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/34.json": "1ad42aac0b973adee42f8b4485b29c86534946ed0d13f68bd87d46a3899f3f46",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/40.json": "0203b13a5ab19f49be014b9c1ae50ca9da241a5679d4cc07fad1cb064f9f3fa3",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/40.json": "539508b4cd7d8681e77104c588e010c340e809a1bfa026e042f710ce9b8dd5b6",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/94.json": "86603464c656827981f83e878672351c3986d939197be3309d685edd4f5b1977",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/94.json": "b8153f7d7f6c79e625588559532cbde940804ecbe811fc025c29ee10752a8b71",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/161.json": "ab38eae0b48681160ac90084dd9b6b8644fef874901212ee05702e171a817c6a",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/161.json": "8de71984a052e1189fbff266bfbec079cde913541fc90f7d0c588910311da655",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/225.json": "872b54fc2fb80c4accf4ee78816b0c24322cbe4d78e55272f6a6347872455bb4",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/225.json": "f342dc8573fbc6ac847dbb50c0c7e9351b7082f0fe50c098ee35f7cf3bd7b6c3",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/229.json": "d31f01edee62926d37d94da3c25632ac8bab467cfc8d0cc9b19c250cc5f96458",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/229.json": "876b700386d94feb33709193cea8b68489e34d2511b7d8db3139aac78ae37da7",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/235.json": "01a10e1326197729f90a5d1ab8eb88535d99273d3b859617fca517b055c31d70",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/235.json": "2d242e6cc2dc9a6b724bb64542f56132c538c1c84302e3ed9af854aa46ca8bd7",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/249.json": "f1253bbfc2b06007b523623504efdbb5566bbf50dc9f1f0be6053d87d2049fa6",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/249.json": "a79d9cd8fc182a256aa4918786f5dc179c7b1c9888aa3b9e25ba255d8677191a",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/281.json": "868b230bd4244e2ff43b3ce25599a14c6550f47d944e4eda272a3b5f201c9bb9",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/281.json": "3b55afdbdd16387b09d39ddea5139e0a436e8b48231753eca654996ce5d2c8e6",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/291.json": "c58b4478600b858c8026af3ccdafb4141c53f38f5adcc0c2d9174663efa38ab0",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/291.json": "d29a345a7dc1449f9aa8f3f128a5bcf244da38c3e0da01e3912fd063eb00867b",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/385.json": "61f4df582296096cb031326cab9dbcd397416f65770d2e6d911d9042b3754690",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/385.json": "b1b2cf493e99fdb6d3b137b59a4e855f541af1932018d29e24bcc21b6ddd5c73",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/ANSWER/448.json": "d96a47b53c9c350402d064b530316824cdb77a94bf4262f6eea1f3a401c1bc0a",
+    "benchmark_clean_r1/no_update_iter3/gpt-6-luna/EVAL/448.json": "608a7a3bec4205df364f3734ff924b3f9ca8f86a4af79e7382f36ba81307b49c",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/2.json": "de97421479748d37d71e328511b10550b5e0884f5a00404af44c036a0471db63",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/2.json": "77a93c2ce10296aa061a93849a0cc6732c10a8ac9c6ce95ebe63abdda728622d",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/5.json": "0a5d77f74acedabf115626d3356ad39fd502be0438540c75ca20d885a36a0bc2",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/5.json": "bd400d05506cf37c6504ae3cee2950bd34578eb6d4c4b06781f89ee1051190d0",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/8.json": "070b9ae7c62584c05b2b47496122ee595d90408fc7c14b8f3990cfbe13675e65",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/8.json": "f67945b1d49f63d8637c5586354f2a4852327d28e81eb1e87ca3c1c9f3f5d8ed",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/21.json": "5118ef672e545b1a07683f846e34801139ce62464f93f05d425bff9e993ee465",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/21.json": "7b8973700649d57ad48a0ba18b229678174cbb9ce7be0632273344c6953954d0",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/22.json": "27c36b38a9329bd691bee4fccc7a171b69d6e971ec9b514b113a57b48560f0c2",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/22.json": "da53566a925ae0e9f9b549a3b2afdcb1d4c3e440f6533953c3468e092a862d97",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/26.json": "2ef400de50e257411c033b7b7f11dc61dae9783e2a0788f06c5c6cb3651d2581",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/26.json": "f8f05f606db2698bc1271388828d030c9971a06c9ad94b3bd6a102bab7d2d775",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/29.json": "b186e4ef95af9b4ef518f2407ab6762fb09ab40cab689375c2193ddf22b4e4b5",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/29.json": "f8e24b776f71fc4c5888900552b99f7b8cd60ad17bd56743408739188fe196ee",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/30.json": "d0e4ce1895c9dd24b8cfd0a590e2dc3b50a6a0b40200255e28ee614f8b91155e",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/30.json": "b6ae8d6ffd1ba98119013dad7df27e6a3e0614c905a4f9b2b14f73d6e9c5434a",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/34.json": "f6b58c60ffb4ddacd91adcfe7f7a225ff157d76c34e1bcd82b9d2da389ce3801",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/34.json": "3e46c2306a0383d4a25addc703dda83b42cc1d4f7c5e4f12a680af49ad648c39",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/40.json": "a182c1bfeb5f996a33e415a2c4114b90e4167aafd009629d7ad9282786890991",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/40.json": "7a18491d8232bf5a5c6dcec3c6cb55fd1be4de09aca40ae08fc2a06cfd3e62e5",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/94.json": "8089a6da8834c7cd51d2b5d76ced14c3c90f0a703f444baee2cb3daa46dfe752",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/94.json": "527c764c583da95d73719a3c8e8bb8539e24fe70ccf1a281d99fac793041bdf4",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/161.json": "f95bfb44e7b06a0a1981db5fc05fb67d6406fd33a14b69ace6ad400d4cacbc55",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/161.json": "fd0d14a43d42d42a7f57f4441f04e4914aad020de4ea61ad56ee3675ece9a04c",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/225.json": "7bd5d1861ad822beb0a7c48d3a86b33128e298745db9cc0bd618d62637213315",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/225.json": "fa797af142bcf681da6e5327c156de42dee5e1356a8f850e4fff838a0f681833",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/229.json": "3f509c74df3ba7e9412f01be1652c4f2fce0d5ece4e22db2ae8bcd494cb6cc14",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/229.json": "4d043201748bc92aaf4024bd2bd49f96a504eca998e14c1922a6ff015d85d858",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/235.json": "eeb1757008df0bd5d19128020b7cd992e24e310d2b27359a8d313b5c036e6610",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/235.json": "f510441ece7839f750f48edb2befafebb3eb0d32e164ce36794d3aa42dac2aa2",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/249.json": "3fcd050565dcfbc104a9283d9ce685d5d8bb46a8572fa7e0ba4fcbfbb0e79f5c",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/249.json": "9d4b8b3e47504cbb5d91af3db99afbcf5d59ae4023eadbc96f5bedd443d5ecf9",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/281.json": "08c12103403b30f839d16381d72d699a26d0282451c0b5266dd13fe9023ea1b9",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/281.json": "aa4cd191c8fc95ff57600741a622559f24f9c3d9b9e9e1136412dc8a4116874e",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/291.json": "cabc13b23e7d2a224d3c4db8f1107b394e23dadbfc26102ae8e96d247000994a",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/291.json": "741e74abac4631666e2534e5a8277dabcd290742ce598db71e61c80b58a5301a",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/385.json": "a7fe55aeb026270ae32aae5d725c5efc4231a0cb0c4aea1e457a3a01025c5dff",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/385.json": "3aced4ff8b0f3a8447a0a11a90e6a5b8f7d1b8ae9c40f8f02a703e59fd922680",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/ANSWER/448.json": "12b348e8b83ce4305f43206c43d7756f82ebfe72ee3a949a8e98fff21ee4ba70",
+    "benchmark_clean_r1/no_update_iter5/gpt-6-luna/EVAL/448.json": "8acf3cfa46828499960e9c4aeb0e8964bf69c78f34f0040fca96b8f404cd8cbe",
+    "benchmark_clean_r1/ECS_NO_UPDATE.json": "00acb4b0a7752a6a0eee27825b04b7f8f389474d1ccdf8000dfb4087d9a44a08",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/2.json": "670dad92819347993b99886e08bd5cd3fb8d2e865c7dc62e3db0c4079f176cdb",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/2.json": "dbf98859710b9ec731f3afc6954bed3dce9ef8f6321cba511552aacb1e0b22d4",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/5.json": "43584862bc860861bcb6f7dd73b105b3f345710e9934f4bcea364e3fda9259ae",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/5.json": "8de87864c97c070cf0668399ac2c962d2ff9d9b2aee140cfd1260938e091c66a",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/8.json": "8dbe86040a32488e6ea639f32a02f412050901e6ddb9bdf6d8d08fc5fef92380",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/8.json": "868552f9601e0f49a0f23b7ec9b1aeb2c8f6246854dd6e2e2ac6d432a4229f46",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/21.json": "c1bdd3e53a1a7b9cc89c0e466d246d3d500fa59163600bc732b2866e80b0c16c",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/21.json": "f378fe6c24983059403ab0837d3c76216be5a6c8541dae7fa392ba6a7588418a",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/22.json": "29c2b0873791a232e24a1db92059facec2b5fe4e65406450d9a55bd7eeab5684",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/22.json": "2741b1dc7b9d2012d0cd74932eb969d02268fd4752d4e7c6566541fdc989bd8b",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/26.json": "ea1403b166389355478c180adbaeb858c0ecfb15357fbf49e23f3c8cfcf3a4e4",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/26.json": "2cc547be52471775b11c1132c4954ccc32a0746c2a68b6dc0736b61e080fbe11",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/29.json": "d5bf6be2b8868a6e993cbb1debddb658391f2a5d1bcbbf4a811d39cb028fcd9c",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/29.json": "df0076cdb379a18933eeac151f9ea453bd1fa97d1366ba0f1a3d4c5f525493c2",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/30.json": "a44e1db0c184dc1ebe13c8fcc3d074a9d2b58ca4c1b61e156eb4eb7f79cf9b88",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/30.json": "d30ac89b66e4048b54c6b361a62c7c28e8fd544fdd95e4f66b6e64d46c9fb5f4",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/34.json": "0e0d6e89f99b957b10e7493b5e821272fff51181006ba61362834e167229b786",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/34.json": "e12fe9684e56a3a15385d6eafc0871de33b48be06f81e41954c855958a9c60ac",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/40.json": "44d689fed67bba174212b1c7c212d5bdad9418876937ab465f676565e789a867",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/40.json": "116b34eec069cf4453b5e5c2bd083927c37dcbd615745f816bba1b05770fbca6",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/94.json": "06ab5e8794fd56228ab8b700ee270ba82ca8ab786b3479c618061890ef8e07a3",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/94.json": "acf7c9434cde725aeda40ec3614df8501979778c0a4d9de00eaaf658f566c52e",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/161.json": "7425ac37a8afcbddb31c6a9ac97d573ede972725e1b9642dfb91beb5d9b82f38",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/161.json": "dee0fdb8134c42185dca0923a9cf819e03efca8e75a4bb7282d87b575e814c2c",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/225.json": "0a96355c62ee2bb0338ff0a140510d0834cfb49ea55131658e3cbc1a406163f1",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/225.json": "52769afb9f37aac7fca4a208ee13e8db43f47d0a797f5a9bbd8e22b7046667fa",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/229.json": "b9bcf50fc0ad207e9bdbf56a3f8f7aa8d29a20fa7f864ecf935d92cdd59dde75",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/229.json": "4b4925298cdebdcdf7be4728d8db4dfd2aeddf4d8253a249e7dfcadd52d61c4c",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/235.json": "0a600ced5eba3af6c45660398121b4686f0950a5de60b8632ac8064e934dbaf2",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/235.json": "dad72bf38c906a7f7a24df506e720a7a5403aed6978120ac518823bd11486133",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/249.json": "193836cbcc0e63525e3cd6f777f0867dac9a968cc7811a546cc6676f00cae864",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/249.json": "dfa2e456f3fdf5d6f40ff4a967a2da56f1a236ec2becaae4075e163f6c8308d0",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/281.json": "2a0c0ccc88d3de53603daa646740772196b1bc8f99d1cccdc9f3537b039c1fc2",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/281.json": "a0c87615b49760fc56db07d5bf2b4da99b7c4b813dbb1066294e385019495569",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/291.json": "09591c9418cf4d69bc742f9de488a9a7758a1d5d4bc76c268f8818f873331a43",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/291.json": "a5b76e55f9309344d75c64a802f38b19d4a18d9e003c7dd3def570b418691f75",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/385.json": "2335f6a9cff8c0cf36d5d5d115a8588ecf33b8b81d262c047602e5362c56666a",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/385.json": "7ce66caf10e3060bf68a77885c418c87b06112d86044e7308d8a49db3bcf5124",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/ANSWER/448.json": "f905c7a3105748e2db92d30123f0239cdb2b78284e4e71e50294694786b029cf",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/EVAL/448.json": "7e62afcfec2e99dc97ff26a91b07901e6dcb70bcdc0ac8f119b8a9e40702fe8b",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/2.json": "4d88c7dae8bcfca4877d9ef976408d3e0497dfb9c24cfaa356b04c7444cd4022",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/5.json": "67b544cefd54eb9c9a1c86a8592f699edb14844f8692e6bf18ae3618d0b16aee",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/8.json": "28977a230ae2ce8c1211e39e910a95a23c2fa533f2128fc3792872c62a776ef5",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/21.json": "d401910f19f5383427a413321ce8f87ee4ec9a2de19e5311d8a25e125e285270",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/22.json": "25e8342af5c601fa9f23bb3bc6fe4fae6b5f44e62b72b469db2b44d73298c1dc",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/26.json": "145c1addb7a5dcffdf55965d350fcda78ed06f22eb40eb0f73ca1cfc7e15fb19",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/29.json": "b4a53196a47e3617989aac3456b631a777cafa7dbe285a9d8f983a5ab88974e4",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/30.json": "6800c072c661294b12fa6c885f0a73abdfc26e92abfd6af58187bb67113aae77",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/34.json": "20b45560f19b6bd816d2ca703c095a8efcb40cd5047b8799bd444a2f83ab9953",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/40.json": "b5ff8ea5b410984e8c44843e51608b785ab42fb76f3b5e4135ce39defc19dc3b",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/94.json": "83af1362823117fbc817e323a4eefce14af366f0424afd784c2182edf35ac5c3",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/161.json": "85fc1646b842a017334d8146a11d8be3f15d04ca8ad48b6e770306e38b9e82be",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/225.json": "acbe6165d22e684d151639a366116e85cb22b5cc2b5988955c809e734c1aa13f",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/229.json": "9d7efe15063e91184d1fe64cb4170f8d18b106e126cefa098bf1fefc07a66f0a",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/235.json": "903c31a4391919a665c0c90b8e58080348473df447f4e84f40fe24a67bbb5cb0",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/249.json": "bf0d6bd27415a291d9969a7cbaa074a674d3edb33baad6c18959b0e759385c6e",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/281.json": "d1d988a7afc24bb2a8dfa95f3998597416377dd49ce413bcce9910bd460c23d2",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/291.json": "cf01d347db096215a13971d3c30fa02fdaafee3bb724fc8ad6ad38b74707c0c7",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/385.json": "798f1eeb9d320e0412ee29c3ea77ac8ad68f20e2495599490222adb801814b57",
+    "benchmark_clean_r2/selective_original/gpt-6-luna/PATCH_AUDIT/448.json": "96c3f63c6d37c3183663550fe72cf8d94f2957cee56aab7872ae3aa4964b3eec",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/2.json": "26378c64e0f01562afefe0f7ccd2a2e59ab2975f3fb117626540cee0e7283531",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/2.json": "f22b34a4b2eaac6abadb1dafd859c5c6f18dc9de1e523c5f514b024d41a09c19",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/5.json": "0a611885e1fb8e368a1d6b74006c98b8487c56de791af22bafc66798019830fc",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/5.json": "9efa5f774ba56a7fe79d36743a61a375669e07e13fcf32083df12ad392f410ec",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/8.json": "abf721871d4c785c8677996fcdd8a72f5dc6310782f2ca7a12fdc88a81d2144f",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/8.json": "e2a4eb811c455739f72f38e7d5a7a556dd9b6c2037b239b5d51425841d59b0e0",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/21.json": "9f8bbd964d60dd3898f2b6be5a18043352a98346e3a8a12b45c9788cb79ff2ed",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/21.json": "ddc1ed0afb17c3592c2626a11123358d662e14a22428b85ae67044a6ce460306",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/22.json": "2e2b7f9f7d9a86cbe97806bfd477534832eb875e4da98c58c3f09ff3d1ed3663",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/22.json": "4c9b2295f364fb25e1864587f3de5a7d886a220a92249421a05ccf052d113c64",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/26.json": "065aaa5149736bff88c7250d5e244e61233b155d3c3ec881f3006cb246f3fc75",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/26.json": "0cab19d5f2e7a6549c845fb001d381ec79a893ccab473af76a2ef25406331e20",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/29.json": "d65fdb741f29bc951b1e3bff58950752fd356c5e44dc437209a1063080c09836",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/29.json": "8a5552fa001ea0716c33176c30bb8f0a09bebca0088341893f27ee6b1ca128a9",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/30.json": "93cc14394191cda5610fa23010e14fc12440916196193b2ea5cba5c9c33a3ea7",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/30.json": "309bbbb9450ce03d9dc0fd63702e9ff798dd755adcc24d928d44313b1e9e8011",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/34.json": "8bb1be70b11d014d9035f39ab4a5ffd71a855bd43e1714d7b411e94371f08341",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/34.json": "c8b01aea14a7383ab937d885ba96dea38c2b347fb9a134e4d1fc1f810d1dce47",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/40.json": "a5a5908575276b3045ff36d0395feeff9839d1449784ea592ee1d57e42e06c3d",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/40.json": "d9c226aab89083469bf6a8afc94e57b784b63e89fbbc0d97afcaf950786d792d",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/94.json": "1140f0da43cf45c5b22f521082e661ef0256939f4fa58decfe1ce23c96c9896c",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/94.json": "e9807f136eee938f52553368fede5c5ec098ede061614d19fb2fa76efff2d4f5",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/161.json": "dbaf3a6311506b0619ec63f6b2f6ea6bc23a5bb3594b7015e927cedf0e825ae8",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/161.json": "06f2b795777e323fee9d2fa2dbc6bce3879060b0874c2c81f6ebdafd703e1db5",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/225.json": "8a46060262437d101a359d2256f04b13942ac21457b4d47877f12deba4151084",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/225.json": "34f6aae50b80a9293cbfb3e0fff591016e8c5342bbcc403d1edd0da2045845ee",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/229.json": "c6b1b00d9315b60ec593b061553395bb1b7c0ec7b5238995e2d663a690182655",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/229.json": "1e7220fa83af9b32f4df35ebc0152e286dc1f318e26c518b2bbdbd08e9e92658",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/235.json": "b2acd2bfba7a2f4e3a064047134b334110a1c8e1083a8ce759b1877ba4104c99",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/235.json": "2262f9ddaa4e71fb229bd16b364c2581626c267fbd8da54f6dde59280a8448ca",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/249.json": "4f2bd19d5a6843f4bb9ca0ecc9ba53d5556fd7db6bff805d81df4dce8feeca3d",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/249.json": "68c3620d424adefd0648c256674b48251ae85ce36346ae044661cc98a949a2c6",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/281.json": "28399f858044776fe400ec569472bf11522ea48940fcccd82cb0caaa0601b902",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/281.json": "db0b090069f25444f34659081416d81434066bc664530df1af4909c2ad4fa52a",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/291.json": "6eae324dc9aa519a6a4712df50898e5bc47c99bbf909aab2bdd5ff6c6ddf162d",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/291.json": "1bdcbab8844021d31c88caeea2519076a7b8d1af2f2ebf63bd38e31c5f3e9091",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/385.json": "6f83d2504284c834ef444d28a329c7eec613acf9e7222887a10c35c31da1fb4a",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/385.json": "2f68e7f0d9527efe1bca6c1a55f0a4b2bfa68fb8bec7198d0940b25c7ff7ffa5",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/ANSWER/448.json": "49df5278c4cb963584b0e01b496619901454cf039a2c7799e1266e3668a79034",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/EVAL/448.json": "5f554f62c5c37b5752b0933fba714d809e043854dc53311fb012d3c0c95df4e9",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/2.json": "36fbc2efbdebe9125cd15466c2b4ed92b56844da2ed3a1b1738e62e6d7fb8944",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/5.json": "e9000450b5c35c796be372848576f39053f708cd1454e391953ed4925ceb5892",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/8.json": "fd211f85761597e4fee2795b6594daba424069913f2192575512e37720e6adde",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/21.json": "c4961c2870fe734327a11d3cae3df62287a20eab175b02af604bab6352621cf7",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/22.json": "6bfd7c3ca5ff44cea59428557abb87badd9c404d242b3ac657350297bd10de43",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/26.json": "dc3be59253362c457f5b460eea89258fd36083c18ac2a15408356245b32317fa",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/29.json": "fcc1da8226874222b1dde7fc14f15890f38a35ac8f052eccb5b7bfbeab5c57c1",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/30.json": "84a676e6431ffaa6fe37573603aba508ca0fc3721e19b0dee5700ed30dd1419f",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/34.json": "7fc194d34721a84a050f9d474398dbcf584c6944340ab2f24b7909ff6b284792",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/40.json": "bf47333ad16ee6c29502738f0e46591a3a4353293c0d09d797b1bcba54b67b68",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/94.json": "9a203953586909b9aa0541a9dfb4928193e78e0dc0fd3cc84c5c3fed7fc02010",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/161.json": "c3063d233939f74a827054b4902dbe73e7defa9ffc9f4e1ed916a074e9f9d9ad",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/225.json": "373723cc48474de6051b67e3d37b56972f2a658c14e79d45ad0f337b6580c70c",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/229.json": "183baa18e1bf2df54a40ccf84f38ef8c7d6ca9d370680959f9ccc57901bc783f",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/235.json": "49857cd1375f56dd41deff2a39977484591cd3628cb277ee99798fd1a609de23",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/249.json": "5a19b3d5ee86933d86788b332aa880ebaae09d46eedbb744145f8726decdf082",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/281.json": "9a74ab7cba6a38a4f6e17fcb8a7d0e6a21067be542145d440d3c87b53d392412",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/291.json": "daabcec46ab4272b09a233d597bb8afcfbb9f85c2db308c9fd5a865434e9cf5c",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/385.json": "11ba5bd5dc4ad5680b0bbc7a3141e65212b2e0e85b811a09e548c5a0ca6cc9af",
+    "benchmark_clean_r2/selective_iter3/gpt-6-luna/PATCH_AUDIT/448.json": "e935a3345dd2c850b68ae596b0ff04f3fa2cd0c4129f14a72515c741079bfe83",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/2.json": "38e23994073ec39291a724f27ee485e448669764c1b46bb043fb3ae81ca925e4",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/2.json": "0ffa2602e93d52aee3cd26a61fb06bd3fb162eb94019f9bdfba453a539608979",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/5.json": "bcd6e6da385b0a6c25ef4d3a5f29c079d73bdfcfe7112ee81736ab18f33ac3c6",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/5.json": "7a97cdbb69c308dfd01869f65f270597f6d19f4dac3535185d3d33f94a468106",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/8.json": "bf7c13fc199ec81a66f384c51a399a953b7ed9424e1bc4c1009ca344222a3995",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/8.json": "7537add9edceaa10eaeb37d1dba1354fc4a0a54658b6a2c2b509e6360c337e16",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/21.json": "7022299b3d51e5c3553e6c55d47e736ae175ee5a3bab235ead202178426576c4",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/21.json": "3a728eb90a993b38b0eaf9c31d98d95965b4f446d48053dd8d9664bd5fd94cb0",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/22.json": "0115c0a444883b289aa73ff595082ed40719c85a1c31d00cbc589109afe2c5d2",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/22.json": "2be039878b7b78d02aacf753b50273c7069b83d16f60c6258b40af5bff5b7205",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/26.json": "02e244192c57da1415bd0598bd14076a039571e5850a9d15a07a81b1c101774e",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/26.json": "11672e6efffb5ba31373b138762ac2defee20fe9174928e44bbf341bf62db755",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/29.json": "bd00a5ef710a27ab7e6531c5778f1aec312dd048eaaa67e7a9c829c27593eab2",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/29.json": "bdb6c27a566206cc7caa4e0bc64879ca8faba5b5a4f4e11e08a47449c9281a66",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/30.json": "b965bb08617eac2ea45ae1ab51b237a26d9358b2cabfafbccf07b8a1aa46255f",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/30.json": "70998e4fd74b22b08f392724c9aa747b6b755d5e8eabf654d859bbb485d0ed44",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/34.json": "b7b96f7bbb2e226665d943ba7d2e884185d4df4c2c08879bf36dbfda62ea4eb6",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/34.json": "e62a1b3605d2439e9728f8b5111b69911a74b9bbfe95a3438ff9baf248da5623",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/40.json": "cc6b70cfa61f0d1f8dc0ad3713f30bc8335004aea7a7c64b3ffcf10124523ece",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/40.json": "31d1f918b23b4e1c1d5fb0c9d2a9d695b4b762e5dab10dc098231e27141f4ed1",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/94.json": "9d8785468d2a6fcaade29b5a01e7958e766c4cf49fc63e7415ae1ed117dae3ce",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/94.json": "17f82468618cabb4f8b6ba3fa34dfc1012cc210d52400507423718dd00308d89",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/161.json": "a2580c3acda9f8b9d8a4e05a18c86f61075684ebdc89dab2da128d4eb5679202",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/161.json": "76abea0bb6c7393412e80ad6f437f1148c947f95bfadc6cd847e3f6a6590ed73",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/225.json": "881ce24c8aa5ed39f35b46649773b1de869740c80b1330b310c784be66786a1e",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/225.json": "2d053e1284591945f6b71917a8c0762bbb74f1d59378f09d0497aacc56e41e3e",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/229.json": "df0a89ea26e10febde50a0fd11daf8348c00473d513eaa403d9c22ee3bb06f8f",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/229.json": "40278f83641d1c17ad74206b1529527f094d6edb9587360aa018eab47d3a7b2b",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/235.json": "691924df4cf6b7bc38f2d595b6549d82cb1c9226b944e4247aba25dfb729f8fb",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/235.json": "70670753bcd4485393067aaf69b4523dab77c060a61237b419abae95cac7b17f",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/249.json": "8be26abf1ed69dff96c6bb290223bb74158f1c5720bae728554342af295b7308",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/249.json": "8361113f368e1e068fa35e7b7ca20f8bc422684ef32cb622d705c8fcc4db8188",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/281.json": "47dc4ed2b92960fa2ba27b5442687fa3f9591ce4d16223b98b2868324258dab2",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/281.json": "4887367dc1b26036e129a5ba4244e2f68384b1c0684597032a4e1fab627c4ac7",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/291.json": "5fb7498ff235bf3aef811606999468d262c4b3b8c0748fdab77640875899d4d9",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/291.json": "1ffada24f1ce23c6a5a3000bbc5be3021c96c6ff3a097732ca0384a4e97c7490",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/385.json": "c3be8cd329bae58f9b9bf97f8a2338ad58c4a1e55ef3a68801ac650b724f258c",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/385.json": "61521e929fe5b480a3408c5af501ac0b4ab654e8a549df4d5df64d5588d53995",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/ANSWER/448.json": "5c89517c4d436bee723ff9c3875a2cb0def600f5427c5ad71521e83a8bf449f5",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/EVAL/448.json": "a9d72ab02c9db05a3d77cb6a6629725722e468ef08851da1b28c6cb9fb3ae7e9",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/2.json": "6cdcfe6ea0da7d3708b009da408bf4da211e0a97e9ef4c069e4b4ed1e6f8fb3b",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/5.json": "812eff31900951acf45b3cfade47702bc65bbbef2ac6c7dc42118ed85472fb49",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/8.json": "0ae913608e7b39a4af4f8064a0cb81ddfe0673b6e1d30fce5effda389c4d93c2",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/21.json": "58d13db12201309cd7026285bec5005fb60d676e37acfcfd183c66b15cc55fca",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/22.json": "1349945fd85a969c43e68a59d14ab461b1829e94f3f896528bdc22e07c2c20a1",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/26.json": "95272a64f36db3efe95ceae8ffe52045ee75de2c28f28e22c8a2f4edd67477ca",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/29.json": "d4ee0367b5ed876d91d15ba723a8e47bf9f70e5fd1483fba608fd630b91c2acf",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/30.json": "182184b7aa67d0032efe0436824397ad03d69dc13a59e96ecf4f5ecf8453e6a1",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/34.json": "95b0d0b805d8dda03271d99240acd2bd581d67de356db3d409159b1264ede2cb",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/40.json": "92294b2fb91d1ae5762df8b1e5804f009998dd0bb51fefe961894f5b0037e288",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/94.json": "419b087e800f474ea57f64305da72c482736a012b704d102f0842a6bdcac378b",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/161.json": "0f12ec4948789e3a268fd77cb143a8c938a8a3f1d465abbc830e1314921bbda7",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/225.json": "e1f7379512572f86e249f1adc00a00759e8f7423823869b342c9af191777c61a",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/229.json": "eb21625d43d413d375809906d7315eda059e8308a8160384526b1b6192364778",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/235.json": "cce700c0935f637d6923ea5ccf2cb9b3757616fceed5293122eb079a9e7a7363",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/249.json": "df729675e6f895074ccd20dc40ac8f47ca3e59f01e0c77743933118db549c05f",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/281.json": "a61a57ae7bf67924a4ad7a0d4f79d462cd4f1325ef39640c58630847f2ced50a",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/291.json": "66ad7802127ab21df236a51407d03e614d61ded82a15fe7b0796eef6a7eb91bc",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/385.json": "751bb037529a9b782501d0dec2d287f877db9ac9d6d2f29cc9576b9d94e6b606",
+    "benchmark_clean_r2/selective_iter5/gpt-6-luna/PATCH_AUDIT/448.json": "aa701cf608545bc6d48f2d2f62f3a4c606b3de8ae765a6a0d19b18edb3ae072f",
+    "benchmark_clean_r2/ECS_SELECTIVE.json": "1c0aae341b99861c41039923ef309f50b7aeed06ce167386f4704d3194109c74",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/2.json": "9de878e2ffd1d7807ccc90e78b46198d1b5327e6b14b00b0795e4ab94728701e",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/2.json": "4e6f05300418155dd4ece837196a3eab4831985ef719c8d3b131c22833aa2621",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/5.json": "1a172ebd5350fd919c686ad24f9d3a543cae37a05101ba2d6d019218a299f3b8",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/5.json": "1ec70b0754b347ad2f66e6aba6fa687f10945d1da8d60d30928625e3a4dfc718",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/8.json": "227d3b93775ad8e8a8d0eeccfaf8a9c1a16d98be23006aa82c17261c3d9b0e70",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/8.json": "5a5d0af67d233685f7a1904b66821cc332c28bafec3f706c734c24bbbfbbefe8",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/21.json": "dd43cfb5cb0292026374392e7b6147f82e90152c1401ac9bebc6b5319e0608fb",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/21.json": "6717d803febcc5ae1735995cbd3ea1a55200a5331c94c3b5e97e89109781a160",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/22.json": "a699cec09b41df813f2ec4aea00f6af6b1eecfb3975ea885662e020360666027",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/22.json": "11f04be7d19ff9f3557adecf314ecfd2e367b8c789ca3106872179ed38930dff",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/26.json": "ace47b61ac03fe89ad72e6fca347219838a2d73e8da69480c9179ca7c8492131",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/26.json": "ae36651f169cbe9947dc5d5243ba7b1e5da7cfd47716f927e5a737978016fcc9",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/29.json": "e9f0af04c1a68d394d3483ae80a760fe4c5247a3a524dfb895177ecd29760d97",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/29.json": "511e23b245d1edeae4c6e2c5467986a02831efaf39a8b40619803c9de3284679",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/30.json": "4b7513d0a754ad1c94b8419831bdbefbc808c21d1f53573a5f60689e7c3331a8",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/30.json": "d8e16bb77209b3eaef91034d4aece49632be6b3c74503d4e3054e52b3d8df937",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/34.json": "a8adfc4aaaccfe2a1cd5aa3747ef8cc209514265c88c400156410bbe669c1220",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/34.json": "785dd04d25f75b43a397d1f2c92baf00af8b15f3b797ba0a674cfa3f43d89e33",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/40.json": "b7ac74e3c2315a69df7e631a5551e422f24db6b79dab1156ea8aad2c988e3649",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/40.json": "2fb986d699831e8b89a27ce9c9d8588917fb1d0b99a93f56b1571d2df6c81910",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/94.json": "68ea25ac74b4d91b851fc346d79f6c1a48b56392b5065ea5df99fb3db8a7e89a",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/94.json": "0d72bf7b36650f8d18d176ad0aa583c455f505f2af32c15164767a3cde019846",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/161.json": "d7e1a03d358869affff475acbb893f4c63d7dc80c0bb39114e91f7d200a2c995",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/161.json": "bbc2d175cd6f48f5d816ef362cbadba8bbab0410d465dad695973ae7d29c96f4",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/225.json": "275f7c478a90986702c7b628d0e4d2fbc1c71766c70aae148d22cba2bbeefc8c",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/225.json": "e01ebab4cd76abf73b17f7b1d52f845ed0b496bac553ada7806a214b5f7c74dd",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/229.json": "38bbb456f2dc7e5a3c081e5d8abbae0cc30b4f25108d078e7eaa0c45d1c546f4",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/229.json": "81f8342aff4317323469982728b5e2ccf220f25a2696b56c0118d85ada87196b",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/235.json": "e50da1c182fa66d15bd83e66fa90221a596cb3b96ab8f808ffb04abfc3035b3b",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/235.json": "6fea50cc2de0840a0ce326aafb22ed98e773a885f36382d1347308674e4aca8d",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/249.json": "3fa95d388cc7fc4ed038ba6c1c17ba16ae7947c1df58f38795c2c151fa3f7751",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/249.json": "62f4efdc5087f9f81924e6eecb3b63aa8eb07957c7aaf9aec4c00bddd8def9c9",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/281.json": "112295716fdb8d336fb829c838f390a473d3253245d8b1de94fe8922b8915754",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/281.json": "8c39f4bec4ce1edbda86d6665b57f87c74e965d0ccd8c0e26f4d21c2ad5241e2",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/291.json": "dc475bf61bf6a4f1b3ba830c7d2210ac0b9d3fa0d9887aa88bbba95027730c1e",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/291.json": "159c1da2222e50945a9411ea6ba6e47f15a39b9719f2b83af78b86d6b1bfa22c",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/385.json": "def77f2aa4ca05e6e53f05650026927ae8bb4e873c1576252b3147b2f427d9db",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/385.json": "85aa8bd86cc5f95db5d8da8fb11a09b96b29df08048be090f539192f1c7d52d3",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/ANSWER/448.json": "414616570d672c9226f03f41c9168e3ae39edc9e714843a0c959006e92797775",
+    "benchmark_clean_r2/full_rewrite_original/gpt-6-luna/EVAL/448.json": "5b0ffda40dd1ee92f783af5226add30d7e7f30476660bce09837aafd259842e4",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/2.json": "74ff15ecd18bd05928996d77c934dd737b4c9e576c8bb1aeaa7ed4561d21417a",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/2.json": "3161d7956a447c26a75c5f2cedeb04bef5c0e4396cc6fff4124708f53562ccf8",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/5.json": "053e208e875bafb6ca2b3bfdcaff9b619c0a9a6a12915888eddff2ddac315199",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/5.json": "447bed38fa63652db63c8865dd1669d05a83faf97584c5c2d0b419b13948a503",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/8.json": "5b2a4bd24ad42774883f152533b6be0d6d569683adfb751830df102860051d2c",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/8.json": "7d9cef0c252d9f6e5fd3a4d963c9786efc0cc839b71ba823bfd955c250254564",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/21.json": "6ac215dac9749ff3faba94db784e781cfc13b685d847c9161a557ec8f2eee962",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/21.json": "07580e4bdfa0baf96368489a6aafe586aab294e1ba21feba9059a0880680a04c",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/22.json": "00114d12ecfbefbb4bef426047c747fd1a083d11729a0ff89ef14f2a7be75645",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/22.json": "b3b10f7306d5ad74e463de5e155e8d0682fadeef3dbd1904c881a588f690b917",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/26.json": "d361e13ed0315cb6f06da942cc62edd9f35e729a78bde8424e15eb8f88e4734b",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/26.json": "13d774aa6e7b0fbf27deea66b848a7721e792d373bdd6d70a8c2d6d037c7f267",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/29.json": "3ef051bda1bec5c015a4ec4ba548f8255590e64443b3183030e49f73007bffd9",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/29.json": "9ace9281f2a168790cf195e92e9878c6ac3400069c95125f281bccf1b2969292",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/30.json": "61c514bb2193c2524ede45c67bdf884cbba0b7a98bf8afb6df03d8854d971253",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/30.json": "5d057a3bc14c83af526aead3ef9378bc748a63bd35f66d6120e98826c3922150",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/34.json": "e5e850d3c128224fa17af84e54bf34f6744f3b1b3f3807848e3355a133f394bb",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/34.json": "b9c61ca91920f3007208e81186c23b897ba05557e03dd761aea02fa0abc78fea",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/40.json": "24688c187499f3db323d6863384e8d4313eb7542af93dad8fff493280b0cca1f",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/40.json": "87ddab11bbf483826034ac45dbc6739b4523aa0ab8485f73a6595e1ddadfaf0a",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/94.json": "09ace856b4fdd358c32fd8aeacf7e23a7d707d793080ffbad323afa2ae754cf6",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/94.json": "d3ee94fd2961651284d3a4ec919f820b432fd244d53a86072ce9726a71f9c23b",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/161.json": "afeffaf30163d955a8e978ef86e8befdb16f66169c5fc1d086e6ba18e47c9fbb",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/161.json": "230a32f187c0827eceaf667f33b5aa3200663c228e74058e98b24e0ad8addbbe",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/225.json": "44c271bba704932411f153404006ad3e622a5a3d8742b3357680cf13ec70fb66",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/225.json": "c9daec456010f41619895ea61255dd555b1629bb5ad6d3b8079defda1b516c87",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/229.json": "a9c84058a0109bb885b3c01c35a396264f58ce7762f5837e51781b3ac3c3889f",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/229.json": "34da965e19b325389beec4b9016fd191ec37d7afe9476786fafd371888cce3e8",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/235.json": "739413432deacc79dc480c93619727945d17688d2bb775292d5e84d1f6520ea1",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/235.json": "1fd016ddca2a4882e0cb6227ecad4dd195d7d84a396acf95079f174f7897a557",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/249.json": "ee84cef6530e9cb7d90894b2bb482c6048d8b5db538cfd8d377789f18d59b87b",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/249.json": "da5fe7ac211d67b995f5a2f9f2360802d3d9d345eea8b838072e3a4de88d6ff1",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/281.json": "fc7822d069bf2ff4e1119a6fe9135434150f3f02491281e88e5a96848d86e3af",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/281.json": "4b2036f61b2c5e2313e63d7a24716aa75b4a5c243e358d9cf68482376889a20b",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/291.json": "699f02216e6d5bcd84ecaca544b960bd215612ee6f60e14f9e66876bce1b92de",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/291.json": "2836b74fa28157914ca0b6ee632076a093d904bfd97aeae4366cf729098c29ce",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/385.json": "d0ce3bfe756b07d3f25dd4ce674b9aaa006c61a7b16baa96b14f16fe6e25b520",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/385.json": "c6e85bcb3ff3196d3f54cc3f2cfa2f69a7c0e8697f636641f815af15c758e0d7",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/ANSWER/448.json": "ca9f36c562501d1d0b7320f3aed2084e8252c7cda278a3ecbd729421dcedf36e",
+    "benchmark_clean_r1/full_rewrite_iter3/gpt-6-luna/EVAL/448.json": "9be016ee3433517f398291796cb6f864630eae7ff8fa573f1f1769f95d93217d",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/2.json": "bbd477ffced101917138f703b0704393862f0b948f8b70cb3bf5ba219080069a",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/2.json": "f69f985712d8c40ae97d982e64c8ec8024b77e9348ad208957dada7573c83b0f",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/5.json": "f0758074fb6c2dcf6d26aae52cf5326f06aeccaaeb89bd4e51808570329f468e",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/5.json": "aab64be5527d983ab27f349ca96101c35b0326cf0e00c8c9ff7c5966701d83e8",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/8.json": "27a756e5fd9fa4a83e344d6f55a4c9c71078ca115cd67272986c2d6665da0c88",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/8.json": "c9da134ed3d118a349c7176749a4216199277a94835f53764eecfcc54fcc0dfa",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/21.json": "7e1aa66ae7226a5928d9cc9e0d66b2da145b1749205883547fecfa79d9d8b42a",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/21.json": "7a1cc832a103d9a80cb2ecb48eb91f1b1eb15c8088afda0dcc25b94ccc175eb8",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/22.json": "bfbd24388f42052a811d5ef67549c12ac57de1e9d93ec8549d89733d263631e6",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/22.json": "7fcddfd7c7108de1f466cfce08b6432528835bd2ada6e8640a466aa0bbbd1891",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/26.json": "42b8f95ed5bf40d20b779f168b8187f68820745b697738b6bd6f05cba1fb62ae",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/26.json": "272d9ba4a4dc4d8a190d6e00293a33a47cfb3136b00dc6f08daaf63b5b86d41b",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/29.json": "b55d5e99ad6724fb8ce52c46de9cbc86e85a12a0354514dd0c1ffe0e88fb8c5f",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/29.json": "540803287f411aa3b00fa150f0aa4c5d4bb1542def13dfe8dfb8041e4eac0ebd",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/30.json": "de9cc35c73fca461dcf92b17201d9eb4cb1f7facc1b7b9baf690034361f77ce1",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/30.json": "e8f438dfb4efb869ee3e8bc47d5c5668b2e113b45a8359229195e064a0d67423",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/34.json": "a6a3a56a5166b26a9ad19573b24378b435533eb61d0aed28d6de24d863af06f2",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/34.json": "aadac452fc0e4d145e1d3b6c42ecbc60d2f920f6bdfee0d200e3f4abec97f0ee",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/40.json": "3c3550034c89e9c7ca23f9bce5130a750c4a673490c86d41d4ad355578069181",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/40.json": "e6712e02f7b6319be546d2bc6b84f177cf98199e603f96aa27313bb31b6e1ce0",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/94.json": "5b99fa182baee0ad173125036274cb855e83778a691bd63725267856795f9863",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/94.json": "40dd67726bf593ea0075521c0d422651941c2bff093fc8f7370f25da9e66963b",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/161.json": "2b97ffb14a144806803aaa40aeef79c966673977ce3c26afba090c54cda01027",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/161.json": "f7eadc96f1f5d80661a6cc5e87eedafeb3fccaffd8df9b9ab48140d28176fa5f",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/225.json": "1206936b1ec8b733600d014b0e0831fe862bac667ff92f57b4c25201499f7d1e",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/225.json": "7440fd66705815e1dd7736a6e968c6cdf270fb5e0bba801931e246f95e9abe4d",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/229.json": "eb803ae73f60b96053b30951558ad71eb9411ed8b180544abe69d05319f90748",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/229.json": "bd4f89a6c86497d82c75b6533f258497bf2ae7e312d493862c93ece702c27b8e",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/235.json": "3048c985f94cad95379726cf549c21a25eb1c3636d954aea134fb53fda440d6e",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/235.json": "c304b6f5ffb0cc01f02d06a7a26f4320d11ed6bc76b7db14a959905dc4ec8905",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/249.json": "1f81ca51b857c4d4612b2d361dca6d235bd715d168561f2046ab4ab99f031c3d",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/249.json": "be515afac8b8f9546dd5b53259b0660e4c4846ebf98f8c5dd793264fac872b26",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/281.json": "fda330e206e33574ba2e1e735307d5301f4c4fd0191382dba9c6d2b9570f130e",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/281.json": "f61d4f71f176c3390356b4a3a7468e02255cdaf8f57b0dd6251c7de9f3bb18cd",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/291.json": "3f1c3e54763dd5f785f31c82596f98dd69692bc2c13986dcc25a8a0caa229559",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/291.json": "ad092bfeb5652b2a4ab749c9895d0137f5c2d9f3160766ebd805ad0c82bb676e",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/385.json": "e6f5d3b4ff4a0304b9b0e14afa3e62763c596389ba037e06b25dcb385d13ebd4",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/385.json": "f289ba0154b9f7f04e79d007ffe7bef2d73bb6a4ebb0adbced2b36ff4e2fdbbb",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/ANSWER/448.json": "aa6747b93d8a92ccf2f7c6fa845482eec38213a18fb5fd56812947ecdf891907",
+    "benchmark_clean_r1/full_rewrite_iter5/gpt-6-luna/EVAL/448.json": "476ca96c960da86ec4fce80d98d13f12a8eef55cf4046b40f5f35e99a0145cdb",
+    "benchmark_clean_r2/ECS_FULL_REWRITE.json": "d6666f7604edbdac15b3c89248f1c8a163d25161a171249861b6c9665a748020"
+  }
+}

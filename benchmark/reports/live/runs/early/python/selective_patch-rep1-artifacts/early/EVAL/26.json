@@ -1,0 +1,379 @@
+{
+  "response": "```xml\n<response>\n  <workflow_analysis>\n    The user’s scenario involves checking the weather forecast for a planned outdoor photo session and then saving the planning notes as a project with tasks. This requires using the weather server to fetch the forecast for the target location, and then using the project‑management server to create a project and add tasks based on that forecast.\n  </workflow_analysis>\n  <target_servers>\n    <server name=\"mcp-weather-demo\">\n      <tool>get-forecast</tool>\n    </server>\n    <server name=\"@pimzino/agentic-tools-mcp\">\n      <tool>create_project</tool>\n      <tool>create_task</tool>\n    </server>\n  </target_servers>\n  <question>\n    I'm planning to do an outdoor photo shoot near Los Angeles (34.05, -118.24) later this week.  \n    Can you check what the weather looks like there, and based on that, create a new project in my workspace for the shoot along with a task reminding me to prepare the appropriate gear depending on the forecast?\n  </question>\n</response>\n```",
+  "question": "I'm planning to do an outdoor photo shoot near Los Angeles (34.05, -118.24) later this week.  \n    Can you check what the weather looks like there, and based on that, create a new project in my workspace for the shoot along with a task reminding me to prepare the appropriate gear depending on the forecast?",
+  "tool_calls": [
+    {
+      "tool_name": "get-forecast",
+      "parameters": {}
+    },
+    {
+      "tool_name": "create_project",
+      "parameters": {}
+    },
+    {
+      "tool_name": "create_task",
+      "parameters": {}
+    }
+  ],
+  "servers": {
+    "mcp-weather-demo": [
+      "get-forecast"
+    ],
+    "@pimzino/agentic-tools-mcp": [
+      "create_project",
+      "create_task"
+    ]
+  },
+  "answer": "The forecast for **34.05, -118.24** shows mild-to-warm weather, generally sunny or partly sunny, with light winds and some patchy fog. The forecast response was truncated after Thursday began, so check it again nearer to your shoot.\n\nI created the project **“Los Angeles Outdoor Photo Shoot — Late October 2026”** and added **“Prepare shoot gear for forecast.”** The task reminds you to bring sun protection and water, a light layer, and gear protection for fog or dampness—and to recheck the forecast before heading out.",
+  "trajectory_messages": [
+    {
+      "role": "system",
+      "content": "You are an AI agent connected to the MCP (Model Context Protocol) server. Based on the user's request, select and invoke tools to fulfill the task accurately and efficiently. \nNote that do not to ask any questions to the user, just call the tool to complete the task.\n\nConsidering real-time performance, the time is set to be around `2026-10-27 (星期二)`.\n\nThese files are stored in the local file system and serve as relevant resources for tool utilization. Use the absolute resource directory \"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path\" for the following files:\n`anotation_path/\n  code/\n    log_analysis.py\n    new_aggregator.py\n  csv/\n    customers-100.csv\n    products-100.csv\n  excel/\n    goods.xlsx\n    Local_Electronic_Sales.xlsx\n    people_data.xlsx\n  figs/\n  files/\n  html/\n    time.html\n  markdown/\n    work.md\n  music/\n    mixkit-retro-game-emergency-alarm-1000.wav\n  pdf/\n    embodied_ai_papers/\n      PaLM-E, An Embodied Multimodal Language Model, Danny Driess et al., 2023, v1_compressed.pdf\n      RT-2, Vision-Language-Action Models Transfer Web Knowledge to Robotic Control, Anthony Brohan et al., 2023, v1_compressed.pdf\n      Voyager, An Open-Ended Embodied Agent with Large Language Models, Guanzhi Wang et al., 2023, v2_compressed.pdf\n    WebArena.pdf\n  picture/\n    clock.png\n  ppt/\n    build_effective_agents.pptx\n  tasks/\n    ableton_crash_log_analysis.md\n    log_analysis_improvement.md\n  txt/\n    Android.txt\n    log_today.txt\n    log_yesterday.txt\n    paper_list.bib\n  word/\n    CV.docx\n    exchange.docx\n    Report_Card.docx\n  llms-full.txt`\n\nDatabase Configuration (if applicable):\n- Host: 127.0.0.1\n- Port: 3305\n- User: root\n- Password: 123456\n- Database Name: mydb\n"
+    },
+    {
+      "role": "user",
+      "content": "I'm planning to do an outdoor photo shoot near Los Angeles (34.05, -118.24) later this week.  \n    Can you check what the weather looks like there, and based on that, create a new project in my workspace for the shoot along with a task reminding me to prepare the appropriate gear depending on the forecast?"
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_S2soFZyAkCXjtRk3rzevgrSU",
+          "function": {
+            "arguments": "{\"latitude\": 34.05, \"longitude\": -118.24}",
+            "name": "get-forecast"
+          },
+          "type": "function"
+        },
+        {
+          "id": "call_qMMUDAuv2zvdBXPlf1nflfNg",
+          "function": {
+            "arguments": "{\"name\": \"Los Angeles Outdoor Photo Shoot\", \"description\": \"Plan and prepare for an outdoor photo shoot near Los Angeles at coordinates 34.05, -118.24 later this week. Check the forecast and tailor gear preparation to expected weather.\", \"workingDirectory\": \"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path\"}",
+            "name": "create_project"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_S2soFZyAkCXjtRk3rzevgrSU",
+      "content": "[TextContent(type='text', text='Forecast for 34.05, -118.24:\\n\\nToday:\\nTemperature: 80°F\\nWind: 0 to 10 mph WSW\\nSunny\\n---\\nTonight:\\nTemperature: 57°F\\nWind: 0 to 10 mph SE\\nMostly Clear\\n---\\nTuesday:\\nTemperature: 77°F\\nWind: 5 to 10 mph SSE\\nMostly Sunny\\n---\\nTuesday Night:\\nTemperature: 57°F\\nWind: 5 mph SSE\\nPatchy Fog\\n---\\nWednesday:\\nTemperature: 76°F\\nWind: 5 mph SE\\nPatchy Fog then Partly Sunny\\n---\\nWednesday Night:\\nTemperature: 57°F\\nWind: 0 to 5 mph SSE\\nMostly Cloudy\\n---\\nThu..."
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_qMMUDAuv2zvdBXPlf1nflfNg",
+      "content": "[TextContent(type='text', text='Error: A project with the name \"Los Angeles Outdoor Photo Shoot\" already exists. Please choose a different name.', annotations=None, meta=None)]..."
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_dkiyAjtWMZ4hXI1fhajij1sq",
+          "function": {
+            "arguments": "{\"name\":\"Los Angeles Outdoor Photo Shoot — Late October 2026\",\"description\":\"Plan and prepare for an outdoor photo shoot near Los Angeles at coordinates 34.05, -118.24 later this week. Forecast indicates mild to warm conditions with sun/partial sun and some patchy fog; prepare adaptable camera and personal gear accordingly.\",\"workingDirectory\":\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path\"}",
+            "name": "create_project"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_dkiyAjtWMZ4hXI1fhajij1sq",
+      "content": "[TextContent(type='text', text='✅ Project created successfully!\\n\\n**Los Angeles Outdoor Photo Shoot — Late October 2026** (ID: ca6356f7-6ab0-4334-8994-e45f0ba9ae8a)\\nDescription: Plan and prepare for an outdoor photo shoot near Los Angeles at coordinates 34.05, -118.24 later this week. Forecast indicates mild to warm conditions with sun/partial sun and some patchy fog; prepare adaptable camera and personal gear accordingly.\\nCreated: 10/27/2026, 2:34:17 AM\\n\\nYou can now add tasks to this proje..."
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_hONNNGmSOl0SPU8ZrGDMXLJY",
+          "function": {
+            "arguments": "{\"projectId\":\"ca6356f7-6ab0-4334-8994-e45f0ba9ae8a\",\"workingDirectory\":\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path\",\"name\":\"Prepare shoot gear for forecast\",\"details\":\"Before heading out later this week, check the latest forecast and pack accordingly. Current outlook for the Los Angeles area is mild to warm (roughly mid-70s to 80°F) and mostly sunny/partly sunny, with patchy fog at times and light winds. Bring camera body, lenses, spare batteries and memory cards; pack sun protection and water, a light layer for cooler mornings/evenings, lens cloth and a weather-protective cover in case fog or dampness affects equipment. Recheck the forecast close to shoot time and adjust.\",\"priority\":7,\"complexity\":2,\"estimatedHours\":0.5,\"tags\":[\"photo-shoot\",\"gear\",\"weather\"]}",
+            "name": "create_task"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_hONNNGmSOl0SPU8ZrGDMXLJY",
+      "content": "[TextContent(type='text', text='✅ Task created successfully!\\n\\n**→ Prepare shoot gear for forecast** (ID: afa97cf6-ad4d-488c-aa2d-56854ebcae3e)\\nTop-level task\\nProject: Los Angeles Outdoor Photo Shoot — Late October 2026\\nLevel: 0 (Top-level)\\nPath: Los Angeles Outdoor Photo Shoot — Late October 2026 → Prepare shoot gear for forecast\\n\\n📋 **Task Details:**\\n• Details: Before heading out later this week, check the latest forecast and pack accordingly. Current outlook for the Los Angeles area is..."
+    },
+    {
+      "content": "The forecast for **34.05, -118.24** shows mild-to-warm weather, generally sunny or partly sunny, with light winds and some patchy fog. The forecast response was truncated after Thursday began, so check it again nearer to your shoot.\n\nI created the project **“Los Angeles Outdoor Photo Shoot — Late October 2026”** and added **“Prepare shoot gear for forecast.”** The task reminds you to bring sun protection and water, a light layer, and gear protection for fog or dampness—and to recheck the forecast before heading out.",
+      "role": "assistant",
+      "annotations": []
+    }
+  ],
+  "stop": true,
+  "exceeded": false,
+  "idx": 26,
+  "eval_result": {
+    "runs": [
+      {
+        "dimension_order": [
+          2,
+          0,
+          1
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "There are 3 distinct requirements: check the weather at the specified location, create a project in the workspace, and create a gear-preparation task based on the forecast. All 3 were met: the forecast tool was called with the requested coordinates, the project was successfully created, and a forecast-informed task was added to that project. Defects: 0/3 = 0%.",
+          "grounding_reasoning": "There are 12 factual claims in the final response: the location, the weather summary (mild-to-warm, sunny/partly sunny, light winds, patchy fog), the forecast truncation, the created project and task names, and the task's gear reminders (sun protection and water, a light layer, gear protection, and rechecking the forecast). All 12 are supported by the tool outputs. Unsupported claims: 0/12 = 0%.",
+          "planning_efficiency_reasoning": "There were 4 tool calls: one forecast lookup, two project-creation attempts, and one task-creation call. The first project attempt failed because that name already existed; the agent changed the name and successfully recovered. No call repeated a successful action, was unrelated to a sub-goal, or retried with unchanged parameters. Redundant/unnecessary calls: 0/4 = 0%.",
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        }
+      },
+      {
+        "dimension_order": [
+          2,
+          0,
+          1
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "There are 3 explicit requirements: check the weather at the given location, create a new project, and add a task reminding the user to prepare gear based on the forecast. All 3 were met: the forecast was requested at the specified coordinates, a project was successfully created after the first name was found to already exist, and a weather-informed gear task was added to that project. Defect rate: 0/3 = 0%.",
+          "grounding_reasoning": "The final response contains 12 atomic claims: the forecast summary and truncation, project creation and name, task creation, and the gear reminders. All 12 are supported by the forecast output or the successful project/task tool results. Defect rate: 0/12 = 0%.",
+          "planning_efficiency_reasoning": "There were 4 tool calls total: one forecast request, two project-creation attempts, and one task-creation call. The first project attempt failed because that name already existed; the agent changed the name and successfully recovered. No call was redundant, unnecessary, or retried without changing parameters. Defect rate: 0/4 = 0%.",
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        }
+      },
+      {
+        "dimension_order": [
+          2,
+          1,
+          0
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "Total requirements: 3 — check the weather at the specified location, create a project for the shoot, and add a task to prepare forecast-appropriate gear. Met: 3/3 (100%); defect rate: 0/3 = 0%.",
+          "grounding_reasoning": "Total atomic claims: 12 — the forecast summary and truncation note, the project and task creation, and the gear reminders. Unsupported claims: 0/12; defect rate: 0%.",
+          "planning_efficiency_reasoning": "Total tool calls: 4. Redundant or unnecessary calls: 0/4. The first project creation failed because that name already existed; the agent recovered by changing the name before retrying. Defect rate: 0%.",
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        }
+      },
+      {
+        "dimension_order": [
+          1,
+          0,
+          2
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "There were 3 explicit requirements: check the weather at the specified location, create a project in the workspace, and add a task reminding the user to prepare gear based on the forecast. All 3 were completed: the forecast was retrieved, the project was successfully created after the first name was found to already exist, and a forecast-informed gear-preparation task was added. Defect rate: 0/3 = 0%.",
+          "grounding_reasoning": "Counted 12 atomic claims in the final response: the location and general weather conditions, the forecast truncation and recommendation to recheck, the project and task creation and names, and the gear reminders. All are supported by the forecast output, successful creation results, or task details supplied in the successful task call. Unsupported claims: 0/12. Defect rate: 0%.",
+          "planning_efficiency_reasoning": "There were 4 tool calls: one forecast lookup, two project-creation attempts, and one task-creation call. The first project attempt failed because that name already existed; the agent changed the name and successfully recovered. No calls repeated a successful action or were unnecessary based on the information available at the time. Redundant/unnecessary calls: 0/4. Defect rate: 0%.",
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        }
+      },
+      {
+        "dimension_order": [
+          2,
+          0,
+          1
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "There are 4 distinct requirements: check the forecast for the specified location, convey the weather, create a shoot project, and create a project task reminding the user to prepare gear based on the forecast. All 4 were met, so the defect rate is 0/4 = 0%.",
+          "grounding_reasoning": "There are 12 factual claims in the final response: the location, weather summary, forecast truncation, project name and creation, task name and creation, and the gear and recheck reminders. All are supported by the forecast or successful tool results, so the defect rate is 0/12 = 0%.",
+          "planning_efficiency_reasoning": "There were 4 tool calls total: one forecast lookup, two project-creation attempts, and one task-creation call. The first project attempt failed because that name already existed; the agent changed the name and successfully recovered. No calls were redundant, unnecessary, or retried without parameter changes, so the defect rate is 0/4 = 0%.",
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        }
+      }
+    ],
+    "aggregate": {
+      "successful_runs": 5,
+      "total_runs": 5,
+      "task_fulfillment_mean": 10.0,
+      "grounding_mean": 10.0,
+      "planning_and_efficiency_mean": 10.0,
+      "task_fulfillment_reasoning_runs": [
+        "There are 3 distinct requirements: check the weather at the specified location, create a project in the workspace, and create a gear-preparation task based on the forecast. All 3 were met: the forecast tool was called with the requested coordinates, the project was successfully created, and a forecast-informed task was added to that project. Defects: 0/3 = 0%.",
+        "There are 3 explicit requirements: check the weather at the given location, create a new project, and add a task reminding the user to prepare gear based on the forecast. All 3 were met: the forecast was requested at the specified coordinates, a project was successfully created after the first name was found to already exist, and a weather-informed gear task was added to that project. Defect rate: 0/3 = 0%.",
+        "Total requirements: 3 — check the weather at the specified location, create a project for the shoot, and add a task to prepare forecast-appropriate gear. Met: 3/3 (100%); defect rate: 0/3 = 0%.",
+        "There were 3 explicit requirements: check the weather at the specified location, create a project in the workspace, and add a task reminding the user to prepare gear based on the forecast. All 3 were completed: the forecast was retrieved, the project was successfully created after the first name was found to already exist, and a forecast-informed gear-preparation task was added. Defect rate: 0/3 = 0%.",
+        "There are 4 distinct requirements: check the forecast for the specified location, convey the weather, create a shoot project, and create a project task reminding the user to prepare gear based on the forecast. All 4 were met, so the defect rate is 0/4 = 0%."
+      ],
+      "grounding_reasoning_runs": [
+        "There are 12 factual claims in the final response: the location, the weather summary (mild-to-warm, sunny/partly sunny, light winds, patchy fog), the forecast truncation, the created project and task names, and the task's gear reminders (sun protection and water, a light layer, gear protection, and rechecking the forecast). All 12 are supported by the tool outputs. Unsupported claims: 0/12 = 0%.",
+        "The final response contains 12 atomic claims: the forecast summary and truncation, project creation and name, task creation, and the gear reminders. All 12 are supported by the forecast output or the successful project/task tool results. Defect rate: 0/12 = 0%.",
+        "Total atomic claims: 12 — the forecast summary and truncation note, the project and task creation, and the gear reminders. Unsupported claims: 0/12; defect rate: 0%.",
+        "Counted 12 atomic claims in the final response: the location and general weather conditions, the forecast truncation and recommendation to recheck, the project and task creation and names, and the gear reminders. All are supported by the forecast output, successful creation results, or task details supplied in the successful task call. Unsupported claims: 0/12. Defect rate: 0%.",
+        "There are 12 factual claims in the final response: the location, weather summary, forecast truncation, project name and creation, task name and creation, and the gear and recheck reminders. All are supported by the forecast or successful tool results, so the defect rate is 0/12 = 0%."
+      ],
+      "planning_efficiency_reasoning_runs": [
+        "There were 4 tool calls: one forecast lookup, two project-creation attempts, and one task-creation call. The first project attempt failed because that name already existed; the agent changed the name and successfully recovered. No call repeated a successful action, was unrelated to a sub-goal, or retried with unchanged parameters. Redundant/unnecessary calls: 0/4 = 0%.",
+        "There were 4 tool calls total: one forecast request, two project-creation attempts, and one task-creation call. The first project attempt failed because that name already existed; the agent changed the name and successfully recovered. No call was redundant, unnecessary, or retried without changing parameters. Defect rate: 0/4 = 0%.",
+        "Total tool calls: 4. Redundant or unnecessary calls: 0/4. The first project creation failed because that name already existed; the agent recovered by changing the name before retrying. Defect rate: 0%.",
+        "There were 4 tool calls: one forecast lookup, two project-creation attempts, and one task-creation call. The first project attempt failed because that name already existed; the agent changed the name and successfully recovered. No calls repeated a successful action or were unnecessary based on the information available at the time. Redundant/unnecessary calls: 0/4. Defect rate: 0%.",
+        "There were 4 tool calls total: one forecast lookup, two project-creation attempts, and one task-creation call. The first project attempt failed because that name already existed; the agent changed the name and successfully recovered. No calls were redundant, unnecessary, or retried without parameter changes, so the defect rate is 0/4 = 0%."
+      ],
+      "task_fulfillment": 10,
+      "grounding": 10,
+      "planning_and_efficiency": 10
+    },
+    "judge_metadata": {
+      "integration_version": "ai6101-judge/1",
+      "model": "gpt-6-luna",
+      "requested_temperature": 0.0,
+      "max_tokens": 65536,
+      "num_runs": 5,
+      "tool_context_source": "saved_involved_tools",
+      "rubric_sha256": "59ede33bfddfe91138d07ac97fcac9e16b64fad99c13d58d85990944e6649bee"
+    },
+    "task_fulfillment": 10,
+    "grounding": 10,
+    "planning_and_efficiency": 10
+  },
+  "forced_finalization": false,
+  "involved_tools": [
+    {
+      "name": "get-forecast",
+      "description": "Get weather forecast for a location",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false,
+        "properties": {
+          "latitude": {
+            "description": "Latitude of the location",
+            "maximum": 90,
+            "minimum": -90,
+            "type": "number"
+          },
+          "longitude": {
+            "description": "Longitude of the location",
+            "maximum": 180,
+            "minimum": -180,
+            "type": "number"
+          }
+        },
+        "required": [
+          "latitude",
+          "longitude"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "create_project",
+      "description": "Launch new projects with structured organization and detailed documentation. Establishes a solid foundation for task management with Git-trackable project data, enabling seamless collaboration and progress tracking across your development workflow.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "description": "A detailed description of the project",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the new project",
+            "type": "string"
+          },
+          "workingDirectory": {
+            "description": "The full absolute path to the working directory where data is stored. MUST be an absolute path, never relative. Windows: \"C:\\Users\\username\\project\" or \"D:\\projects\\my-app\". Unix/Linux/macOS: \"/home/username/project\" or \"/Users/username/project\". Do NOT use: \".\", \"..\", \"~\", \"./folder\", \"../folder\" or any relative paths. Ensure the path exists and is accessible before calling this tool. NOTE: When server is started with --claude flag, this parameter is ignored and a global user directory is used instead.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "workingDirectory",
+          "name",
+          "description"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "create_task",
+      "description": "Transform project goals into actionable, trackable tasks with advanced features including dependencies, priorities, complexity estimation, and workflow management. Build structured workflows that break down complex projects into manageable components with unlimited hierarchy depth.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false,
+        "properties": {
+          "complexity": {
+            "description": "Estimated complexity/effort (1-10, where 10 is most complex)",
+            "maximum": 10,
+            "minimum": 1,
+            "type": "number"
+          },
+          "dependsOn": {
+            "description": "Array of task IDs that must be completed before this task",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "details": {
+            "description": "Detailed description of what the task involves",
+            "type": "string"
+          },
+          "estimatedHours": {
+            "description": "Estimated time to complete in hours",
+            "minimum": 0,
+            "type": "number"
+          },
+          "name": {
+            "description": "The name/title of the new task",
+            "type": "string"
+          },
+          "parentId": {
+            "description": "Parent task ID for unlimited nesting (optional - creates top-level task if not specified)",
+            "type": "string"
+          },
+          "priority": {
+            "description": "Task priority level (1-10, where 10 is highest priority)",
+            "maximum": 10,
+            "minimum": 1,
+            "type": "number"
+          },
+          "projectId": {
+            "description": "The ID of the project this task belongs to",
+            "type": "string"
+          },
+          "status": {
+            "description": "Initial task status (defaults to pending)",
+            "enum": [
+              "pending",
+              "in-progress",
+              "blocked",
+              "done"
+            ],
+            "type": "string"
+          },
+          "tags": {
+            "description": "Tags for categorization and filtering",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "workingDirectory": {
+            "description": "The full absolute path to the working directory where data is stored. MUST be an absolute path, never relative. Windows: \"C:\\Users\\username\\project\" or \"D:\\projects\\my-app\". Unix/Linux/macOS: \"/home/username/project\" or \"/Users/username/project\". Do NOT use: \".\", \"..\", \"~\", \"./folder\", \"../folder\" or any relative paths. Ensure the path exists and is accessible before calling this tool. NOTE: When server is started with --claude flag, this parameter is ignored and a global user directory is used instead.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "workingDirectory",
+          "name",
+          "details",
+          "projectId"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "harness_strategy": "selective_patch",
+  "source_version": "early",
+  "stage": "early",
+  "run_id": "mcpevol-live-early",
+  "judge_version": "ai6101-judge/1"
+}

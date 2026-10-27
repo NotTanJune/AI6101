@@ -22,6 +22,7 @@
 
 pub mod anim;
 pub mod app;
+mod artifacts;
 pub mod bridge;
 pub mod commands;
 pub mod completion;

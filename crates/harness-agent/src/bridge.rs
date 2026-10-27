@@ -30,6 +30,7 @@ pub struct BlockingProvider {
     spec: ModelSpec,
     effort: Effort,
     handle: Handle,
+    cancellation: CancellationToken,
 }
 
 impl std::fmt::Debug for BlockingProvider {
@@ -54,7 +55,17 @@ impl BlockingProvider {
             spec,
             effort,
             handle,
+            cancellation: CancellationToken::new(),
         }
+    }
+
+    /// Cancel pending adaptation calls with the owning session.
+    ///
+    /// The bridge stops waiting even if the client ignores cancellation. A request
+    /// already sent may still be billed, so cancellation preserves its cost reservation.
+    pub fn with_cancellation(mut self, token: CancellationToken) -> Self {
+        self.cancellation = token;
+        self
     }
 }
 
@@ -70,8 +81,8 @@ fn map_error(error: ModelError) -> ProviderError {
         ModelError::InvalidResponse(message) => ProviderError::InvalidResponse(message),
         ModelError::Mock(message) => ProviderError::Mock(message),
         // A cancelled call may already have been billed, so report it as billing-uncertain
-        // (core keeps the reservation against the cap). The bridge never cancels its own calls;
-        // this only matters for a client that returns `Cancelled` on its own.
+        // (core keeps the reservation against the cap). This covers both external
+        // session cancellation and a client that returns `Cancelled` on its own.
         ModelError::Cancelled => ProviderError::InvalidResponse(
             "model call cancelled before a response was received".to_owned(),
         ),
@@ -93,6 +104,9 @@ impl Provider for BlockingProvider {
     }
 
     fn complete(&mut self, req: &CompletionRequest) -> Result<CompletionResponse, ProviderError> {
+        if self.cancellation.is_cancelled() {
+            return Err(map_error(ModelError::Cancelled));
+        }
         let history = [Item::User {
             text: req.user.clone(),
         }];
@@ -109,7 +123,13 @@ impl Provider for BlockingProvider {
         let (tx, _rx) = unbounded_channel();
         let response = self
             .handle
-            .block_on(self.client.send(request, tx, CancellationToken::new()))
+            .block_on(async {
+                tokio::select! {
+                    biased;
+                    () = self.cancellation.cancelled() => Err(ModelError::Cancelled),
+                    response = self.client.send(request, tx, self.cancellation.clone()) => response,
+                }
+            })
             .map_err(map_error)?;
         let has_usage =
             response.usage.input.is_some() || response.usage.output_including_reasoning.is_some();

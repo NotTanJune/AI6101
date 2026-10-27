@@ -95,6 +95,31 @@ fn mcp_config_parses_standard_shape_and_validates() {
     assert!(McpConfig::from_json_str("not json").is_err());
 }
 
+#[test]
+fn mcp_config_canary_requires_explicit_opt_in_and_redacts_reset_arguments() {
+    let config = McpConfig::from_json_str(
+        r#"{"mcpServers": {
+        "safe": {"command": "server", "canary": {
+            "isolated": true, "reset_tool": "reset",
+            "reset_arguments": {"token": "secret-reset-value"}
+        }},
+        "default": {"command": "server", "canary": {}},
+        "absent": {"command": "server"}
+    }}"#,
+    )
+    .expect("parse canary contract");
+    let safe = config.servers["safe"].canary.as_ref().unwrap();
+    assert!(safe.isolated);
+    assert_eq!(safe.reset_tool, "reset");
+    assert_eq!(safe.reset_arguments, json!({"token": "secret-reset-value"}));
+    let default = config.servers["default"].canary.as_ref().unwrap();
+    assert!(!default.isolated);
+    assert!(default.reset_tool.is_empty());
+    assert_eq!(default.reset_arguments, json!({}));
+    assert!(config.servers["absent"].canary.is_none());
+    assert!(!format!("{config:?}").contains("secret-reset-value"));
+}
+
 #[tokio::test]
 async fn mcp_stdio_spawn_failure_is_a_clean_error() {
     let dir = tempfile::tempdir().expect("tempdir");

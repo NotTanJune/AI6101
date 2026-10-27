@@ -282,6 +282,16 @@ impl Agent {
         &self.ledger
     }
 
+    /// Path of the durable session transcript, when recording is enabled.
+    pub fn transcript_path(&self) -> Option<&std::path::Path> {
+        self.transcript.as_ref().map(TranscriptWriter::path)
+    }
+
+    /// Record a runtime notice alongside the conversation without changing model history.
+    pub fn record_notice(&mut self, text: impl Into<String>) {
+        self.record(&TranscriptEvent::Notice { text: text.into() });
+    }
+
     /// Register a connected MCP server so its tools can be called.
     pub fn add_mcp_connection(&mut self, name: impl Into<String>, connection: Arc<McpConnection>) {
         self.mcp.insert(name.into(), connection);

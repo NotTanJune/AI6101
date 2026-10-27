@@ -3,20 +3,26 @@
 mod common;
 
 use std::sync::Arc;
+use std::time::Duration;
 
 use common::{registry, spec};
 use harness_agent::bridge::BlockingProvider;
 use harness_agent::drift::{detect_drift, kb_subset};
 use harness_agent::model::mock::{MockModelClient, Scripted};
+use harness_agent::model::{ModelClient, ModelRequest, SendFuture, StreamEvent};
 use harness_agent::pricing::rate_card;
 use harness_agent::registry::{Effort, ProviderId};
-use harness_core::provider::{CompletionRequest, MeteredProvider, Provider, ProviderError};
+use harness_core::provider::{
+    CompletionRequest, MeteredError, MeteredProvider, Provider, ProviderError,
+};
 use harness_core::strategy::{AdaptationContext, strategy_for};
 use harness_core::{
     CostLedger, CostStatus, EventEmitter, EventSource, FixedClock, Phase, Redactor, Strategy,
     VecSink,
 };
 use serde_json::json;
+use tokio::sync::{Notify, mpsc::UnboundedSender};
+use tokio_util::sync::CancellationToken;
 
 fn card_kb(description: &str) -> harness_core::ToolKb {
     common::kb(vec![common::card("calc", "add", description)])
@@ -162,4 +168,106 @@ async fn bridge_maps_errors_and_identity() {
     // A cancelled call may have been billed: it must not look free to core's ledger.
     let cancelled = third.expect_err("cancelled");
     assert!(cancelled.billing_uncertain(), "{cancelled}");
+}
+
+struct NonCooperativeSlowClient {
+    started: Notify,
+    reply: MockModelClient,
+}
+
+impl ModelClient for NonCooperativeSlowClient {
+    fn provider(&self) -> ProviderId {
+        ProviderId::OpenAi
+    }
+
+    fn send<'a>(
+        &'a self,
+        req: ModelRequest<'a>,
+        stream: UnboundedSender<StreamEvent>,
+        _cancel: CancellationToken,
+    ) -> SendFuture<'a> {
+        let reply = self.reply.send(req, stream, CancellationToken::new());
+        Box::pin(async move {
+            self.started.notify_one();
+            // Deliberately ignore the token: the bridge itself must stop waiting.
+            tokio::time::sleep(Duration::from_secs(2)).await;
+            reply.await
+        })
+    }
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn bridge_external_cancellation_retains_billing_uncertainty_without_a_response() {
+    let client = Arc::new(NonCooperativeSlowClient {
+        started: Notify::new(),
+        reply: MockModelClient::new(
+            ProviderId::OpenAi,
+            vec![Scripted::text("late model response")],
+        ),
+    });
+    let cancellation = CancellationToken::new();
+    let worker_client = client.clone();
+    let worker_cancellation = cancellation.clone();
+    let handle = tokio::runtime::Handle::current();
+    let worker = tokio::task::spawn_blocking(move || {
+        let mut provider = BlockingProvider::new(worker_client, spec("sol"), Effort::High, handle)
+            .with_cancellation(worker_cancellation);
+        let mut ledger = CostLedger::new(10.0, rate_card(&registry()));
+        let mut emitter = EventEmitter::new(
+            "bridge-cancellation-test",
+            EventSource::Rust,
+            Arc::new(FixedClock::default()),
+            Redactor::default(),
+            Box::new(VecSink::new()),
+        );
+        let request = CompletionRequest {
+            purpose: "cancel adaptation".into(),
+            system: "sys".into(),
+            user: "usr".into(),
+            max_output_tokens: 100,
+            temperature: None,
+            top_p: None,
+            seed: None,
+            json_schema: None,
+        };
+        let result = MeteredProvider::new(&mut provider, &mut ledger, &mut emitter, None)
+            .call(Phase::Adaptation, &request);
+        (
+            result,
+            ledger.records().to_vec(),
+            ledger.unreconciled_usd(),
+            ledger.remaining_usd(),
+            ledger.spent_usd(),
+            ledger.outstanding_reserved_usd(),
+        )
+    });
+    tokio::time::timeout(Duration::from_secs(1), client.started.notified())
+        .await
+        .expect("model request started");
+    cancellation.cancel();
+    let (result, records, unreconciled, remaining, spent, outstanding) =
+        tokio::time::timeout(Duration::from_secs(1), worker)
+            .await
+            .expect("bridge stops waiting for an uncooperative client")
+            .expect("blocking worker");
+    let MeteredError::Provider(error) = result.expect_err("no model response retained") else {
+        panic!("cancellation must be a provider failure");
+    };
+    assert!(matches!(error, ProviderError::InvalidResponse(_)));
+    assert!(error.billing_uncertain());
+    assert!(error.to_string().contains("cancelled"));
+    assert_eq!(records.len(), 1);
+    assert_eq!(records[0].cost_status, CostStatus::Unknown);
+    assert_eq!(records[0].input_tokens, None);
+    assert_eq!(records[0].output_tokens, None);
+    assert!(
+        unreconciled > 0.0,
+        "unknown billing retains the reservation against the cap"
+    );
+    assert!((remaining - (10.0 - unreconciled)).abs() < 1e-12);
+    assert_eq!(spent, 0.0);
+    assert_eq!(
+        outstanding, 0.0,
+        "reservation settled as unreconciled billing"
+    );
 }

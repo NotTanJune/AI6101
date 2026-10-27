@@ -1,0 +1,75 @@
+[contracts]
+tool_kb = "tool-kb/1"
+run_event = "run-event/1"
+run_summary = "harness-summary/1"
+
+[harness]
+version = "0.1.0"
+
+[run]
+name = "mcpevol-live-early"
+seed = 42
+repetitions = 1
+strategies = ["no_update", "selective_patch", "full_rewrite"]
+
+[versions]
+source = "early"
+target = "early"
+
+[tasks]
+ids = ["2", "5", "8", "21", "22", "26", "29", "30", "34", "40", "94", "161", "225", "229", "235", "249", "281", "291", "385", "448"]
+
+[inputs]
+adapter = "fixture"
+release_id = "mcpevol-live-1mcp0383"
+root = "../../target/live/fixture"
+catalog_env = "MCP_DATA_DIR"
+eval_env = "EVAL_DATA_DIR"
+
+[provider]
+kind = "openai"
+model = "gpt-6-luna"
+api_key_env = "OPENAI_ETHICS_KEY"
+max_output_tokens = 65536
+
+[judge]
+version = "ai6101-judge/1"
+
+[budget]
+local_dispatch_cap_usd = 20.0
+
+[budget.rate_card]
+id = "openai-standard-2026-10-27"
+date = "2026-10-27"
+
+[[budget.rate_card.entries]]
+provider = "openai"
+model = "gpt-6-luna"
+input_usd_per_mtok = 0.1
+output_usd_per_mtok = 0.5
+cached_input_usd_per_mtok = 0.01
+
+[runner]
+kind = "process"
+executable = "../../benchmark/.venv/bin/python"
+fixed_args = ["benchmark/integration/rust_runner.py", "--mcp-server-url", "http://127.0.0.1:3050/mcp", "--workers", "5"]
+
+[[input_files]]
+group = "inputs"
+path = "kb/early.json"
+sha256 = "e76a6f91afae259cd1f3d65a9f6b8b83cb25b33636678f9655f8304e8cf47fb0"
+
+[[input_files]]
+group = "inputs"
+path = "kb/late.json"
+sha256 = "498c19dc2767bb1c9675491a1271987de52f17897e7189f2eed301cc0a9888f3"
+
+[[input_files]]
+group = "inputs"
+path = "kb/middle.json"
+sha256 = "2983478ee4d1fc5d9c6c01feb6f6c0e721e5e629fcd00f95e2c521fccbc2635a"
+
+[[input_files]]
+group = "inputs"
+path = "tasks.json"
+sha256 = "7ca17915f0a3d68867063ae26a7d8f0bce35f316630e01c2ca4cb6a51c400f84"

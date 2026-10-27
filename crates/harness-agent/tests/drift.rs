@@ -6,11 +6,12 @@ use std::sync::Arc;
 
 use common::{HarnessOpts, card, harness, kb};
 use harness_agent::drift::{
-    DriftError, SessionKb, detect_drift, kb_subset, live_kb, run_adaptation,
+    DriftError, SessionKb, detect_drift, evaluate_candidate, kb_subset, live_kb, prepare_candidate,
+    run_adaptation,
 };
 use harness_agent::mcp::LiveTool;
 use harness_agent::tools::{NamingMode, ToolRegistry};
-use harness_core::canary::PromotionDecision;
+use harness_core::canary::{PromotionDecision, SimulatedTargetExecutor};
 use harness_core::events::{EventEmitter, EventSource, VecSink};
 use harness_core::provider::{MeteredProvider, MockProvider};
 use harness_core::{
@@ -168,12 +169,27 @@ fn drift_accepting_a_candidate_changes_what_the_registry_exposes() {
     let rewritten = serde_json::to_string(&live).expect("serialise");
     let mut mock = MockProvider::scripted(vec![rewritten]);
     let outcome = with_metered(&mut mock, |provider| {
-        run_adaptation(
+        let candidate = prepare_candidate(
             Strategy::FullRewrite,
             &subset,
             &live,
             &report.diff,
             provider,
+        )?;
+        let mut emitter = EventEmitter::new(
+            "explicit-simulation-test",
+            EventSource::Rust,
+            Arc::new(FixedClock::default()),
+            Redactor::default(),
+            Box::new(VecSink::new()),
+        );
+        evaluate_candidate(
+            Strategy::FullRewrite,
+            &subset,
+            &live,
+            candidate,
+            &mut SimulatedTargetExecutor::from_target_kb(&live),
+            &mut emitter,
         )
     })
     .expect("full rewrite");
@@ -202,6 +218,30 @@ fn drift_accepting_a_candidate_changes_what_the_registry_exposes() {
     // The candidate no longer drifts from the live server.
     let (after, _) = detect_drift("calc", session.kb(), &live_tools);
     assert!(after.is_empty(), "{:?}", after.diff.changes);
+}
+
+#[test]
+fn drift_default_flow_never_substitutes_simulation_for_live_execution() {
+    let kb = session_kb();
+    let subset = kb_subset(&kb, "calc");
+    let (report, live) = detect_drift("calc", &kb, &live_tools());
+    let mut mock = MockProvider::scripted(vec![serde_json::to_string(&live).unwrap()]);
+    let outcome = with_metered(&mut mock, |provider| {
+        run_adaptation(
+            Strategy::FullRewrite,
+            &subset,
+            &live,
+            &report.diff,
+            provider,
+        )
+    })
+    .expect("candidate is prepared without probe permission");
+    assert_eq!(outcome.canary.status, CanaryStatus::Inconclusive);
+    assert!(outcome.canary.results.iter().all(|probe| !probe.executed));
+    assert!(matches!(
+        outcome.decision,
+        PromotionDecision::Blocked { .. }
+    ));
 }
 
 #[test]

@@ -64,8 +64,16 @@ struct Run {
     events: Vec<RunEvent>,
 }
 
+/// A rejected batch is retried with the same answer (strategies make three attempts).
+const ATTEMPTS: usize = 3;
+
 fn run(strategy: Strategy, source: &ToolKb, target: &ToolKb, responses: Vec<String>) -> Run {
     let diff = diff_kbs(source, target);
+    // Repeat the final scripted answer so a retried batch sees the same output again.
+    let mut responses = responses;
+    if let Some(last) = responses.last().cloned() {
+        responses.extend(std::iter::repeat_n(last, ATTEMPTS - 1));
+    }
     let mut mock = MockProvider::scripted(responses);
     let mut ledger = CostLedger::new(10.0, RateCard::empty("none", "2026-01-01"));
     let sink = VecSink::new();
@@ -341,8 +349,12 @@ fn full_rewrite_accepts_model_authored_text_changes() {
     )
     .result
     .unwrap();
+    let edited =
+        c.kb.cards
+            .iter()
+            .find(|k| k.lineage_id == reworded.cards[1].lineage_id);
     assert_eq!(
-        c.kb.cards[1].description,
+        edited.unwrap().description,
         "A reworded but valid description."
     );
 }
@@ -372,7 +384,7 @@ fn full_rewrite_prompt_is_deterministic_and_uses_only_target_definitions() {
 
 fn rejects_full_rewrite(response: String, target: &ToolKb) -> StrategyError {
     let r = run(Strategy::FullRewrite, &source_kb(), target, vec![response]);
-    assert_eq!(r.calls, 1);
+    assert_eq!(r.calls, ATTEMPTS);
     r.result.expect_err("must be rejected")
 }
 
@@ -392,11 +404,14 @@ fn full_rewrite_rejects_invalid_or_incomplete_output() {
         assert!(e.is_rejection());
     }
 
-    // Wrong schema version fails the schema.
-    let mut wrong_version: Value = serde_json::from_str(&good).unwrap();
-    wrong_version["schema_version"] = json!("tool-kb/9");
+    // A card without the model-authored fields is malformed.
+    let mut no_rules: Value = serde_json::from_str(&good).unwrap();
+    no_rules["cards"][0]
+        .as_object_mut()
+        .unwrap()
+        .remove("usage_rules");
     assert!(matches!(
-        rejects_full_rewrite(wrong_version.to_string(), &target),
+        rejects_full_rewrite(no_rules.to_string(), &target),
         StrategyError::Output(_)
     ));
 
@@ -425,14 +440,18 @@ fn full_rewrite_rejects_invalid_or_incomplete_output() {
         StrategyError::Validation { .. }
     ));
 
-    // Structural drift from the target definition.
+    // Structural drift from the target definition is not the model's to author: the harness
+    // copies structure from the target, so the drifted schema never reaches the candidate.
     let mut drift = target.clone();
     drift.cards[1].input_schema["properties"]["b"] = json!({ "type": "boolean" });
-    let e = rejects_full_rewrite(kb_text(&drift), &target);
-    assert!(
-        matches!(&e, StrategyError::Validation { problems } if problems.iter().any(|p| p.contains("input_schema"))),
-        "{e:?}"
+    let r = run(
+        Strategy::FullRewrite,
+        &source_kb(),
+        &target,
+        vec![kb_text(&drift)],
     );
+    let c = r.result.expect("structure is synced from the target");
+    assert_structural_equal(&c.kb, &target);
 
     // A detected description change that was not applied (model returned the stale text).
     let mut stale = target.clone();
@@ -454,8 +473,8 @@ fn full_rewrite_never_returns_a_candidate_from_rejected_output() {
         vec!["nonsense".into()],
     );
     assert!(r.result.is_err());
-    // The call was made and metered; the output was still rejected.
-    assert_eq!(r.events.len(), 1);
+    // Every attempt was made and metered; the output was still rejected.
+    assert_eq!(r.events.len(), ATTEMPTS);
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -599,7 +618,7 @@ fn selective_patch_rejects_malformed_model_output() {
         let (e, calls) = selective_error(text.to_owned());
         assert!(matches!(e, StrategyError::Patch(_)), "{text}: {e:?}");
         assert!(e.is_rejection());
-        assert_eq!(calls, 1);
+        assert_eq!(calls, ATTEMPTS);
     }
 }
 
@@ -624,21 +643,11 @@ fn selective_patch_rejects_edits_outside_the_diff() {
 }
 
 #[test]
-fn selective_patch_rejects_incomplete_or_wrong_patches_without_repair() {
-    // Empty patch although the diff is not empty.
-    let (e, _) = selective_error(patch_text(&Patch::default()));
-    assert!(
-        matches!(&e, StrategyError::Validation { problems } if problems.iter().any(|p| p.contains("input_schema"))),
-        "{e:?}"
-    );
-
-    // Only half of the change (new param without the required list).
-    let ops: Vec<_> = good_ops().into_iter().take(1).collect();
-    let (e, _) = selective_error(patch_text(&Patch { ops }));
-    assert!(matches!(e, StrategyError::Validation { .. }), "{e:?}");
-
-    // Right path, wrong value.
-    let ops = vec![
+fn selective_patch_takes_structure_from_the_target_not_the_model() {
+    // A parameter-only change: the empty patch, half a patch and a wrong value all end with the
+    // target structure on the affected card and every other card byte-identical to the source.
+    let case = &cases()[3]; // param added (required)
+    let wrong = vec![
         set(
             "edit",
             "input_schema.properties.c",
@@ -646,20 +655,18 @@ fn selective_patch_rejects_incomplete_or_wrong_patches_without_repair() {
         ),
         set("edit", "input_schema.required", json!(["a", "c"])),
     ];
-    let (e, _) = selective_error(patch_text(&Patch { ops }));
-    assert!(matches!(e, StrategyError::Validation { .. }), "{e:?}");
-
-    // Patch that cannot be applied (invalid value type).
-    let ops = vec![set("edit", "input_schema.required", json!("a"))];
-    let (e, _) = selective_error(patch_text(&Patch { ops }));
-    // `required` is not a string-typed field, so this applies but fails against the target.
-    assert!(
-        matches!(
-            e,
-            StrategyError::Validation { .. } | StrategyError::Patch(_)
-        ),
-        "{e:?}"
-    );
+    let half: Vec<_> = good_ops().into_iter().take(1).collect();
+    for ops in [Vec::new(), half, wrong] {
+        let r = run(
+            Strategy::SelectivePatch,
+            &source_kb(),
+            &case.target,
+            vec![patch_text(&Patch { ops })],
+        );
+        let c = r.result.expect("structure is synced from the target");
+        assert_structural_equal(&c.kb, &case.target);
+        assert_eq!(card_bytes(&c.kb, "keep"), card_bytes(&source_kb(), "keep"));
+    }
 }
 
 #[test]
@@ -683,7 +690,7 @@ fn selective_patch_rejects_unapplied_description_change() {
 fn selective_patch_output_never_leaves_partial_state() {
     let (e, calls) = selective_error("garbage".into());
     assert!(e.is_rejection());
-    assert_eq!(calls, 1);
+    assert_eq!(calls, ATTEMPTS);
 }
 
 // ---------------------------------------------------------------------------------------------

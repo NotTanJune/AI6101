@@ -10,6 +10,7 @@ pub mod approval;
 pub mod bridge;
 pub mod drift;
 pub mod events;
+pub mod live_canary;
 pub mod mcp;
 pub mod model;
 pub mod pricing;

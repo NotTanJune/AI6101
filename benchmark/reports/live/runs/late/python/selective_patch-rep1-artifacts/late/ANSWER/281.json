@@ -1,0 +1,344 @@
+{
+  "response": "Here's a realistic user question that requires tools from multiple MCP servers:\n\n```xml\n<response>\n  <workflow_analysis>\n    The workflow begins with analyzing and splitting a complex data processing task using shrimp-task-manager, then proceeds to create and manage concrete implementation tasks in mcp-tasks. The orchestrator coordinates this workflow sequence and ensures proper handoff between planning and execution phases.\n  </workflow_analysis>\n  <target_servers>\n    <server name=\"mcp-shrimp-task-manager\">\n      <tool>analyze_task</tool>\n      <tool>split_tasks</tool>\n    </server>\n    <server name=\"mcp-tasks\">\n      <tool>tasks_setup</tool>\n      <tool>tasks_add</tool>\n    </server>\n    <server name=\"@j0kz/orchestrator-mcp\">\n      <tool>run_sequence</tool>\n    </server>\n  </target_servers>\n  <question>\n    I need to analyze Ableton error logs from the past week to identify patterns in system crashes. First, analyze what would be required to process these semi-structured log files effectively, then break this down into manageable tasks organized by priority. We should track these tasks separately from our routine development work.\n  </question>\n</response>\n```",
+  "question": "I need to analyze Ableton error logs from the past week to identify patterns in system crashes. First, analyze what would be required to process these semi-structured log files effectively, then break this down into manageable tasks organized by priority. We should track these tasks separately from our routine development work.",
+  "tool_calls": [
+    {
+      "tool_name": "analyze_task",
+      "parameters": {}
+    },
+    {
+      "tool_name": "split_tasks",
+      "parameters": {}
+    },
+    {
+      "tool_name": "tasks_setup",
+      "parameters": {}
+    },
+    {
+      "tool_name": "tasks_add",
+      "parameters": {}
+    },
+    {
+      "tool_name": "run_sequence",
+      "parameters": {}
+    }
+  ],
+  "servers": {
+    "mcp-shrimp-task-manager": [
+      "analyze_task",
+      "split_tasks"
+    ],
+    "mcp-tasks": [
+      "tasks_setup",
+      "tasks_add"
+    ],
+    "@j0kz/orchestrator-mcp": [
+      "run_sequence"
+    ]
+  },
+  "answer": "I’ve created the crash-analysis plan in the dedicated task file, separate from routine development tasks:\n\n`/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/tasks/ableton_weekly_crash_analysis_tasks.md`\n\nThe plan is prioritized and dependency-ordered:\n1. Inventory the logs and define requirements.\n2. Specify robust parsing and normalization.\n3. Define weekly crash metrics and aggregation.\n4. Run and validate the analysis, reporting actual log coverage and limitations.\n\nThe analysis approach accounts for semi-structured formats, malformed entries, and distinguishing crashes from general errors; it also avoids treating patterns as proof of cause.",
+  "trajectory_messages": [
+    {
+      "role": "system",
+      "content": "You are an AI agent connected to the MCP (Model Context Protocol) server. Based on the user's request, select and invoke tools to fulfill the task accurately and efficiently. \nNote that do not to ask any questions to the user, just call the tool to complete the task.\n\nConsidering real-time performance, the time is set to be around `2026-10-27 (星期二)`.\n\nThese files are stored in the local file system and serve as relevant resources for tool utilization. Use the absolute resource directory \"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path\" for the following files:\n`anotation_path/\n  code/\n    log_analysis.py\n    new_aggregator.py\n  csv/\n    customers-100.csv\n    products-100.csv\n  excel/\n    goods.xlsx\n    Local_Electronic_Sales.xlsx\n    people_data.xlsx\n  figs/\n  files/\n  html/\n    time.html\n  markdown/\n    work.md\n  music/\n    mixkit-retro-game-emergency-alarm-1000.wav\n  pdf/\n    embodied_ai_papers/\n      PaLM-E, An Embodied Multimodal Language Model, Danny Driess et al., 2023, v1_compressed.pdf\n      RT-2, Vision-Language-Action Models Transfer Web Knowledge to Robotic Control, Anthony Brohan et al., 2023, v1_compressed.pdf\n      Voyager, An Open-Ended Embodied Agent with Large Language Models, Guanzhi Wang et al., 2023, v2_compressed.pdf\n    WebArena.pdf\n  picture/\n    clock.png\n  ppt/\n    build_effective_agents.pptx\n  tasks/\n    ableton_crash_log_analysis.md\n    ableton_weekly_crash_analysis_tasks.md\n    log_analysis_improvement.md\n  txt/\n    Android.txt\n    log_today.txt\n    log_yesterday.txt\n    paper_list.bib\n  word/\n    CV.docx\n    exchange.docx\n    Report_Card.docx\n  llms-full.txt\n  log_analysis_scheduled.log`\n\nDatabase Configuration (if applicable):\n- Host: 127.0.0.1\n- Port: 3305\n- User: root\n- Password: 123456\n- Database Name: mydb\n"
+    },
+    {
+      "role": "user",
+      "content": "I need to analyze Ableton error logs from the past week to identify patterns in system crashes. First, analyze what would be required to process these semi-structured log files effectively, then break this down into manageable tasks organized by priority. We should track these tasks separately from our routine development work."
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_yKhO36DI3jNKG3931eC3hmAM",
+          "function": {
+            "arguments": "{\"initialConcept\":\"Inspect the supplied Ableton crash-analysis task notes and the recent log files, then design a repeatable pipeline for semi-structured log ingestion, timestamp normalization, event extraction, deduplication, and weekly aggregation. Focus analysis on crash frequency, recurring error signatures, affected components, and temporal/system patterns, while accounting for malformed or incomplete entries and avoiding unsupported causal claims. Track this as a separate task source, then create prioritized, verifiable implementation tasks with explicit inputs, outputs, dependencies, and acceptance criteria.\",\"summary\":\"Analyze past-week Ableton error logs for crash patterns, then create a separate prioritized task plan for the work, distinct from routine development tasks.\"}",
+            "name": "analyze_task"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_yKhO36DI3jNKG3931eC3hmAM",
+      "content": "[TextContent(type='text', text=\"## Codebase Analysis\\n\\nAfter receiving the initial solution, complete the following checks and optimizations in sequence, and call the `reflect_task` tool at the end:\\n\\n1. **Structural Integrity Check**\\n\\n   - Does it cover all requirements and constraints?\\n   - Are module boundaries and interface definitions clear?\\n   - Is the dependency graph reasonable and maintainable?\\n   - Does the design conform to the project's core architectural patterns?\\n   - Does ..."
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_IUXkJI29vf0JTU8WA3OxsXVU",
+          "function": {
+            "arguments": "{\"source_path\":\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/tasks/ableton_weekly_crash_analysis_tasks.md\",\"workspace\":\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path\"}",
+            "name": "tasks_setup"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_IUXkJI29vf0JTU8WA3OxsXVU",
+      "content": "[TextContent(type='text', text='{\"source\":{\"path\":\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/tasks/ableton_weekly_crash_analysis_tasks.md\",\"id\":\"WRPQ\"},\"In Progress\":1,\"To Do\":21,\"Backlog\":0,\"Done\":0,\"Reminders\":0,\"Notes\":0,\"Deleted\":0,\"total\":22,\"instructions\":\"Use mcp-tasks tools when the user mentions new or updated tasks\",\"reminders\":[],\"inProgress\":[{\"id\":\"e1kg\",\"text\":\"P1 — Inventory Ableton log formats and define analysis requirements\",\"status\":\"In Progress\",\"index\":..."
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_CXCuk6XrcTa3R9HC8CixwuFx",
+          "function": {
+            "arguments": "{\"globalAnalysisResult\":\"Analyze the provided past-week Ableton logs (including log_today.txt and log_yesterday.txt and any relevant crash-analysis notes/code) with a robust, repeatable semi-structured-log workflow. Normalize timestamps and fields, extract crash/error events and signatures, handle malformed records transparently, aggregate weekly counts and patterns by signature/component/time/system context where present, and report evidence without asserting unproven causes. The task source is the dedicated Ableton weekly analysis file, separate from routine development.\",\"tasksRaw\":\"[{\\\"name\\\":\\\"P1 — Inventory log formats and define analysis requirements\\\",\\\"description\\\":\\\"Inspect the available Ableton logs, crash-analysis task notes, and existing analysis scripts. Record formats, date coverage, fields, known ambiguities, desired weekly window, and outputs needed to identify crash patterns.\\\",\\\"implementationGuide\\\":\\\"Pseudocode: enumerate relevant input files; sample records; identify timestamps, severity, component, error/crash markers, and system context; record format variants and gaps; define weekly window and report questions.\\\",\\\"notes\\\":\\\"Keep this analysis in the dedicated Ableton weekly task source, separate from routine development work. Do not infer causality from correlation.\\\",\\\"dependencies\\\":[],\\\"relatedFiles\\\":[{\\\"path\\\":\\\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/txt/log_today.txt\\\",\\\"type\\\":\\\"REFERENCE\\\",\\\"description\\\":\\\"Recent log input\\\",\\\"lineStart\\\":1,\\\"lineEnd\\\":100},{\\\"path\\\":\\\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/txt/log_yesterday.txt\\\",\\\"type\\\":\\\"REFERENCE\\\",\\\"description\\\":\\\"Recent log input\\\",\\\"lineStart\\\":1,\\\"lineEnd\\\":100},{\\\"path\\\":\\\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/tasks/ableton_crash_log_analysis.md\\\",\\\"type\\\":\\\"REFERENCE\\\",\\\"description\\\":\\\"Existing crash-analysis requirements\\\",\\\"lineStart\\\":1,\\\"lineEnd\\\":200},{\\\"path\\\":\\\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/code/log_analysis.py\\\",\\\"type\\\":\\\"REFERENCE\\\",\\\"description\\\":\\\"Existing log processing code\\\",\\\"lineStart\\\":1,\\\"lineEnd\\\":250}],\\\"verificationCriteria\\\":\\\"Inventory lists all applicable input files and observed record variants; requirements define week boundaries, metrics, and expected output; ambiguities and missing data are explicitly documented.\\\"},{\\\"name\\\":\\\"P2 — Specify resilient log parsing and normalization\\\",\\\"description\\\":\\\"Define a parser approach for semi-structured records that standardizes timestamps and event fields, tolerates format variants, and preserves unparseable lines for audit.\\\",\\\"implementationGuide\\\":\\\"Pseudocode: parse each line using known format patterns; normalize timestamp/timezone; extract severity, component, message, and available system context; assign stable event signature; route incomplete lines to a diagnostic bucket with source location.\\\",\\\"notes\\\":\\\"Do not discard unknown fields or silently skip malformed input.\\\",\\\"dependencies\\\":[\\\"P1 — Inventory log formats and define analysis requirements\\\"],\\\"relatedFiles\\\":[{\\\"path\\\":\\\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/code/log_analysis.py\\\",\\\"type\\\":\\\"REFERENCE\\\",\\\"description\\\":\\\"Existing parser and analysis implementation\\\",\\\"lineStart\\\":1,\\\"lineEnd\\\":250},{\\\"path\\\":\\\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/txt/log_today.txt\\\",\\\"type\\\":\\\"REFERENCE\\\",\\\"description\\\":\\\"Validate parsing against actual records\\\",\\\"lineStart\\\":1,\\\"lineEnd\\\":100}],\\\"verificationCriteria\\\":\\\"Parsing specification covers observed variants, timestamp normalization, required fields, stable signatures, and a measurable accounting path for malformed records.\\\"},{\\\"name\\\":\\\"P3 — Define weekly aggregation and crash-pattern metrics\\\",\\\"description\\\":\\\"Specify how normalized events will be grouped and summarized to surface recurring crash patterns without overclaiming root causes.\\\",\\\"implementationGuide\\\":\\\"Pseudocode: filter events into the requested seven-day interval; distinguish crash events from general errors; group by normalized signature and component; calculate counts and time distribution; summarize co-occurring context only where logged.\\\",\\\"notes\\\":\\\"Include totals, recurrence, event timestamps, and data-quality caveats. Separate crash records from warnings and generic errors.\\\",\\\"dependencies\\\":[\\\"P1 — Inventory log formats and define analysis requirements\\\",\\\"P2 — Specify resilient log parsing and normalization\\\"],\\\"relatedFiles\\\":[{\\\"path\\\":\\\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/code/log_analysis.py\\\",\\\"type\\\":\\\"REFERENCE\\\",\\\"description\\\":\\\"Existing aggregation behavior to assess\\\",\\\"lineStart\\\":1,\\\"lineEnd\\\":250},{\\\"path\\\":\\\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/tasks/ableton_crash_log_analysis.md\\\",\\\"type\\\":\\\"REFERENCE\\\",\\\"description\\\":\\\"Expected analysis scope\\\",\\\"lineStart\\\":1,\\\"lineEnd\\\":200}],\\\"verificationCriteria\\\":\\\"Metrics and grouping rules define crash-vs-error distinction, seven-day filtering, deduplication/counting policy, and confidence/data limitations.\\\"},{\\\"name\\\":\\\"P4 — Produce and validate the weekly crash analysis\\\",\\\"description\\\":\\\"Apply the agreed parsing and aggregation approach to the logs for the past week and produce a concise evidence-based report with patterns and limitations.\\\",\\\"implementationGuide\\\":\\\"Pseudocode: load available logs; run parsing and validation; aggregate weekly crashes/errors; inspect top signatures and time/component patterns; cross-check counts against raw sources; report findings, gaps, and reproducible method.\\\",\\\"notes\\\":\\\"If available inputs do not span seven days, explicitly report the actual coverage and avoid presenting partial coverage as a full-week result.\\\",\\\"dependencies\\\":[\\\"P2 — Specify resilient log parsing and normalization\\\",\\\"P3 — Define weekly aggregation and crash-pattern metrics\\\"],\\\"relatedFiles\\\":[{\\\"path\\\":\\\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/txt/log_today.txt\\\",\\\"type\\\":\\\"REFERENCE\\\",\\\"description\\\":\\\"Recent log data\\\",\\\"lineStart\\\":1,\\\"lineEnd\\\":100},{\\\"path\\\":\\\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/txt/log_yesterday.txt\\\",\\\"type\\\":\\\"REFERENCE\\\",\\\"description\\\":\\\"Recent log data\\\",\\\"lineStart\\\":1,\\\"lineEnd\\\":100},{\\\"path\\\":\\\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/tasks/ableton_weekly_crash_analysis_tasks.md\\\",\\\"type\\\":\\\"TO_MODIFY\\\",\\\"description\\\":\\\"Dedicated weekly analysis task tracking source\\\",\\\"lineStart\\\":1,\\\"lineEnd\\\":200}]}]\",\"updateMode\":\"clearAllTasks\"}",
+            "name": "split_tasks"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_CXCuk6XrcTa3R9HC8CixwuFx",
+      "content": "[TextContent(type='text', text='## Task Splitting - clearAllTasks Mode\\n\\n## Splitting Strategy\\n\\n1. **Functional Decomposition** - Independent testable sub-functions with clear inputs and outputs\\n2. **Technical Layer Decomposition** - Separate tasks along architectural layers, ensuring clear interfaces\\n3. **Development Stage Decomposition** - Core functionality first, optimization features later\\n4. **Risk-based Decomposition** - Isolate high-risk parts, reduce overall risk\\n\\n## Task Qualit..."
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_eEDB5WfHs4JFpVGGTaG0AZm2",
+          "function": {
+            "arguments": "{\"source_path\":\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/tasks/ableton_weekly_crash_analysis_tasks.md\",\"workspace\":\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path\"}",
+            "name": "tasks_setup"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_eEDB5WfHs4JFpVGGTaG0AZm2",
+      "content": "[TextContent(type='text', text='{\"source\":{\"path\":\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/tasks/ableton_weekly_crash_analysis_tasks.md\",\"id\":\"WRPQ\"},\"In Progress\":1,\"To Do\":21,\"Backlog\":0,\"Done\":0,\"Reminders\":0,\"Notes\":0,\"Deleted\":0,\"total\":22,\"instructions\":\"Use mcp-tasks tools when the user mentions new or updated tasks\",\"reminders\":[],\"inProgress\":[{\"id\":\"e1kg\",\"text\":\"P1 — Inventory Ableton log formats and define analysis requirements\",\"status\":\"In Progress\",\"index\":..."
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_9aZYtD5q1pBJr1EPbB77qX0M",
+          "function": {
+            "arguments": "{\"source_id\":\"WRPQ\",\"status\":\"To Do\",\"index\":0,\"texts\":[\"P1 — Inventory available Ableton logs and analysis requirements: inspect recent log inputs, existing parsing/aggregation code, and crash-analysis notes; document formats, date coverage, fields, week boundaries, desired metrics, and ambiguities. Acceptance: input inventory and requirements identify gaps and prevent unsupported causal claims.\",\"P2 — Define resilient parsing and normalization: specify timestamp/timezone normalization, event fields, signature creation, format variants, and malformed-line accounting while retaining source references. Depends on P1. Acceptance: parsing rules cover observed formats and no lines are silently discarded.\",\"P3 — Define weekly crash aggregation and metrics: distinguish crashes from general errors/warnings; define seven-day filtering, duplicate counting, grouping by signature/component/time and any logged system context. Depends on P1 and P2. Acceptance: metrics and caveats clearly define totals, recurrence, and data-quality limits.\",\"P4 — Run and validate the past-week analysis: apply parsing and aggregation to available logs, cross-check outputs against source records, and produce an evidence-based summary of recurring signatures and patterns. Depends on P2 and P3. If logs do not span seven days, report actual coverage rather than implying full-week coverage. Acceptance: reproducible report includes findings, counts, coverage, and limitations.\"]}",
+            "name": "tasks_add"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_9aZYtD5q1pBJr1EPbB77qX0M",
+      "content": "[TextContent(type='text', text='{\"source\":{\"path\":\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/tasks/ableton_weekly_crash_analysis_tasks.md\",\"id\":\"WRPQ\"},\"In Progress\":1,\"To Do\":25,\"Backlog\":0,\"Done\":0,\"Reminders\":0,\"Notes\":0,\"Deleted\":0,\"total\":26,\"added\":[{\"id\":\"SUqg\",\"text\":\"P1 — Inventory available Ableton logs and analysis requirements: inspect recent log inputs, existing parsing/aggregation code, and crash-analysis notes; document formats, date coverage, fields, week bo..."
+    },
+    {
+      "content": "I’ve created the crash-analysis plan in the dedicated task file, separate from routine development tasks:\n\n`/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/tasks/ableton_weekly_crash_analysis_tasks.md`\n\nThe plan is prioritized and dependency-ordered:\n1. Inventory the logs and define requirements.\n2. Specify robust parsing and normalization.\n3. Define weekly crash metrics and aggregation.\n4. Run and validate the analysis, reporting actual log coverage and limitations.\n\nThe analysis approach accounts for semi-structured formats, malformed entries, and distinguishing crashes from general errors; it also avoids treating patterns as proof of cause.",
+      "role": "assistant",
+      "annotations": []
+    }
+  ],
+  "stop": true,
+  "exceeded": false,
+  "idx": 281,
+  "eval_result": {
+    "is_success": true,
+    "reason": "The agent analyzed what is required to process the semi-structured Ableton error logs and decomposed the work into clear, prioritized tasks (collection, parsing, aggregation, visualization, reporting). It then added these as separate To Do items in a dedicated task tracker file, satisfying the requirement to track them separately from routine development work. All key constraints from the user’s instruction were addressed and reflected in the final output."
+  },
+  "forced_finalization": false,
+  "involved_tools": [
+    {
+      "name": "analyze_task",
+      "description": "Deeply analyze task requirements and systematically examine the codebase, assess technical feasibility and potential risks, if code needs to be provided use pseudocode format and only provide high-level logic flow and key steps avoiding complete code\n",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false,
+        "properties": {
+          "initialConcept": {
+            "description": "最少50個字符的初步解答構想，包含技術方案、架構設計和實施策略，如果需要提供程式碼請使用 pseudocode 格式且僅提供高級邏輯流程和關鍵步驟避免完整代碼",
+            "minLength": 50,
+            "type": "string"
+          },
+          "previousAnalysis": {
+            "description": "前次迭代的分析結果，用於持續改進方案（僅在重新分析時需提供）",
+            "type": "string"
+          },
+          "summary": {
+            "description": "結構化的任務摘要，包含任務目標、範圍與關鍵技術挑戰，最少10個字符",
+            "minLength": 10,
+            "type": "string"
+          }
+        },
+        "required": [
+          "summary",
+          "initialConcept"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "split_tasks",
+      "description": "Break down complex tasks into independent subtasks, establishing dependencies and priorities.\n\n## 1. **Granularity Control (Required Reading)**\n\n- ### **Minimum Viable Task**\n\n  Each subtask should be completable and verifiable by a single developer within **1–2 working days** (approximately 8–16 hours).\n\n- ### **Maximum Complexity Limitation**\n\n  A single subtask should not span multiple technical domains such as **frontend**, **backend**, and **database**.  \n  If cross-domain work is required, split it into multiple subtasks.\n\n- ### **Recommended Number of Tasks**\n\n  Avoid splitting into more than **10 subtasks** at once.  \n  If more are needed, submit them in prioritized batches (6–8 tasks per batch).\n\n- ### **Recommended Task Length**\n\n  Each split should not exceed **5,000 characters**.  \n  If it does, divide and submit in multiple batches.\n\n- ### **Depth Limitation**\n  The task tree should not exceed **3 levels**:\n  - **Level 1**: Functional Modules\n  - **Level 2**: Main Processes\n  - **Level 3**: Key Steps\n\n## 2. **Task Splitting Example**\n\n- Identify **core functionality points**, and create a subtask for each.\n- Annotate each subtask with:\n  - **Input/Output**\n  - **Acceptance Criteria**\n- If needed, provide **pseudocode**:\n  - Only outline high-level logic and key steps.\n  - Avoid providing complete source code.\n- Check **dependencies** between subtasks and specify them in the `dependencies` field.\n- If the task involves interface design, always provide a complete and consistent definition, including:\n\n  - Function/class/schema definitions (including names, parameters, return values)\n  - Data types, usage descriptions, and optional/required status for each item\n  - Error handling methods and expected exception scenarios\n  - Dependency and naming conventions (if any)\n  - Sample data and usage examples\n\n  This ensures consistency, readability, and development precision between tasks.\n\n## 3. **Dependencies and Prioritization**\n\n- Mark each subtask with its `dependencies` list.\n- Automatically compute and enforce execution order based on the dependency graph to prioritize the **critical path**.\n\n## 4. **Update Mode Explanation (`updateMode`)**\n\nWhen you need to create a new task that is not related to the current task list, be sure to use `clearAllTasks` to avoid task confusion.\n\n- `append`: Keep existing unfinished tasks and add new ones.\n- `overwrite`: Delete all unfinished tasks, keep completed ones.\n- `selective`: Smart-match and update tasks by name.\n- `clearAllTasks`: Clear all tasks and automatically back up the current list.\n\n---\n\n## 5. **Strict JSON Rules**\n\n- ### **No Comments Allowed**\n\n  JSON does not support comments.  \n  Any use of `#` or `//` will cause parsing failures.\n\n- ### **Proper Escaping Required**\n  All special characters (e.g., double quotes `\\\"`, backslashes `\\\\`) must be properly escaped,  \n  or they will be considered invalid.\n\n## 6. **Important Notes**\n\nThese tasks will be executed by low-intelligence models, so please follow the guidelines below:\n\n- `Clear and Explicit Instructions`: This prevents the model from producing incorrect or inconsistent architecture/code styles. Provide clear commands or specifications.\n- `Encapsulated Interfaces`: Each task runs independently. Define the interfaces clearly — such as function names, parameters, return values — so that other task-executing models can easily understand how to interact with or integrate these functions.\n- `Dependencies`: If there are dependencies between tasks, define the interaction interfaces first. Tasks do not need to know each other's implementation, but must know how to interact with one another.\n",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false,
+        "properties": {
+          "globalAnalysisResult": {
+            "description": "任務最終目標，來自之前分析適用於所有任務的通用部分",
+            "type": "string"
+          },
+          "tasksRaw": {
+            "description": "結構化的任務清單，每個任務應保持原子性且有明確的完成標準，避免過於簡單的任務，簡單修改可與其他任務整合，避免任務過多，範例：[{name: '簡潔明確的任務名稱，應能清晰表達任務目的', description: '詳細的任務描述，包含實施要點、技術細節和驗收標準', implementationGuide: '此特定任務的具體實現方法和步驟，請參考之前的分析結果提供精簡pseudocode', notes: '補充說明、特殊處理要求或實施建議（選填）', dependencies: ['此任務依賴的前置任務完整名稱'], relatedFiles: [{path: '文件路徑', type: '文件類型 (TO_MODIFY: 待修改, REFERENCE: 參考資料, CREATE: 待建立, DEPENDENCY: 依賴文件, OTHER: 其他)', description: '文件描述', lineStart: 1, lineEnd: 100}], verificationCriteria: '此特定任務的驗證標準和檢驗方法'}, {name: '任務2', description: '任務2描述', implementationGuide: '任務2實現方法', notes: '補充說明、特殊處理要求或實施建議（選填）', dependencies: ['任務1'], relatedFiles: [{path: '文件路徑', type: '文件類型 (TO_MODIFY: 待修改, REFERENCE: 參考資料, CREATE: 待建立, DEPENDENCY: 依賴文件, OTHER: 其他)', description: '文件描述', lineStart: 1, lineEnd: 100}], verificationCriteria: '此特定任務的驗證標準和檢驗方法'}]",
+            "type": "string"
+          },
+          "updateMode": {
+            "description": "任務更新模式選擇：'append'(保留所有現有任務並添加新任務)、'overwrite'(清除所有未完成任務並完全替換，保留已完成任務)、'selective'(智能更新：根據任務名稱匹配更新現有任務，保留不在列表中的任務，推薦用於任務微調)、'clearAllTasks'(清除所有任務並創建備份)。\n預設為'clearAllTasks'模式，只有用戶要求變更或修改計劃內容才使用其他模式",
+            "enum": [
+              "append",
+              "overwrite",
+              "selective",
+              "clearAllTasks"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "updateMode",
+          "tasksRaw"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "tasks_setup",
+      "description": "Initializes an source file from a path\n- Always call once per conversation when asked to use these tools\n- Ask the user to clarify the file path if not given, before calling this tool\n- Creates the file if it does not exist\n- Returns the source ID for further use\n- Use mcp-tasks tools when the user mentions new or updated tasks",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false,
+        "properties": {
+          "source_path": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspace": {
+            "description": "Workspace/project directory path (provided by the IDE or use $PWD)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_path"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "tasks_add",
+      "description": "Add new tasks with a specific status. It's faster and cheaper if you use this in batch. User can add atomically while AI works using the CLI add tool",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false,
+        "properties": {
+          "index": {
+            "description": "0-based index to place the tasks. e.g.:\n- 0 for \"Do this next\"\n- Omit to place at the end (\"Do this later\")",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "source_id": {
+            "description": "Source ID from task_setup() response\n- Defaults to most recent in the workspace if not provided\n- Try to always provide it!\n- If you don't have it, ask the user for a file path and call task_setup()",
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "description": "You might need to infer it from the context:\n- \"To Do\" for tasks coming up next (e.g. \"Do X next\")\n- \"In Progress\" for what you'll do now (e.g. \"First do X\")\n- \"Reminders\" instructions for you (the AI) to be constantly reminded of\n- \"Notes\" to collect non-actionable notes",
+            "enum": [
+              "In Progress",
+              "To Do",
+              "Backlog",
+              "Done",
+              "Reminders",
+              "Notes",
+              "Deleted"
+            ],
+            "type": "string"
+          },
+          "texts": {
+            "description": "Each text becomes a task",
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "texts",
+          "status"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "run_sequence",
+      "description": "Execute a custom sequence of MCP tools with full control over steps and dependencies",
+      "inputSchema": {
+        "properties": {
+          "steps": {
+            "description": "Sequence of MCP tool calls",
+            "items": {
+              "properties": {
+                "dependsOn": {
+                  "description": "Step dependencies (optional)",
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "mcp": {
+                  "description": "MCP to invoke (e.g., smart-reviewer)",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "Step name for reference",
+                  "type": "string"
+                },
+                "params": {
+                  "description": "Tool parameters",
+                  "type": "object"
+                },
+                "tool": {
+                  "description": "Tool to call (e.g., review_file)",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "mcp",
+                "tool"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "steps"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "harness_strategy": "selective_patch",
+  "source_version": "early",
+  "stage": "late",
+  "run_id": "mcpevol-live-late",
+  "judge_version": "ai6101-judge/1"
+}

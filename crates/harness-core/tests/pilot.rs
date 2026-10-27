@@ -64,8 +64,8 @@ fn selection_is_deterministic_covers_cells_and_reports_shortfalls() {
         max_total: 5,
         controls: 1,
     };
-    let first = select_pilot(&inventory.tasks, footprints, rule);
-    let second = select_pilot(&inventory.tasks, footprints, rule);
+    let first = select_pilot(&inventory.tasks, footprints, rule, &BTreeSet::new());
+    let second = select_pilot(&inventory.tasks, footprints, rule, &BTreeSet::new());
     assert_eq!(first, second);
 
     // Ids are unique, numerically ordered, within the bounds, and real inventory tasks.
@@ -133,7 +133,7 @@ fn unreachable_minimum_total_is_reported_not_padded() {
         min_total: 20,
         ..PilotRule::default()
     };
-    let sel = select_pilot(&inventory.tasks, &BTreeMap::new(), rule);
+    let sel = select_pilot(&inventory.tasks, &BTreeMap::new(), rule, &BTreeSet::new());
     assert_eq!(sel.ids.len(), 5, "all five mini tasks, nothing invented");
     assert!(!sel.reached_min_total);
 }

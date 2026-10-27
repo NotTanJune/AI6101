@@ -9,6 +9,7 @@
 //! The stage mapping is the adapter default (Early = original, Middle = iter2, Late = iter4).
 //! The output is a PROPOSAL for the project owner. It freezes nothing.
 
+use std::collections::BTreeSet;
 use std::process::ExitCode;
 
 use harness_core::mcpevol::{McpEvolAdapter, McpEvolOptions};
@@ -16,6 +17,9 @@ use harness_core::pilot::{
     CLASSES, PilotReason, PilotRule, STAGES, TaskFootprint, class_name, coverage_matrix,
     select_pilot, stage_name,
 };
+
+/// Left out of the proposal after a pilot run: their external servers crash.
+const EXCLUDE_FOR_CAUSE: &[&str] = &["299", "401"];
 use harness_core::source::SourceAdapter;
 
 fn main() -> ExitCode {
@@ -58,17 +62,25 @@ fn main() -> ExitCode {
 
     let rule = PilotRule::default();
     let footprints = adapter.task_footprints();
-    let selection = select_pilot(&inventory.tasks, footprints, rule);
+    let exclude: BTreeSet<String> = EXCLUDE_FOR_CAUSE
+        .iter()
+        .map(|id| (*id).to_owned())
+        .collect();
+    let selection = select_pilot(&inventory.tasks, footprints, rule, &exclude);
     println!(
         "\n2. Proposed pilot ({} tasks), PROPOSED, NOT FROZEN",
         selection.ids.len()
     );
     println!(
-        "rule: (0) leave out tasks that name an unresolved server or tool; (1) cover every non-empty (stage, class) cell with >= {} tasks, scarcest cell first, \
+        "rule: (0) leave out tasks that name an unresolved server or tool, and tasks whose external servers crash ({}); (1) cover every non-empty (stage, class) cell with >= {} tasks, scarcest cell first, \
          cheapest task first (fewer servers, then fewer tools, then lower numeric id); (2) add {} \
          Early control tasks (no change class), cheapest first; (3) while below {} tasks, give the \
          cell with the fewest selected tasks its cheapest unselected task; at most {} tasks",
-        rule.min_per_cell, rule.controls, rule.min_total, rule.max_total
+        selection.excluded_for_cause.join(", "),
+        rule.min_per_cell,
+        rule.controls,
+        rule.min_total,
+        rule.max_total
     );
     println!("coverage matrix of the proposed pilot:");
     print!("{}", selection.matrix.to_table());
@@ -95,6 +107,11 @@ fn main() -> ExitCode {
         "tasks left out because they name an unresolved server or tool: {} ({})",
         selection.excluded_unresolved.len(),
         selection.excluded_unresolved.join(", ")
+    );
+    println!(
+        "tasks left out because their external servers crash: {} ({})",
+        selection.excluded_for_cause.len(),
+        selection.excluded_for_cause.join(", ")
     );
     println!(
         "controls selected: {}; total reached the minimum of {}: {}",

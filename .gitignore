@@ -16,3 +16,22 @@ runs/**/scratch/
 # Local coding-agent state (session transcripts and per-workspace config)
 .harness/
 .mcpe/
+
+# Local tool state (spec workflow, code knowledge graph)
+.spec-workflow/
+knowledge_graph/
+
+# Working notes and report drafts (final report is docs/report/report.pdf)
+docs/teammate-status-message.md
+docs/method-and-tui-draft.md
+docs/rust-closeout.md
+docs/live-run-handoff.md
+docs/report/*.docx
+docs/report/project-report-draft.md
+docs/report/report-split.md
+docs/report/source-notes.md
+
+# Files written by MCP servers during live runs (not part of the imported dataset)
+benchmark/anotation_path/app.log
+benchmark/anotation_path/data.db
+benchmark/anotation_path/logs/

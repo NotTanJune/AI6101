@@ -8,13 +8,14 @@
 //!   (never a shell), tails the JSONL file the child writes and parses each new line while the
 //!   child is still running.
 //!
-//! ## Proposed runner argv (PROPOSAL, awaiting Person B agreement)
+//! ## Python process runner argv
 //!
 //! ```text
-//! <executable> [fixed_args...] run --run-id <id> --tool-kb <path> --server-version <label>
+//! <executable> [fixed_args...] run --run-id <id> --strategy <strategy> --tool-kb <path>
+//!   --server-version <active-kb-label> --source-version <label> --eval-data-env <env-name>
 //!   --task-id <id> (repeated) --provider <p> --model <m> [--temperature <f>] [--top-p <f>]
 //!   [--max-output-tokens <n>] --seed <n> --judge-version <v> --output-jsonl <path>
-//!   --remaining-budget-usd <f> [--mock]
+//!   --remaining-budget-usd <f> [--api-key-env <name>] [--rate-card-json <json>] [--mock]
 //! ```
 //!
 //! [`build_argv`] produces everything from `run` onward; the process runner prepends the
@@ -39,6 +40,7 @@ use std::thread;
 use std::time::Duration;
 
 use crate::config::{RunnerKind, RunnerSection, Strategy};
+use crate::cost::RateCard;
 use crate::events::{EventBody, EventError, EventSource, RunEvent, RunStatus, parse_event_line};
 use crate::redact::Redactor;
 
@@ -54,16 +56,22 @@ pub const EXIT_BUDGET_EXHAUSTED: i32 = 2;
 pub struct StageRequest {
     /// Run id stamped on the stage's events.
     pub run_id: String,
-    /// Strategy being evaluated (selects the fixture; not passed in argv).
+    /// Strategy being evaluated.
     pub strategy: Strategy,
     /// Path of the Tool KB JSON the agent must use.
     pub tool_kb_path: PathBuf,
     /// Server version label to evaluate against.
     pub server_version: String,
+    /// Source server version for run provenance.
+    pub source_version: String,
     /// Fixed task ids.
     pub task_ids: Vec<String>,
     /// Provider name.
     pub provider: String,
+    /// Environment variable name containing the provider key, if configured.
+    pub api_key_env: Option<String>,
+    /// Environment variable name containing the evaluation data root.
+    pub eval_data_env: String,
     /// Model id.
     pub model: String,
     /// Sampling temperature.
@@ -80,6 +88,8 @@ pub struct StageRequest {
     pub output_jsonl: PathBuf,
     /// Remaining local dispatch budget for this stage.
     pub remaining_budget_usd: f64,
+    /// Rate card passed to the child for pre-call budget reservations and cost events.
+    pub rate_card: Option<RateCard>,
     /// Ask the runner for its offline mock mode (`--mock`).
     pub mock: bool,
 }
@@ -233,7 +243,7 @@ pub trait BenchmarkRunner: Send {
 // Argument builder
 // ---------------------------------------------------------------------------------------------
 
-/// Build the runner argv from `run` onward (the proposed contract, see the module docs).
+/// Build the runner argv from `run` onward (see the module docs).
 /// Pure: no shell quoting, one `OsString` per argument, secrets are never part of a request.
 pub fn build_argv(req: &StageRequest) -> Vec<OsString> {
     let mut argv: Vec<OsString> = vec![OsString::from("run")];
@@ -242,8 +252,14 @@ pub fn build_argv(req: &StageRequest) -> Vec<OsString> {
         argv.push(value);
     };
     flag("--run-id", OsString::from(&req.run_id));
+    flag("--strategy", OsString::from(req.strategy.as_str()));
     flag("--tool-kb", req.tool_kb_path.clone().into_os_string());
     flag("--server-version", OsString::from(&req.server_version));
+    flag("--source-version", OsString::from(&req.source_version));
+    flag("--eval-data-env", OsString::from(&req.eval_data_env));
+    if let Some(name) = &req.api_key_env {
+        flag("--api-key-env", OsString::from(name));
+    }
     for task in &req.task_ids {
         flag("--task-id", OsString::from(task));
     }
@@ -265,6 +281,11 @@ pub fn build_argv(req: &StageRequest) -> Vec<OsString> {
         "--remaining-budget-usd",
         OsString::from(req.remaining_budget_usd.to_string()),
     );
+    if let Some(rate_card) = &req.rate_card {
+        let encoded =
+            serde_json::to_string(rate_card).expect("rate card data uses JSON-serializable fields");
+        flag("--rate-card-json", OsString::from(encoded));
+    }
     if req.mock {
         argv.push(OsString::from("--mock"));
     }

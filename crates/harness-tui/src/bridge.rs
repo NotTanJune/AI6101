@@ -27,17 +27,20 @@ use harness_agent::agent::{Agent, StopReason};
 use harness_agent::approval::{ApprovalRequest, Decision};
 use harness_agent::bridge::BlockingProvider;
 use harness_agent::drift::{
-    AdaptationOutcome, DriftReport, SessionKb, detect_drift, kb_subset, live_kb, run_adaptation,
+    AdaptationOutcome, DriftReport, SessionKb, detect_drift, evaluate_candidate, kb_subset,
+    live_kb, prepare_candidate,
 };
 use harness_agent::events::AgentEvent;
-use harness_agent::mcp::{DEFAULT_CALL_TIMEOUT, LiveTool, McpConfig, McpConnection, McpError};
+use harness_agent::live_canary::LiveCanaryExecutor;
+use harness_agent::mcp::{
+    DEFAULT_CALL_TIMEOUT, LiveTool, McpCanaryConfig, McpConfig, McpConnection, McpError,
+};
 use harness_agent::model::{ModelClient, TokenUsage};
 use harness_agent::registry::{Effort, ModelRegistry, ProviderId};
 use harness_agent::tools::ToolSource;
 use harness_core::canary::PromotionDecision;
-use harness_core::clock::SystemClock;
 use harness_core::cost::CostLedger;
-use harness_core::events::{EventEmitter, EventSource, VecSink};
+use harness_core::events::{AdaptationDiffEvent, AdaptationStatus, ErrorEvent, EventBody};
 use harness_core::provider::MeteredProvider;
 use harness_core::redact::Redactor;
 use harness_core::{CanaryStatus, Strategy, ToolKb};
@@ -45,6 +48,8 @@ use serde_json::Value;
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender, unbounded_channel};
 use tokio::sync::oneshot;
 use tokio_util::sync::CancellationToken;
+
+use crate::artifacts::AdaptationJournal;
 
 /// How long one MCP server may take to connect and list its tools.
 pub const MCP_CONNECT_TIMEOUT: Duration = Duration::from_secs(30);
@@ -409,6 +414,16 @@ pub type ConnectFuture<'a> =
 pub trait McpLauncher: Send + Sync {
     /// Connect the server called `name`.
     fn connect<'a>(&'a self, name: &'a str) -> ConnectFuture<'a>;
+
+    /// Explicit configuration of disposable state and its reset tool. Absent by default.
+    fn canary_config(&self, _name: &str) -> Option<McpCanaryConfig> {
+        None
+    }
+
+    /// Redactor including server credentials, for persisted adaptation evidence.
+    fn artifact_redactor(&self) -> Redactor {
+        Redactor::default()
+    }
 }
 
 /// Launcher backed by an `mcp.json` configuration: stdio servers are spawned (stderr goes to
@@ -435,6 +450,34 @@ impl ConfigLauncher {
 }
 
 impl McpLauncher for ConfigLauncher {
+    fn canary_config(&self, name: &str) -> Option<McpCanaryConfig> {
+        self.config.servers.get(name).and_then(|s| s.canary.clone())
+    }
+
+    fn artifact_redactor(&self) -> Redactor {
+        let mut redactor = Redactor::new(
+            self.config
+                .servers
+                .values()
+                .flat_map(|s| s.env.values().cloned())
+                .collect(),
+        );
+        fn add_arguments(redactor: &mut Redactor, value: &Value) {
+            match value {
+                Value::String(value) => redactor.add_secret(value),
+                Value::Array(values) => values.iter().for_each(|v| add_arguments(redactor, v)),
+                Value::Object(values) => values.values().for_each(|v| add_arguments(redactor, v)),
+                _ => {}
+            }
+        }
+        for server in self.config.servers.values() {
+            if let Some(canary) = &server.canary {
+                add_arguments(&mut redactor, &canary.reset_arguments);
+            }
+        }
+        redactor
+    }
+
     fn connect<'a>(&'a self, name: &'a str) -> ConnectFuture<'a> {
         Box::pin(async move {
             let server = self
@@ -713,7 +756,12 @@ struct Bridge {
     ledger: Arc<Mutex<CostLedger>>,
     events: Sender<UiEvent>,
     pending: HashMap<u64, oneshot::Sender<Decision>>,
-    outcomes: HashMap<String, AdaptationOutcome>,
+    outcomes: HashMap<String, PendingAdaptation>,
+}
+
+struct PendingAdaptation {
+    outcome: AdaptationOutcome,
+    journal: AdaptationJournal,
 }
 
 async fn run(
@@ -955,7 +1003,7 @@ impl Bridge {
         entry.state = McpState::Disconnected;
         conn.shutdown().await;
         self.agent.tools_mut().remove_mcp_server(name);
-        self.outcomes.remove(name);
+        self.reject_drift_if_present(name, "discarded because the server disconnected");
         self.emit_mcp_status(name);
         self.notice(format!("disconnected MCP server {name}"));
     }
@@ -1024,6 +1072,8 @@ impl Bridge {
         strategy: Strategy,
         commands: &mut UnboundedReceiver<UiCommand>,
     ) -> bool {
+        // Invalidate the previous candidate even when this attempt fails during preflight.
+        self.reject_drift_if_present(server, "superseded by a new adaptation");
         let fail = |this: &Self, message: String| {
             this.emit(UiEvent::DriftFailed {
                 server: server.to_owned(),
@@ -1069,29 +1119,153 @@ impl Bridge {
         let ledger = Arc::clone(&self.ledger);
         let handle = tokio::runtime::Handle::current();
         let diff = report.diff;
+        let Some(session_dir) = self.agent.transcript_path().and_then(|p| p.parent()) else {
+            fail(
+                self,
+                "adaptation requires a session transcript directory for evidence".to_owned(),
+            );
+            return false;
+        };
+        let mut redactor = self.launcher.artifact_redactor();
+        for name in self.models.api_key_envs() {
+            if let Ok(secret) = std::env::var(name) {
+                redactor.add_secret(secret);
+            }
+        }
+        let mut journal = match AdaptationJournal::create(
+            session_dir,
+            strategy,
+            &subset,
+            &live_kb,
+            redactor.clone(),
+        ) {
+            Ok(journal) => journal,
+            Err(e) => {
+                fail(self, format!("cannot open adaptation evidence: {e}"));
+                return false;
+            }
+        };
+        let artifact_path = journal.dir().display().to_string();
+        self.agent
+            .record_notice(format!("adaptation evidence: {artifact_path}"));
+        self.notice(format!("adaptation evidence: {artifact_path}"));
+        let canary_config = self.launcher.canary_config(server);
+        let server_name = server.to_owned();
+        let cancellation = CancellationToken::new();
+        let worker_cancellation = cancellation.clone();
         // Strategies are blocking and call the model through `block_on`: keep them off the
         // runtime workers.
         let mut work = tokio::task::spawn_blocking(move || {
-            let mut provider = BlockingProvider::new(client, spec, effort, handle);
-            let mut emitter = EventEmitter::new(
-                "drift",
-                EventSource::Rust,
-                Arc::new(SystemClock),
-                Redactor::default(),
-                Box::new(VecSink::new()),
-            );
-            let mut ledger = ledger.lock().unwrap_or_else(PoisonError::into_inner);
-            let mut metered =
-                MeteredProvider::new(&mut provider, &mut ledger, &mut emitter, Some(strategy));
-            run_adaptation(strategy, &subset, &live_kb, &diff, &mut metered)
+            let result = (|| -> Result<AdaptationOutcome, String> {
+                journal.metadata(serde_json::json!({
+                    "server": server_name, "strategy": strategy,
+                    "model_alias": alias, "model": spec.model_id, "effort": effort,
+                    "canary_execution": "live_mcp", "task_completion_verified": false,
+                }))?;
+                journal
+                    .emitter
+                    .emit(
+                        Some(strategy),
+                        EventBody::AdaptationDiff(AdaptationDiffEvent {
+                            source_version: diff.source_version.clone(),
+                            target_version: diff.target_version.clone(),
+                            changes: diff.changes.clone(),
+                            candidate_hash: None,
+                        }),
+                    )
+                    .map_err(|e| e.to_string())?;
+                let mut provider = BlockingProvider::new(client, spec, effort, handle.clone())
+                    .with_cancellation(worker_cancellation.clone());
+                let candidate = {
+                    let mut ledger = ledger.lock().unwrap_or_else(PoisonError::into_inner);
+                    let mut metered = MeteredProvider::new(
+                        &mut provider,
+                        &mut ledger,
+                        &mut journal.emitter,
+                        Some(strategy),
+                    );
+                    prepare_candidate(strategy, &subset, &live_kb, &diff, &mut metered)
+                        .map_err(|e| e.to_string())?
+                };
+                journal.write_kb("candidate.json", &candidate.kb)?;
+                let mut executor = LiveCanaryExecutor::new(
+                    &server_name,
+                    conn,
+                    &live_kb,
+                    canary_config.as_ref(),
+                    handle,
+                )
+                .with_cancellation(worker_cancellation.clone());
+                let outcome = evaluate_candidate(
+                    strategy,
+                    &subset,
+                    &live_kb,
+                    candidate,
+                    &mut executor,
+                    &mut journal.emitter,
+                )
+                .map_err(|e| e.to_string())?;
+                let state = match &outcome.decision {
+                    PromotionDecision::Promote(_) => "awaiting_acceptance",
+                    PromotionDecision::Blocked { .. } => "blocked",
+                    PromotionDecision::Unchanged { .. } => "unchanged",
+                };
+                journal.state(
+                    state,
+                    Some(&outcome.candidate.kb),
+                    Some(&outcome.canary.summary()),
+                )?;
+                if !matches!(outcome.decision, PromotionDecision::Promote(_)) {
+                    journal.outcome(
+                        outcome.decision.adaptation_status(),
+                        &outcome.canary.summary(),
+                        &outcome.candidate.kb,
+                        diff.affected_lineage_ids.iter().cloned().collect(),
+                    )?;
+                }
+                Ok(outcome)
+            })();
+            match result {
+                Ok(outcome) => Ok(PendingAdaptation { outcome, journal }),
+                Err(message) => {
+                    let message = redactor.redact_str(&message);
+                    let event = journal.emitter.emit(
+                        Some(strategy),
+                        EventBody::Error(ErrorEvent {
+                            message: message.clone(),
+                            fatal: true,
+                        }),
+                    );
+                    let state = journal.state(
+                        if worker_cancellation.is_cancelled() {
+                            "cancelled"
+                        } else {
+                            "failed"
+                        },
+                        None,
+                        Some(&message),
+                    );
+                    match (event, state) {
+                        (Ok(_), Ok(())) => Err(message),
+                        _ => Err(format!(
+                            "{message}; could not finish writing adaptation evidence"
+                        )),
+                    }
+                }
+            }
         });
+        let mut stop = false;
         let joined = loop {
             tokio::select! {
                 joined = &mut work => break joined,
                 command = commands.recv() => match command {
-                    // The blocking task cannot be cancelled; leave it to the runtime shutdown.
-                    Some(UiCommand::Shutdown) | None => return true,
-                    Some(UiCommand::Cancel | UiCommand::Approve { .. }) => {}
+                    Some(UiCommand::Shutdown) | None => {
+                        cancellation.cancel();
+                        stop = true;
+                        break work.await;
+                    }
+                    Some(UiCommand::Cancel) => cancellation.cancel(),
+                    Some(UiCommand::Approve { .. }) => {}
                     Some(other) => self.notice(format!(
                         "ignored while a drift run is in progress: {}",
                         describe(&other)
@@ -1101,40 +1275,115 @@ impl Bridge {
         };
         self.emit(UiEvent::Cost(CostSnapshot::from_ledger(&self.ledger)));
         match joined {
-            Ok(Ok(outcome)) => {
-                let summary = summarize(server, strategy, &outcome);
-                self.outcomes.insert(server.to_owned(), outcome);
+            Ok(Ok(mut pending)) if cancellation.is_cancelled() => {
+                let reason = "adaptation cancelled; prior KB retained";
+                let saved = pending
+                    .journal
+                    .state(
+                        "cancelled",
+                        Some(&pending.outcome.candidate.kb),
+                        Some(reason),
+                    )
+                    .and_then(|()| {
+                        pending.journal.outcome(
+                            AdaptationStatus::Unchanged,
+                            reason,
+                            &pending.outcome.candidate.kb,
+                            pending.outcome.candidate.changed_lineage_ids.clone(),
+                        )
+                    });
+                if let Err(e) = saved {
+                    fail(self, format!("{reason}; evidence write failed: {e}"));
+                } else {
+                    fail(self, reason.to_owned());
+                }
+            }
+            Ok(Ok(pending)) => {
+                let mut summary = summarize(server, strategy, &pending.outcome);
+                summary.summary = pending.journal.redact(&summary.summary);
+                summary.decision = pending.journal.redact(&summary.decision);
+                for probe in &mut summary.probes {
+                    probe.expected = probe.expected.as_deref().map(|s| pending.journal.redact(s));
+                    probe.actual = probe.actual.as_deref().map(|s| pending.journal.redact(s));
+                }
+                self.outcomes.insert(server.to_owned(), pending);
                 self.emit(UiEvent::CanaryReady(summary));
             }
             Ok(Err(e)) => fail(self, e.to_string()),
             Err(e) => fail(self, format!("the strategy task failed: {e}")),
         }
-        false
+        stop
     }
 
     fn accept_drift(&mut self, server: &str) {
-        let Some(outcome) = self.outcomes.get(server) else {
+        let Some(pending) = self.outcomes.get(server) else {
             self.error(format!(
                 "no candidate KB for {server}; run a strategy first"
             ));
             return;
         };
-        if !matches!(outcome.decision, PromotionDecision::Promote(_)) {
+        if !matches!(pending.outcome.decision, PromotionDecision::Promote(_)) {
             self.error(format!(
                 "the canary did not pass for {server}; the candidate cannot be accepted"
             ));
             return;
         }
-        let Some(outcome) = self.outcomes.remove(server) else {
+        let Some(mut pending) = self.outcomes.remove(server) else {
             return;
         };
         let previous = self.kb.clone();
-        let changed = self.kb.accept(&outcome.candidate);
+        let changed = self.kb.accept(&pending.outcome.candidate);
         if let Err(e) = self.register_tools(server) {
             self.kb = previous;
+            let _ = pending
+                .journal
+                .state("failed", Some(&pending.outcome.candidate.kb), Some(&e));
+            let _ = pending.journal.outcome(
+                AdaptationStatus::Blocked,
+                &e,
+                &pending.outcome.candidate.kb,
+                pending.outcome.candidate.changed_lineage_ids.clone(),
+            );
             self.error(format!("cannot expose the accepted KB of {server}: {e}"));
             return;
         }
+        let mut export_written = false;
+        let saved = (|| {
+            pending.journal.write_kb("accepted.json", self.kb.kb())?;
+            export_written = true;
+            pending
+                .journal
+                .state("accepted", Some(&pending.outcome.candidate.kb), None)?;
+            pending.journal.outcome(
+                AdaptationStatus::Promoted,
+                "explicitly accepted in the TUI",
+                &pending.outcome.candidate.kb,
+                pending.outcome.candidate.changed_lineage_ids.clone(),
+            )
+        })();
+        if let Err(e) = saved {
+            self.kb = previous;
+            let restore = self.register_tools(server);
+            if export_written {
+                let _ = std::fs::remove_file(pending.journal.dir().join("accepted.json"));
+            }
+            let _ = pending
+                .journal
+                .state("failed", Some(&pending.outcome.candidate.kb), Some(&e));
+            self.error(format!(
+                "KB acceptance blocked because evidence could not be saved: {e}"
+            ));
+            if let Err(restore_error) = restore {
+                self.error(format!(
+                    "could not restore prior tool registry: {restore_error}"
+                ));
+            }
+            return;
+        }
+        self.agent.record_notice(format!(
+            "accepted KB exported to {}",
+            pending.journal.dir().join("accepted.json").display(),
+        ));
         self.emit_mcp_status(server);
         self.emit(UiEvent::KbSummary(KbSummary::of(self.kb.kb())));
         self.check_drift(server);
@@ -1144,13 +1393,40 @@ impl Bridge {
     }
 
     fn reject_drift(&mut self, server: &str) {
-        if self.outcomes.remove(server).is_some() {
+        if self.reject_drift_if_present(server, "rejected by the user") {
             self.notice(format!(
                 "rejected the candidate KB for {server}; KB unchanged"
             ));
         } else {
             self.notice(format!("no candidate KB for {server}"));
         }
+    }
+
+    fn reject_drift_if_present(&mut self, server: &str, reason: &str) -> bool {
+        let Some(mut pending) = self.outcomes.remove(server) else {
+            return false;
+        };
+        let recorded = pending
+            .journal
+            .outcome(
+                AdaptationStatus::Unchanged,
+                reason,
+                &pending.outcome.candidate.kb,
+                pending.outcome.candidate.changed_lineage_ids.clone(),
+            )
+            .and_then(|()| {
+                pending.journal.state(
+                    "rejected",
+                    Some(&pending.outcome.candidate.kb),
+                    Some(reason),
+                )
+            });
+        if let Err(e) = recorded {
+            self.error(format!("could not record rejected candidate: {e}"));
+        }
+        self.agent
+            .record_notice(format!("candidate for {server}: {reason}"));
+        true
     }
 
     async fn handle_idle(
@@ -1240,6 +1516,10 @@ impl Bridge {
     }
 
     async fn shutdown_servers(&mut self) {
+        let pending: Vec<String> = self.outcomes.keys().cloned().collect();
+        for server in pending {
+            self.reject_drift_if_present(&server, "discarded because the session ended");
+        }
         let conns: Vec<Arc<McpConnection>> = self
             .servers
             .values_mut()

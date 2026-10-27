@@ -28,7 +28,7 @@ use crate::redact::Redactor;
 pub const DEFAULT_MAX_OUTPUT_TOKENS: u32 = 8192;
 
 /// Request timeout for HTTP providers.
-const HTTP_TIMEOUT: Duration = Duration::from_secs(180);
+const HTTP_TIMEOUT: Duration = Duration::from_secs(300);
 
 /// Longest provider error text kept in a [`ProviderError`].
 const MAX_ERROR_TEXT: usize = 300;

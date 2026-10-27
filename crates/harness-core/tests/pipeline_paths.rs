@@ -145,10 +145,19 @@ fn inconclusive_canary_also_blocks() {
 #[test]
 fn rejected_model_output_keeps_the_prior_kb_and_records_an_error() {
     let dir = tempfile::tempdir().unwrap();
-    let provider = MockProvider::scripted(vec![
-        "this is not a knowledge base".to_owned(),
+    // Each adaptation batch is attempted three times (the rejection is fed back), so every
+    // attempt gets the same bad answer.
+    let bad_kb = "this is not a knowledge base".to_owned();
+    let bad_patch =
         "{\"ops\": [{\"op\": \"remove_card\", \"lineage_id\": \"tracker.list_issues\"}]}"
-            .to_owned(),
+            .to_owned();
+    let provider = MockProvider::scripted(vec![
+        bad_kb.clone(),
+        bad_kb.clone(),
+        bad_kb,
+        bad_patch.clone(),
+        bad_patch.clone(),
+        bad_patch,
     ])
     .with_identity("mock", "mock-1");
     let summary = run_matrix(
@@ -474,7 +483,14 @@ fn remaining_budget_is_passed_to_the_runner_stage() {
     for req in requests.iter() {
         assert_eq!(req.remaining_budget_usd, 100.0);
         assert_eq!(req.run_id, "smoke");
-        assert_eq!(req.server_version, "late");
+        // The runner receives the active KB's version: no_update keeps the stale source KB.
+        let expected = if req.strategy == Strategy::NoUpdate {
+            "early"
+        } else {
+            "late"
+        };
+        assert_eq!(req.server_version, expected, "{:?}", req.strategy);
+        assert_eq!(req.source_version, "early");
         assert!(req.mock);
         assert_eq!(req.judge_version, "mock-judge-1");
         assert!(req.tool_kb_path.starts_with(dir.path()));

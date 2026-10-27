@@ -263,7 +263,7 @@
         "source": { "$ref": "#/$defs/source" },
         "strategy": { "$ref": "#/$defs/strategy" },
         "event_type": { "const": "metric_score" },
-        "metric": { "enum": ["tf", "pe", "ecs", "recovery", "retention"] },
+        "metric": { "enum": ["tf", "grounding", "pe", "ecs", "recovery", "retention"] },
         "task_id": { "$ref": "#/$defs/nullable_string" },
         "value": { "type": "number" }
       }

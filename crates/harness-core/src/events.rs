@@ -219,6 +219,8 @@ pub enum Metric {
     Tf,
     /// Metric `pe`.
     Pe,
+    /// Metric `grounding`.
+    Grounding,
     /// Metric `ecs`.
     Ecs,
     /// Recovery metric.

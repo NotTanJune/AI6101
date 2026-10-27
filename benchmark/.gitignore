@@ -1,0 +1,16 @@
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Local Python environment and caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Evolved server bundles from huggingface.co/datasets/anonymous2233/evol-servers (about 1 GB each)
+servers/iter3_servers.zip
+servers/iter5_servers.zip
+servers/iter3_servers/
+servers/iter5_servers/

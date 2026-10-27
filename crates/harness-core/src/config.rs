@@ -193,6 +193,10 @@ pub struct VersionsSection {
     /// Optional stage-to-label mapping.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub stages: Option<Stages>,
+    /// Permit `source == target`: a no-drift baseline stage (for example the Early run of a
+    /// three-version ECS experiment). Off by default so a typo cannot silently skip evolution.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub baseline: bool,
 }
 
 /// `[tasks]`
@@ -480,8 +484,11 @@ impl Config {
         if self.versions.target.trim().is_empty() {
             v.add("versions.target", "must not be empty");
         }
-        if self.versions.source == self.versions.target {
-            v.add("versions.target", "must differ from versions.source");
+        if self.versions.source == self.versions.target && !self.versions.baseline {
+            v.add(
+                "versions.target",
+                "must differ from versions.source (set versions.baseline = true for a no-drift stage)",
+            );
         }
     }
 

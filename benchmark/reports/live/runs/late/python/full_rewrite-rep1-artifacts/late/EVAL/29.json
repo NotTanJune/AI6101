@@ -1,0 +1,373 @@
+{
+  "response": "```xml\n<response>\n  <workflow_analysis>\n    The scenario combines planning/analysis with sequential thinking and then uses command execution to inspect and extract data from an existing local CSV file. The user’s question requires reasoning through how to aggregate and join data based on requirements, followed by running a local command to preview and confirm the relevant file contents. Thus, it naturally engages the sequential-thinking server to plan the data-processing steps and the command-execution server to inspect the CSV file.\n  </workflow_analysis>\n  <target_servers>\n    <server name=\"@modelcontextprotocol/server-sequential-thinking\">\n      <tool>sequentialthinking</tool>\n    </server>\n    <server name=\"mcp-server-commands\">\n      <tool>run_process</tool>\n    </server>\n  </target_servers>\n  <question>\n    I need to summarize last month’s customer purchases by loading the customers-100.csv file in my workspace. Can you first figure out the steps needed to compute total spending per customer, and then show me a quick preview of the CSV so I can confirm the columns before proceeding?\n  </question>\n</response>\n```",
+  "question": "I need to summarize last month’s customer purchases by loading the customers-100.csv file in my workspace. Can you first figure out the steps needed to compute total spending per customer, and then show me a quick preview of the CSV so I can confirm the columns before proceeding?",
+  "tool_calls": [
+    {
+      "tool_name": "sequentialthinking",
+      "parameters": {}
+    },
+    {
+      "tool_name": "run_process",
+      "parameters": {}
+    }
+  ],
+  "servers": {
+    "@modelcontextprotocol/server-sequential-thinking": [
+      "sequentialthinking"
+    ],
+    "mcp-server-commands": [
+      "run_process"
+    ]
+  },
+  "answer": "To compute **total spending per customer for last month**, the steps would be:\n\n1. Load the customer and purchase/transaction data.\n2. Filter transactions to last month’s date range.\n3. Match each transaction to a customer using a shared customer ID.\n4. Sum the purchase amounts for each customer.\n5. Optionally join in customer names and report the totals.\n\nI previewed `customers-100.csv`. It has **100 rows and 12 columns**:\n\n`Index`, `Customer Id`, `First Name`, `Last Name`, `Company`, `City`, `Country`, `Phone 1`, `Phone 2`, `Email`, `Subscription Date`, `Website`\n\nThis file contains customer details, but no purchase dates or amounts, so it isn’t enough on its own to calculate spending.",
+  "trajectory_messages": [
+    {
+      "role": "system",
+      "content": "You are an AI agent connected to the MCP (Model Context Protocol) server. Based on the user's request, select and invoke tools to fulfill the task accurately and efficiently. \nNote that do not to ask any questions to the user, just call the tool to complete the task.\n\nConsidering real-time performance, the time is set to be around `2026-10-27 (星期二)`.\n\nThese files are stored in the local file system and serve as relevant resources for tool utilization. Use the absolute resource directory \"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path\" for the following files:\n`anotation_path/\n  code/\n    log_analysis.py\n    new_aggregator.py\n  csv/\n    customers-100.csv\n    products-100.csv\n  excel/\n    goods.xlsx\n    Local_Electronic_Sales.xlsx\n    people_data.xlsx\n  figs/\n  files/\n  html/\n    time.html\n  markdown/\n    work.md\n  music/\n    mixkit-retro-game-emergency-alarm-1000.wav\n  pdf/\n    embodied_ai_papers/\n      PaLM-E, An Embodied Multimodal Language Model, Danny Driess et al., 2023, v1_compressed.pdf\n      RT-2, Vision-Language-Action Models Transfer Web Knowledge to Robotic Control, Anthony Brohan et al., 2023, v1_compressed.pdf\n      Voyager, An Open-Ended Embodied Agent with Large Language Models, Guanzhi Wang et al., 2023, v2_compressed.pdf\n    WebArena.pdf\n  picture/\n    clock.png\n  ppt/\n    build_effective_agents.pptx\n  tasks/\n    ableton_crash_log_analysis.md\n    ableton_weekly_crash_analysis_tasks.md\n    log_analysis_improvement.md\n  txt/\n    Android.txt\n    log_today.txt\n    log_yesterday.txt\n    paper_list.bib\n  word/\n    CV.docx\n    exchange.docx\n    Report_Card.docx\n  llms-full.txt\n  log_analysis_scheduled.log`\n\nDatabase Configuration (if applicable):\n- Host: 127.0.0.1\n- Port: 3305\n- User: root\n- Password: 123456\n- Database Name: mydb\n"
+    },
+    {
+      "role": "user",
+      "content": "I need to summarize last month’s customer purchases by loading the customers-100.csv file in my workspace. Can you first figure out the steps needed to compute total spending per customer, and then show me a quick preview of the CSV so I can confirm the columns before proceeding?"
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_ZhVE3xBh0YNHMZBKbG4GxRr0",
+          "function": {
+            "arguments": "{\"thought\":\"I should outline the calculation workflow conceptually, then inspect the CSV header and a few rows as requested. The file appears under the supplied absolute resource directory.\",\"thoughtNumber\":1,\"totalThoughts\":2,\"nextThoughtNeeded\":true}",
+            "name": "sequentialthinking"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_ZhVE3xBh0YNHMZBKbG4GxRr0",
+      "content": "[TextContent(type='text', text='thinkingServer.getThoughtHistory is not a function', annotations=None, meta=None)]..."
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_ZxIJBOAuRO4qgYZ6YHcx24fA",
+          "function": {
+            "arguments": "{\"mode\":\"shell\",\"command_line\":\"python - <<'PY'\\nimport pandas as pd\\np='/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path/csv/customers-100.csv'\\ndf=pd.read_csv(p)\\nprint('Shape:', df.shape)\\nprint('Columns:', list(df.columns))\\nprint('\\\\nPreview:')\\nprint(df.head(8).to_string(index=False))\\nPY\",\"cwd\":\"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path\",\"timeout_ms\":30000}",
+            "name": "run_process"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_ZxIJBOAuRO4qgYZ6YHcx24fA",
+      "content": "[TextContent(type='text', text='0', annotations=None, meta=None), TextContent(type='text', text=\"Shape: (100, 12)\\nColumns: ['Index', 'Customer Id', 'First Name', 'Last Name', 'Company', 'City', 'Country', 'Phone 1', 'Phone 2', 'Email', 'Subscription Date', 'Website']\\n\\nPreview:\\n Index     Customer Id First Name Last Name                         Company              City                    Country                Phone 1               Phone 2                       Email Subscription Date       ..."
+    },
+    {
+      "content": "To compute **total spending per customer for last month**, the steps would be:\n\n1. Load the customer and purchase/transaction data.\n2. Filter transactions to last month’s date range.\n3. Match each transaction to a customer using a shared customer ID.\n4. Sum the purchase amounts for each customer.\n5. Optionally join in customer names and report the totals.\n\nI previewed `customers-100.csv`. It has **100 rows and 12 columns**:\n\n`Index`, `Customer Id`, `First Name`, `Last Name`, `Company`, `City`, `Country`, `Phone 1`, `Phone 2`, `Email`, `Subscription Date`, `Website`\n\nThis file contains customer details, but no purchase dates or amounts, so it isn’t enough on its own to calculate spending.",
+      "role": "assistant",
+      "annotations": []
+    }
+  ],
+  "stop": true,
+  "exceeded": false,
+  "idx": 29,
+  "eval_result": {
+    "runs": [
+      {
+        "dimension_order": [
+          0,
+          1,
+          2
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "Total requirements: 3 — load the CSV, outline the steps to calculate spending per customer, and preview the file so the columns can be checked. Met: 3/3. The agent loaded the CSV, gave a calculation workflow, and reported the row count and column names. Defect rate: 0/3 = 0%.",
+          "grounding_reasoning": "Total factual claims about the file: 3 — 100 rows and 12 columns, the listed column names, and the absence of purchase dates and amounts. Unsupported claims: 0; each is supported by the CSV inspection output. Defect rate: 0/3 = 0%.",
+          "planning_efficiency_reasoning": "Total tool calls: 2. Redundant or unnecessary calls: 1 — the sequentialthinking call failed and was not needed to inspect the CSV or provide the requested workflow. The CSV-loading and preview call was necessary. Defect rate: 1/2 = 50%.",
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 5
+        }
+      },
+      {
+        "dimension_order": [
+          0,
+          2,
+          1
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "There are 2 explicit requirements: outline steps for computing total spending per customer and preview the CSV to confirm its columns. Both were met: the answer gives a calculation workflow and reports the file's dimensions and columns. Defect rate: 0/2 = 0%.",
+          "grounding_reasoning": "Counting atomic factual claims and data points in the final answer gives 23: 5 workflow recommendations, 2 dimensions (100 rows and 12 columns), 12 listed column names, and 4 claims about the file's contents and suitability. The 5 workflow recommendations are not established by the tool output, which only shows the customer CSV; the other 18 claims are supported by the output. Defect rate: 5/23 ≈ 21.7%.",
+          "planning_efficiency_reasoning": "There were 2 tool calls. The CSV inspection call was necessary; the sequential-thinking call failed and was unnecessary to complete the task. Defect rate: 1/2 = 50%.",
+          "task_fulfillment": 10,
+          "grounding": 7,
+          "planning_and_efficiency": 5
+        }
+      },
+      {
+        "dimension_order": [
+          0,
+          1,
+          2
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "There are 2 explicit requirements: outline the steps for computing total spending per customer and preview the CSV so the columns can be confirmed. Both were met: the final answer gives the filtering, customer-matching, and summing steps, then reports the CSV's dimensions and all 12 column names. Defects: 0/2 = 0%.",
+          "grounding_reasoning": "Counted 23 atomic claims/data points in the final answer: 5 workflow claims, 2 dimension claims, 12 column-name claims, and 4 claims about the file's contents and suitability. All are supported by the task or the CSV inspection output. Unsupported claims: 0/23 = 0%.",
+          "planning_efficiency_reasoning": "There were 2 tool calls. The CSV inspection call was necessary; the sequential-thinking call failed with an error and was unnecessary for this straightforward task. Redundant/unnecessary calls: 1/2 = 50%.",
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 5
+        }
+      },
+      {
+        "dimension_order": [
+          2,
+          1,
+          0
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "Total requirements: 2 — explain the steps for computing spending per customer and preview the CSV so the columns can be confirmed. Met: 2/2. The response gives a suitable aggregation workflow, previews the file’s dimensions and columns, and notes that purchase data is absent from this file. Defect rate: 0/2 = 0%.",
+          "grounding_reasoning": "Counted 19 factual claims/data points: the preview and dimensions, the 12 listed column names, and statements about the file’s contents and its lack of purchase dates and amounts. Unsupported claims: 0. These are supported by the tool output. Defect rate: 0/19 = 0%.",
+          "planning_efficiency_reasoning": "Total tool calls: 2. One call—the failed sequential-thinking call—was unnecessary for the task; the CSV inspection call was needed to preview the file and confirm its columns. Defect rate: 1/2 = 50%.",
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 5
+        }
+      },
+      {
+        "dimension_order": [
+          2,
+          0,
+          1
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "There were 3 explicit requirements: outline how to calculate per-customer spending, load customers-100.csv, and show a preview/schema so the columns can be checked. All 3 were met; the agent also noted that this file lacks purchase dates and amounts, so it cannot alone support the calculation. Defect rate: 0/3 = 0%.",
+          "grounding_reasoning": "There are 16 atomic factual claims or data points in the final answer: that the file was previewed, its 100-row and 12-column dimensions, the 12 listed column names, that it contains customer details, and that purchase dates and amounts are absent. These are supported by the tool output. The calculation steps are recommendations, not factual claims requiring separate tool evidence. Unsupported claims: 0/16; defect rate: 0%.",
+          "planning_efficiency_reasoning": "There were 2 tool calls. The run_process call was needed to inspect the CSV. The sequentialthinking call failed and was unnecessary for the requested work, so 1/2 calls were redundant or unnecessary; defect rate: 50%.",
+          "task_fulfillment": 10,
+          "grounding": 10,
+          "planning_and_efficiency": 5
+        }
+      }
+    ],
+    "aggregate": {
+      "successful_runs": 5,
+      "total_runs": 5,
+      "task_fulfillment_mean": 10.0,
+      "grounding_mean": 9.4,
+      "planning_and_efficiency_mean": 5.0,
+      "task_fulfillment_reasoning_runs": [
+        "Total requirements: 3 — load the CSV, outline the steps to calculate spending per customer, and preview the file so the columns can be checked. Met: 3/3. The agent loaded the CSV, gave a calculation workflow, and reported the row count and column names. Defect rate: 0/3 = 0%.",
+        "There are 2 explicit requirements: outline steps for computing total spending per customer and preview the CSV to confirm its columns. Both were met: the answer gives a calculation workflow and reports the file's dimensions and columns. Defect rate: 0/2 = 0%.",
+        "There are 2 explicit requirements: outline the steps for computing total spending per customer and preview the CSV so the columns can be confirmed. Both were met: the final answer gives the filtering, customer-matching, and summing steps, then reports the CSV's dimensions and all 12 column names. Defects: 0/2 = 0%.",
+        "Total requirements: 2 — explain the steps for computing spending per customer and preview the CSV so the columns can be confirmed. Met: 2/2. The response gives a suitable aggregation workflow, previews the file’s dimensions and columns, and notes that purchase data is absent from this file. Defect rate: 0/2 = 0%.",
+        "There were 3 explicit requirements: outline how to calculate per-customer spending, load customers-100.csv, and show a preview/schema so the columns can be checked. All 3 were met; the agent also noted that this file lacks purchase dates and amounts, so it cannot alone support the calculation. Defect rate: 0/3 = 0%."
+      ],
+      "grounding_reasoning_runs": [
+        "Total factual claims about the file: 3 — 100 rows and 12 columns, the listed column names, and the absence of purchase dates and amounts. Unsupported claims: 0; each is supported by the CSV inspection output. Defect rate: 0/3 = 0%.",
+        "Counting atomic factual claims and data points in the final answer gives 23: 5 workflow recommendations, 2 dimensions (100 rows and 12 columns), 12 listed column names, and 4 claims about the file's contents and suitability. The 5 workflow recommendations are not established by the tool output, which only shows the customer CSV; the other 18 claims are supported by the output. Defect rate: 5/23 ≈ 21.7%.",
+        "Counted 23 atomic claims/data points in the final answer: 5 workflow claims, 2 dimension claims, 12 column-name claims, and 4 claims about the file's contents and suitability. All are supported by the task or the CSV inspection output. Unsupported claims: 0/23 = 0%.",
+        "Counted 19 factual claims/data points: the preview and dimensions, the 12 listed column names, and statements about the file’s contents and its lack of purchase dates and amounts. Unsupported claims: 0. These are supported by the tool output. Defect rate: 0/19 = 0%.",
+        "There are 16 atomic factual claims or data points in the final answer: that the file was previewed, its 100-row and 12-column dimensions, the 12 listed column names, that it contains customer details, and that purchase dates and amounts are absent. These are supported by the tool output. The calculation steps are recommendations, not factual claims requiring separate tool evidence. Unsupported claims: 0/16; defect rate: 0%."
+      ],
+      "planning_efficiency_reasoning_runs": [
+        "Total tool calls: 2. Redundant or unnecessary calls: 1 — the sequentialthinking call failed and was not needed to inspect the CSV or provide the requested workflow. The CSV-loading and preview call was necessary. Defect rate: 1/2 = 50%.",
+        "There were 2 tool calls. The CSV inspection call was necessary; the sequential-thinking call failed and was unnecessary to complete the task. Defect rate: 1/2 = 50%.",
+        "There were 2 tool calls. The CSV inspection call was necessary; the sequential-thinking call failed with an error and was unnecessary for this straightforward task. Redundant/unnecessary calls: 1/2 = 50%.",
+        "Total tool calls: 2. One call—the failed sequential-thinking call—was unnecessary for the task; the CSV inspection call was needed to preview the file and confirm its columns. Defect rate: 1/2 = 50%.",
+        "There were 2 tool calls. The run_process call was needed to inspect the CSV. The sequentialthinking call failed and was unnecessary for the requested work, so 1/2 calls were redundant or unnecessary; defect rate: 50%."
+      ],
+      "task_fulfillment": 10,
+      "grounding": 9,
+      "planning_and_efficiency": 5
+    },
+    "judge_metadata": {
+      "integration_version": "ai6101-judge/1",
+      "model": "gpt-6-luna",
+      "requested_temperature": 0.0,
+      "max_tokens": 65536,
+      "num_runs": 5,
+      "tool_context_source": "saved_involved_tools",
+      "rubric_sha256": "59ede33bfddfe91138d07ac97fcac9e16b64fad99c13d58d85990944e6649bee"
+    },
+    "task_fulfillment": 10,
+    "grounding": 9,
+    "planning_and_efficiency": 5
+  },
+  "forced_finalization": false,
+  "involved_tools": [
+    {
+      "name": "sequentialthinking",
+      "description": "Records a step in a flexible, sequential problem-solving process. A step can continue an analysis, revise an earlier step, or identify a branch; the estimated number of steps can be adjusted as work progresses.\n\nUsage rules:\n- Provide thought, nextThoughtNeeded, thoughtNumber, and totalThoughts on every call; both numeric fields must be integers of at least 1.\n- Set nextThoughtNeeded to false only when the sequential process is complete, or true when another step is needed. Adjust totalThoughts as the estimate changes.\n- For a revision, set isRevision and, when applicable, identify the earlier step with revisesThought. For a branch, use branchFromThought and branchId as appropriate.\n- Optional fields include needsMoreThoughts, confidenceScore (0 to 1), and thoughtPriority (critical, high, medium, or low). Use this for one evolving line of analysis; use parallel-thinking to track distinct approaches.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false,
+        "properties": {
+          "branchFromThought": {
+            "description": "Branching point thought number",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "branchId": {
+            "description": "Branch identifier",
+            "type": "string"
+          },
+          "confidenceScore": {
+            "description": "Confidence level in this thought's validity, ranging from 0.0 (no confidence) to 1.0 (complete confidence)",
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "isRevision": {
+            "description": "Whether this revises previous thinking",
+            "type": "boolean"
+          },
+          "needsMoreThoughts": {
+            "description": "If more thoughts are needed",
+            "type": "boolean"
+          },
+          "nextThoughtNeeded": {
+            "description": "Whether another thought step is needed",
+            "type": "boolean"
+          },
+          "revisesThought": {
+            "description": "Which thought is being reconsidered",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "thought": {
+            "description": "Your current thinking step",
+            "type": "string"
+          },
+          "thoughtNumber": {
+            "description": "Current thought number (numeric value, e.g., 1, 2, 3)",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "thoughtPriority": {
+            "description": "Priority level of this thought indicating its importance to the overall reasoning chain",
+            "enum": [
+              "critical",
+              "high",
+              "medium",
+              "low"
+            ],
+            "type": "string"
+          },
+          "totalThoughts": {
+            "description": "Estimated total thoughts needed (numeric value, e.g., 5, 10)",
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "thought",
+          "nextThoughtNeeded",
+          "thoughtNumber",
+          "totalThoughts"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "run_process",
+      "description": "Runs a process on the Darwin machine. Set mode to \"shell\" and provide command_line for a shell command, or set mode to \"executable\" and provide argv, where argv[0] is the executable. A non-empty cwd and mode are required. Supports optional stdin, environment overrides, dry-run explanation, output capture controls, timeout and timeout signal, and a platform-dependent memory limit.\n\nUsage rules:\n- Choose exactly one execution mode: for shell mode, provide command_line and do not provide argv; for executable mode, provide a non-empty argv array and do not provide command_line.\n- Always provide a non-empty cwd.\n- Use env for string-to-string environment overrides; these are merged with the current process environment.\n- stdin, if provided, is written fully to the process and then closed.\n- timeout_ms must be 1–300000 milliseconds; it defaults to 30000. kill_signal may be SIGTERM, SIGKILL, or SIGINT and defaults to SIGTERM.\n- capture_output may be full (default), truncated (up to 10 KB per stream), or none. max_output_bytes, when provided, limits combined stdout and stderr capture and overrides capture_output truncation behavior; it must be 1–104857600 bytes.\n- memory_limit_mb, if provided, must be 1–16384; enforcement depends on the platform.\n- Set dry_run to true to explain what would run without running it.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "argv": {
+            "description": "Executable and arguments. argv[0] is the executable. Required when mode='executable'. Forbidden when mode='shell'.",
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "capture_output": {
+            "description": "Optional output capture mode: 'full' (default, capture all), 'truncated' (limit to 10KB per stream), or 'none' (discard output).",
+            "enum": [
+              "full",
+              "truncated",
+              "none"
+            ],
+            "type": "string"
+          },
+          "command_line": {
+            "description": "Shell command line. Required when mode='shell'. Forbidden when mode='executable'.",
+            "minLength": 1,
+            "type": "string"
+          },
+          "cwd": {
+            "description": "Working directory. Required and must be a non-empty string.",
+            "minLength": 1,
+            "type": "string"
+          },
+          "dry_run": {
+            "description": "Optional explain what would run, defaults to False.",
+            "type": "boolean"
+          },
+          "env": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Optional environment variables as key-value pairs, merged with current process environment.",
+            "type": "object"
+          },
+          "kill_signal": {
+            "description": "Optional signal to send on timeout: 'SIGTERM' (default), 'SIGKILL', or 'SIGINT'.",
+            "enum": [
+              "SIGTERM",
+              "SIGKILL",
+              "SIGINT"
+            ],
+            "type": "string"
+          },
+          "max_output_bytes": {
+            "description": "Optional maximum bytes to capture from stdout/stderr combined, overrides capture_output truncation behavior",
+            "maximum": 104857600,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "memory_limit_mb": {
+            "description": "Optional memory limit in megabytes for the spawned process, enforcement is platform-dependent",
+            "maximum": 16384,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "mode": {
+            "description": "What are you running, two choices: 'shell' or 'executable' (required, no default)",
+            "enum": [
+              "shell",
+              "executable"
+            ]
+          },
+          "stdin": {
+            "description": "Optional text written to STDIN (written fully, then closed). Useful for heredoc-style input or file contents.",
+            "type": "string"
+          },
+          "timeout_ms": {
+            "description": "Optional timeout in milliseconds, must be an integer between 1 and 300000, defaults to 30,000ms",
+            "maximum": 300000,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "mode",
+          "cwd"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "harness_strategy": "full_rewrite",
+  "source_version": "early",
+  "stage": "late",
+  "run_id": "mcpevol-live-late",
+  "judge_version": "ai6101-judge/1"
+}

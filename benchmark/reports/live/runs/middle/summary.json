@@ -1,0 +1,1263 @@
+{
+  "format": "harness-summary/1",
+  "run_id": "mcpevol-live-middle",
+  "status": "ok",
+  "detail": null,
+  "source_version": "early",
+  "target_version": "middle",
+  "provider": "openai",
+  "model": "gpt-6-luna",
+  "judge_version": "ai6101-judge/1",
+  "seed": 42,
+  "repetitions": 1,
+  "task_ids": [
+    "2",
+    "5",
+    "8",
+    "21",
+    "22",
+    "26",
+    "29",
+    "30",
+    "34",
+    "40",
+    "94",
+    "161",
+    "225",
+    "229",
+    "235",
+    "249",
+    "281",
+    "291",
+    "385",
+    "448"
+  ],
+  "entries": [
+    {
+      "strategy": "no_update",
+      "repetition": 1,
+      "adaptation": {
+        "status": "unchanged",
+        "reason": "no-update strategy: the knowledge base is left unchanged",
+        "candidate_hash": null,
+        "prior_hash": "4066e102fcb42babded285ab082238e605f711e4c82de54d14850793f5b5448f",
+        "changed_lineage_ids": []
+      },
+      "canary_status": "not_applicable",
+      "active_kb_hash": "4066e102fcb42babded285ab082238e605f711e4c82de54d14850793f5b5448f",
+      "active_kb_path": "kb/no_update-rep1.json",
+      "stage": "completed",
+      "verdicts": {
+        "confirmed_success": 0,
+        "confirmed_failure": 0,
+        "inconclusive": 0
+      },
+      "metrics": [
+        {
+          "metric": "tf",
+          "task_id": "8",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "8",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "8",
+          "value": 9.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "5",
+          "value": 1.8
+        },
+        {
+          "metric": "grounding",
+          "task_id": "5",
+          "value": 8.2
+        },
+        {
+          "metric": "pe",
+          "task_id": "5",
+          "value": 5.8
+        },
+        {
+          "metric": "tf",
+          "task_id": "22",
+          "value": 5.2
+        },
+        {
+          "metric": "grounding",
+          "task_id": "22",
+          "value": 8.8
+        },
+        {
+          "metric": "pe",
+          "task_id": "22",
+          "value": 7.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "2",
+          "value": 2.2
+        },
+        {
+          "metric": "grounding",
+          "task_id": "2",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "2",
+          "value": 5.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "21",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "21",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "21",
+          "value": 8.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "26",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "26",
+          "value": 7.6
+        },
+        {
+          "metric": "pe",
+          "task_id": "26",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "29",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "29",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "29",
+          "value": 2.6
+        },
+        {
+          "metric": "tf",
+          "task_id": "30",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "30",
+          "value": 8.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "30",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "34",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "34",
+          "value": 6.6
+        },
+        {
+          "metric": "pe",
+          "task_id": "34",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "40",
+          "value": 5.4
+        },
+        {
+          "metric": "grounding",
+          "task_id": "40",
+          "value": 5.4
+        },
+        {
+          "metric": "pe",
+          "task_id": "40",
+          "value": 5.4
+        },
+        {
+          "metric": "tf",
+          "task_id": "161",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "161",
+          "value": 8.8
+        },
+        {
+          "metric": "pe",
+          "task_id": "161",
+          "value": 5.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "229",
+          "value": 1.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "229",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "229",
+          "value": 8.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "94",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "94",
+          "value": 7.4
+        },
+        {
+          "metric": "pe",
+          "task_id": "94",
+          "value": 7.4
+        },
+        {
+          "metric": "tf",
+          "task_id": "225",
+          "value": 4.4
+        },
+        {
+          "metric": "grounding",
+          "task_id": "225",
+          "value": 8.6
+        },
+        {
+          "metric": "pe",
+          "task_id": "225",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "235",
+          "value": 6.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "235",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "235",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "249",
+          "value": 5.4
+        },
+        {
+          "metric": "grounding",
+          "task_id": "249",
+          "value": 8.4
+        },
+        {
+          "metric": "pe",
+          "task_id": "249",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "291",
+          "value": 5.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "291",
+          "value": 9.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "291",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "448",
+          "value": 4.6
+        },
+        {
+          "metric": "grounding",
+          "task_id": "448",
+          "value": 7.8
+        },
+        {
+          "metric": "pe",
+          "task_id": "448",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "385",
+          "value": 9.4
+        },
+        {
+          "metric": "grounding",
+          "task_id": "385",
+          "value": 7.6
+        },
+        {
+          "metric": "pe",
+          "task_id": "385",
+          "value": 7.8
+        },
+        {
+          "metric": "tf",
+          "task_id": "281",
+          "value": 6.6
+        },
+        {
+          "metric": "grounding",
+          "task_id": "281",
+          "value": 8.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "281",
+          "value": 7.0
+        }
+      ],
+      "failure_categories": [],
+      "failure_counts": {
+        "under_update": 0,
+        "over_update": 0
+      },
+      "errors": [],
+      "cost": {
+        "calls": 173,
+        "priced_calls": 173,
+        "unknown_calls": 0,
+        "mock_calls": 0,
+        "local_calls": 0,
+        "input_tokens": 549959,
+        "output_tokens": 196990,
+        "priced_usd": 0.13504567000000006,
+        "local_latency_ms": 0,
+        "by_phase": {
+          "agent": {
+            "calls": 73,
+            "input_tokens": 150449,
+            "output_tokens": 11590,
+            "usd": 0.012594460000000002,
+            "unknown_calls": 0,
+            "mock_calls": 0,
+            "local_latency_ms": 0
+          },
+          "other": {
+            "calls": 100,
+            "input_tokens": 399510,
+            "output_tokens": 185400,
+            "usd": 0.12245121,
+            "unknown_calls": 0,
+            "mock_calls": 0,
+            "local_latency_ms": 0
+          }
+        },
+        "local_dispatch_cap_usd": 20.0,
+        "remaining_usd": 19.86495433,
+        "unreconciled_usd": 0.0
+      }
+    },
+    {
+      "strategy": "selective_patch",
+      "repetition": 1,
+      "adaptation": {
+        "status": "promoted",
+        "reason": "canary passed (4 probe(s)); candidate promoted",
+        "candidate_hash": "9796df8fc991ac7641f33b4aa41c37d3a3f7e9201eb87fae74c1683b36940b4d",
+        "prior_hash": "4066e102fcb42babded285ab082238e605f711e4c82de54d14850793f5b5448f",
+        "changed_lineage_ids": [
+          "snapshot-route:13717fcf829eb53d66bd164339d1bf1f33e23c81ab2d9d1419ef842208d5389e",
+          "snapshot-route:15807a428a6a0242de3e03d3e8679b6a2f7e553538535da8945b4ebde3f0c841",
+          "snapshot-route:1b88abd8d2a6ff458f6171b9bfb7675ffa7fffaf9f9767482c9965374d7de519",
+          "snapshot-route:1d318ce8972739e7efb969cde49dd090880454d3dde112dd5894b0807d0a4100",
+          "snapshot-route:224394514047ce763194d5865ce098cd4430fe202cfb15491b8cb641ea7656c4",
+          "snapshot-route:28520cc237ce9ef1de69400f6426c9f72ab2eb88f9243528c517b570558ba51e",
+          "snapshot-route:2c34ca048fdd9277f00ef51cb5a5830368eeacf89025519649ab21246d02c993",
+          "snapshot-route:3ac1b9e744921a9c50eb59319844ae884a92800f076d5e458c7915bd698a4a85",
+          "snapshot-route:48c0fe549a2e8dc43171a17c52ba3d76e87225151741661207bb2b97f90e9b44",
+          "snapshot-route:66bb57c8680ae4a9c1b0cffd0097fb532ad3155073c52b20e68146cc7823f196",
+          "snapshot-route:69781d7f0e95192431460407cb755d02b15809d484c4fff877a8db71fa3383d1",
+          "snapshot-route:704bc1cf1f7ce880d34bf98c310fccba6919704bc34d41bb9c236fc59efc55d6",
+          "snapshot-route:708ced96e1bcbdd5e42f7fd4913c043b675908b726a9d3ffee8f18d333707605",
+          "snapshot-route:70e0087d7f7c5a8406764093015c98e0b013e74712bca9d943864c137f5fc8a8",
+          "snapshot-route:747ae66cd0126c114d6ecc4017ace5c7150ece164ae74ff3c354cd18937fade6",
+          "snapshot-route:7916f0cda56d8dd3af8c409e45248299f5e1a0642771a409a9d1420ddc34ea72",
+          "snapshot-route:7d38c5023b00e932a97a22bc640993e07bca505b5b5db4b96aabb5e628669f79",
+          "snapshot-route:810b9e94737d5ca657d37577ec34abdb95b21bad2309764003b46bd881cf9900",
+          "snapshot-route:821f2b3758f6aef59032e776790490f70dd2d795efad859f8bb21688e5369dda",
+          "snapshot-route:894f961f14fe17daf923508ae241ba9ae68b1e66441b6044a992aef371dffe96",
+          "snapshot-route:8d149f860a75fbafbac82a1a065d80c28e9557337e797a331c5047e53c8c4a00",
+          "snapshot-route:98aaa17f5264c4761b9ca750b963c184b46a4badf75f984b188f624168b85a10",
+          "snapshot-route:9e06f3ea3b47b6c971cf0306b5779dcd4f306b49656dc551a7df57fea09f2f4e",
+          "snapshot-route:9ede1a87c0171bdfedbbf3016a68c7d603505b1b1cbd4eab64d08b539d37a6e4",
+          "snapshot-route:a5cdf9d6d0f424daa9858bac7b0efd9b426d0b5371d046553e0a776e30b12268",
+          "snapshot-route:bd8732e790892edc856a09761d0d712a2611bdee645dca5fc26bd9f4d5b2c7d5",
+          "snapshot-route:c3e4208901f04d40a58cfd88db9e1538abacff243ae23fe99c203c0c892c044b",
+          "snapshot-route:c6d6270ecd69343387cee8f4b7d6ce91754777789dab06f1b6d76c296cd22854",
+          "snapshot-route:cbb811828d6288d668ae8458e77f6e237e7fb8f5927e5155036871a13db543fb",
+          "snapshot-route:d0a1c5826b23ee25d1af8177648096c27a80b9af5a32b7a3d57948ead1e52c56",
+          "snapshot-route:d2b7ab346f7b2abc1bb70b43fddf9d21cb11287c621ff4c3df71fb5d851bfc8f",
+          "snapshot-route:d5a0892aed2e3d4ea74aa134f80c275ea110c4b996f47c713b6ec80f52895074",
+          "snapshot-route:dcb40a2ba76eb8467c60fec23f000027ce7ee469c5f450652ab0e17fd1fd276f",
+          "snapshot-route:dd240d51218b0ccba92956c331ed31c71979a11c9be285e1eb0a144d94a8c6fa",
+          "snapshot-route:dddfec4dd6e37da21cc58a20d7110afc37ca8a7debcc7571d5a023c00ff6d792",
+          "snapshot-route:eb9403da953cb782eb2879516d1aadab2f8b303bae27ec44820b28b86cd8f146",
+          "snapshot-route:f21691df30c4f5bc915f34fde65b046962e1e9867ed98cbbe60d171a30914fc4",
+          "snapshot-route:fee09e197462076d841e61dd90958f0dab42efeb42afa8fbf212f8954ce25402"
+        ]
+      },
+      "canary_status": "pass",
+      "active_kb_hash": "9796df8fc991ac7641f33b4aa41c37d3a3f7e9201eb87fae74c1683b36940b4d",
+      "active_kb_path": "kb/selective_patch-rep1.json",
+      "stage": "completed",
+      "verdicts": {
+        "confirmed_success": 0,
+        "confirmed_failure": 0,
+        "inconclusive": 0
+      },
+      "metrics": [
+        {
+          "metric": "tf",
+          "task_id": "5",
+          "value": 1.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "5",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "5",
+          "value": 8.8
+        },
+        {
+          "metric": "tf",
+          "task_id": "21",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "21",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "21",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "22",
+          "value": 5.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "22",
+          "value": 8.2
+        },
+        {
+          "metric": "pe",
+          "task_id": "22",
+          "value": 5.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "8",
+          "value": 7.6
+        },
+        {
+          "metric": "grounding",
+          "task_id": "8",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "8",
+          "value": 9.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "2",
+          "value": 4.6
+        },
+        {
+          "metric": "grounding",
+          "task_id": "2",
+          "value": 8.2
+        },
+        {
+          "metric": "pe",
+          "task_id": "2",
+          "value": 5.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "30",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "30",
+          "value": 8.6
+        },
+        {
+          "metric": "pe",
+          "task_id": "30",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "26",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "26",
+          "value": 9.8
+        },
+        {
+          "metric": "pe",
+          "task_id": "26",
+          "value": 9.4
+        },
+        {
+          "metric": "tf",
+          "task_id": "29",
+          "value": 7.4
+        },
+        {
+          "metric": "grounding",
+          "task_id": "29",
+          "value": 7.4
+        },
+        {
+          "metric": "pe",
+          "task_id": "29",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "34",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "34",
+          "value": 7.2
+        },
+        {
+          "metric": "pe",
+          "task_id": "34",
+          "value": 7.2
+        },
+        {
+          "metric": "tf",
+          "task_id": "40",
+          "value": 5.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "40",
+          "value": 5.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "40",
+          "value": 5.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "161",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "161",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "161",
+          "value": 5.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "235",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "235",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "235",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "225",
+          "value": 4.8
+        },
+        {
+          "metric": "grounding",
+          "task_id": "225",
+          "value": 7.2
+        },
+        {
+          "metric": "pe",
+          "task_id": "225",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "229",
+          "value": 1.6
+        },
+        {
+          "metric": "grounding",
+          "task_id": "229",
+          "value": 9.4
+        },
+        {
+          "metric": "pe",
+          "task_id": "229",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "94",
+          "value": 8.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "94",
+          "value": 7.8
+        },
+        {
+          "metric": "pe",
+          "task_id": "94",
+          "value": 8.4
+        },
+        {
+          "metric": "tf",
+          "task_id": "249",
+          "value": 3.6
+        },
+        {
+          "metric": "grounding",
+          "task_id": "249",
+          "value": 7.8
+        },
+        {
+          "metric": "pe",
+          "task_id": "249",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "291",
+          "value": 3.8
+        },
+        {
+          "metric": "grounding",
+          "task_id": "291",
+          "value": 9.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "291",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "281",
+          "value": 6.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "281",
+          "value": 7.4
+        },
+        {
+          "metric": "pe",
+          "task_id": "281",
+          "value": 6.6
+        },
+        {
+          "metric": "tf",
+          "task_id": "448",
+          "value": 4.4
+        },
+        {
+          "metric": "grounding",
+          "task_id": "448",
+          "value": 7.4
+        },
+        {
+          "metric": "pe",
+          "task_id": "448",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "385",
+          "value": 7.6
+        },
+        {
+          "metric": "grounding",
+          "task_id": "385",
+          "value": 8.2
+        },
+        {
+          "metric": "pe",
+          "task_id": "385",
+          "value": 3.8
+        }
+      ],
+      "failure_categories": [],
+      "failure_counts": {
+        "under_update": 0,
+        "over_update": 0
+      },
+      "errors": [],
+      "cost": {
+        "calls": 182,
+        "priced_calls": 182,
+        "unknown_calls": 0,
+        "mock_calls": 0,
+        "local_calls": 0,
+        "input_tokens": 652868,
+        "output_tokens": 221443,
+        "priced_usd": 0.15295282000000007,
+        "local_latency_ms": 0,
+        "by_phase": {
+          "adaptation": {
+            "calls": 5,
+            "input_tokens": 52102,
+            "output_tokens": 15150,
+            "usd": 0.0127852,
+            "unknown_calls": 0,
+            "mock_calls": 0,
+            "local_latency_ms": 0
+          },
+          "agent": {
+            "calls": 77,
+            "input_tokens": 173081,
+            "output_tokens": 14885,
+            "usd": 0.012913709999999998,
+            "unknown_calls": 0,
+            "mock_calls": 0,
+            "local_latency_ms": 0
+          },
+          "other": {
+            "calls": 100,
+            "input_tokens": 427685,
+            "output_tokens": 191408,
+            "usd": 0.12725391,
+            "unknown_calls": 0,
+            "mock_calls": 0,
+            "local_latency_ms": 0
+          }
+        },
+        "local_dispatch_cap_usd": 20.0,
+        "remaining_usd": 19.71200151,
+        "unreconciled_usd": 0.0
+      }
+    },
+    {
+      "strategy": "full_rewrite",
+      "repetition": 1,
+      "adaptation": {
+        "status": "promoted",
+        "reason": "canary passed (4 probe(s)); candidate promoted",
+        "candidate_hash": "9b48e497ddec1a33846b39640c040fc9e60c1c4e623afce239206acc67f90d76",
+        "prior_hash": "4066e102fcb42babded285ab082238e605f711e4c82de54d14850793f5b5448f",
+        "changed_lineage_ids": [
+          "snapshot-route:13717fcf829eb53d66bd164339d1bf1f33e23c81ab2d9d1419ef842208d5389e",
+          "snapshot-route:15807a428a6a0242de3e03d3e8679b6a2f7e553538535da8945b4ebde3f0c841",
+          "snapshot-route:1b88abd8d2a6ff458f6171b9bfb7675ffa7fffaf9f9767482c9965374d7de519",
+          "snapshot-route:1d318ce8972739e7efb969cde49dd090880454d3dde112dd5894b0807d0a4100",
+          "snapshot-route:224394514047ce763194d5865ce098cd4430fe202cfb15491b8cb641ea7656c4",
+          "snapshot-route:28520cc237ce9ef1de69400f6426c9f72ab2eb88f9243528c517b570558ba51e",
+          "snapshot-route:2c34ca048fdd9277f00ef51cb5a5830368eeacf89025519649ab21246d02c993",
+          "snapshot-route:3ac1b9e744921a9c50eb59319844ae884a92800f076d5e458c7915bd698a4a85",
+          "snapshot-route:48c0fe549a2e8dc43171a17c52ba3d76e87225151741661207bb2b97f90e9b44",
+          "snapshot-route:66bb57c8680ae4a9c1b0cffd0097fb532ad3155073c52b20e68146cc7823f196",
+          "snapshot-route:69781d7f0e95192431460407cb755d02b15809d484c4fff877a8db71fa3383d1",
+          "snapshot-route:704bc1cf1f7ce880d34bf98c310fccba6919704bc34d41bb9c236fc59efc55d6",
+          "snapshot-route:708ced96e1bcbdd5e42f7fd4913c043b675908b726a9d3ffee8f18d333707605",
+          "snapshot-route:70e0087d7f7c5a8406764093015c98e0b013e74712bca9d943864c137f5fc8a8",
+          "snapshot-route:747ae66cd0126c114d6ecc4017ace5c7150ece164ae74ff3c354cd18937fade6",
+          "snapshot-route:7916f0cda56d8dd3af8c409e45248299f5e1a0642771a409a9d1420ddc34ea72",
+          "snapshot-route:7d38c5023b00e932a97a22bc640993e07bca505b5b5db4b96aabb5e628669f79",
+          "snapshot-route:810b9e94737d5ca657d37577ec34abdb95b21bad2309764003b46bd881cf9900",
+          "snapshot-route:821f2b3758f6aef59032e776790490f70dd2d795efad859f8bb21688e5369dda",
+          "snapshot-route:894f961f14fe17daf923508ae241ba9ae68b1e66441b6044a992aef371dffe96",
+          "snapshot-route:8d149f860a75fbafbac82a1a065d80c28e9557337e797a331c5047e53c8c4a00",
+          "snapshot-route:98aaa17f5264c4761b9ca750b963c184b46a4badf75f984b188f624168b85a10",
+          "snapshot-route:9e06f3ea3b47b6c971cf0306b5779dcd4f306b49656dc551a7df57fea09f2f4e",
+          "snapshot-route:9ede1a87c0171bdfedbbf3016a68c7d603505b1b1cbd4eab64d08b539d37a6e4",
+          "snapshot-route:a5cdf9d6d0f424daa9858bac7b0efd9b426d0b5371d046553e0a776e30b12268",
+          "snapshot-route:bd8732e790892edc856a09761d0d712a2611bdee645dca5fc26bd9f4d5b2c7d5",
+          "snapshot-route:c3e4208901f04d40a58cfd88db9e1538abacff243ae23fe99c203c0c892c044b",
+          "snapshot-route:c6d6270ecd69343387cee8f4b7d6ce91754777789dab06f1b6d76c296cd22854",
+          "snapshot-route:cbb811828d6288d668ae8458e77f6e237e7fb8f5927e5155036871a13db543fb",
+          "snapshot-route:d0a1c5826b23ee25d1af8177648096c27a80b9af5a32b7a3d57948ead1e52c56",
+          "snapshot-route:d2b7ab346f7b2abc1bb70b43fddf9d21cb11287c621ff4c3df71fb5d851bfc8f",
+          "snapshot-route:d5a0892aed2e3d4ea74aa134f80c275ea110c4b996f47c713b6ec80f52895074",
+          "snapshot-route:dcb40a2ba76eb8467c60fec23f000027ce7ee469c5f450652ab0e17fd1fd276f",
+          "snapshot-route:dd240d51218b0ccba92956c331ed31c71979a11c9be285e1eb0a144d94a8c6fa",
+          "snapshot-route:dddfec4dd6e37da21cc58a20d7110afc37ca8a7debcc7571d5a023c00ff6d792",
+          "snapshot-route:eb9403da953cb782eb2879516d1aadab2f8b303bae27ec44820b28b86cd8f146",
+          "snapshot-route:f21691df30c4f5bc915f34fde65b046962e1e9867ed98cbbe60d171a30914fc4",
+          "snapshot-route:fee09e197462076d841e61dd90958f0dab42efeb42afa8fbf212f8954ce25402"
+        ]
+      },
+      "canary_status": "pass",
+      "active_kb_hash": "9b48e497ddec1a33846b39640c040fc9e60c1c4e623afce239206acc67f90d76",
+      "active_kb_path": "kb/full_rewrite-rep1.json",
+      "stage": "completed",
+      "verdicts": {
+        "confirmed_success": 0,
+        "confirmed_failure": 0,
+        "inconclusive": 0
+      },
+      "metrics": [
+        {
+          "metric": "tf",
+          "task_id": "21",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "21",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "21",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "22",
+          "value": 5.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "22",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "22",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "8",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "8",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "8",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "5",
+          "value": 1.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "5",
+          "value": 7.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "5",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "2",
+          "value": 4.6
+        },
+        {
+          "metric": "grounding",
+          "task_id": "2",
+          "value": 8.6
+        },
+        {
+          "metric": "pe",
+          "task_id": "2",
+          "value": 6.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "30",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "30",
+          "value": 9.6
+        },
+        {
+          "metric": "pe",
+          "task_id": "30",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "26",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "26",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "26",
+          "value": 9.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "29",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "29",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "29",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "34",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "34",
+          "value": 7.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "34",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "40",
+          "value": 5.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "40",
+          "value": 5.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "40",
+          "value": 8.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "161",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "161",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "161",
+          "value": 6.6
+        },
+        {
+          "metric": "tf",
+          "task_id": "235",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "235",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "235",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "225",
+          "value": 5.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "225",
+          "value": 9.4
+        },
+        {
+          "metric": "pe",
+          "task_id": "225",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "94",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "94",
+          "value": 7.2
+        },
+        {
+          "metric": "pe",
+          "task_id": "94",
+          "value": 3.4
+        },
+        {
+          "metric": "tf",
+          "task_id": "229",
+          "value": 1.2
+        },
+        {
+          "metric": "grounding",
+          "task_id": "229",
+          "value": 5.6
+        },
+        {
+          "metric": "pe",
+          "task_id": "229",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "249",
+          "value": 5.8
+        },
+        {
+          "metric": "grounding",
+          "task_id": "249",
+          "value": 9.2
+        },
+        {
+          "metric": "pe",
+          "task_id": "249",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "291",
+          "value": 4.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "291",
+          "value": 10.0
+        },
+        {
+          "metric": "pe",
+          "task_id": "291",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "448",
+          "value": 4.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "448",
+          "value": 9.6
+        },
+        {
+          "metric": "pe",
+          "task_id": "448",
+          "value": 10.0
+        },
+        {
+          "metric": "tf",
+          "task_id": "385",
+          "value": 10.0
+        },
+        {
+          "metric": "grounding",
+          "task_id": "385",
+          "value": 9.2
+        },
+        {
+          "metric": "pe",
+          "task_id": "385",
+          "value": 6.6
+        },
+        {
+          "metric": "tf",
+          "task_id": "281",
+          "value": 9.4
+        },
+        {
+          "metric": "grounding",
+          "task_id": "281",
+          "value": 8.8
+        },
+        {
+          "metric": "pe",
+          "task_id": "281",
+          "value": 8.2
+        }
+      ],
+      "failure_categories": [],
+      "failure_counts": {
+        "under_update": 0,
+        "over_update": 0
+      },
+      "errors": [],
+      "cost": {
+        "calls": 211,
+        "priced_calls": 211,
+        "unknown_calls": 0,
+        "mock_calls": 0,
+        "local_calls": 0,
+        "input_tokens": 689083,
+        "output_tokens": 228743,
+        "priced_usd": 0.16318819999999998,
+        "local_latency_ms": 0,
+        "by_phase": {
+          "adaptation": {
+            "calls": 39,
+            "input_tokens": 108563,
+            "output_tokens": 40640,
+            "usd": 0.031176299999999997,
+            "unknown_calls": 0,
+            "mock_calls": 0,
+            "local_latency_ms": 0
+          },
+          "agent": {
+            "calls": 72,
+            "input_tokens": 164400,
+            "output_tokens": 12523,
+            "usd": 0.013220809999999996,
+            "unknown_calls": 0,
+            "mock_calls": 0,
+            "local_latency_ms": 0
+          },
+          "other": {
+            "calls": 100,
+            "input_tokens": 416120,
+            "output_tokens": 175580,
+            "usd": 0.11879109000000002,
+            "unknown_calls": 0,
+            "mock_calls": 0,
+            "local_latency_ms": 0
+          }
+        },
+        "local_dispatch_cap_usd": 20.0,
+        "remaining_usd": 19.54881331,
+        "unreconciled_usd": 0.0
+      }
+    }
+  ],
+  "cost": {
+    "calls": 566,
+    "priced_calls": 566,
+    "unknown_calls": 0,
+    "mock_calls": 0,
+    "local_calls": 0,
+    "input_tokens": 1891910,
+    "output_tokens": 647176,
+    "priced_usd": 0.45118668999999995,
+    "local_latency_ms": 0,
+    "by_phase": {
+      "adaptation": {
+        "calls": 44,
+        "input_tokens": 160665,
+        "output_tokens": 55790,
+        "usd": 0.043961499999999994,
+        "unknown_calls": 0,
+        "mock_calls": 0,
+        "local_latency_ms": 0
+      },
+      "agent": {
+        "calls": 222,
+        "input_tokens": 487930,
+        "output_tokens": 38998,
+        "usd": 0.03872897999999999,
+        "unknown_calls": 0,
+        "mock_calls": 0,
+        "local_latency_ms": 0
+      },
+      "other": {
+        "calls": 300,
+        "input_tokens": 1243315,
+        "output_tokens": 552388,
+        "usd": 0.36849621,
+        "unknown_calls": 0,
+        "mock_calls": 0,
+        "local_latency_ms": 0
+      }
+    },
+    "local_dispatch_cap_usd": 20.0,
+    "remaining_usd": 19.54881331,
+    "unreconciled_usd": 0.0
+  },
+  "cost_note": "USD figures cover priced calls only. Mock calls carry no USD and calls with unknown usage or price are counted separately, never as zero. local_dispatch_cap_usd is a local dispatch guard, not the provider's bill."
+}

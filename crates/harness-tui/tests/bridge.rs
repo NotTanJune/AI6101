@@ -747,20 +747,47 @@ fn adopting_an_unmanaged_server_snapshots_its_live_tools_into_the_kb() {
 
 /// A KB that disagrees with the in-process server, and the rewrite a model would return.
 fn drift_setup(script: impl FnOnce(String) -> Vec<Scripted>) -> (Fixture, String) {
+    drift_setup_with_canary(script, true)
+}
+
+fn drift_setup_with_canary(
+    script: impl FnOnce(String) -> Vec<Scripted>,
+    canary: bool,
+) -> (Fixture, String) {
+    drift_setup_options(script, canary, false)
+}
+
+fn drift_setup_options(
+    script: impl FnOnce(String) -> Vec<Scripted>,
+    canary: bool,
+    secret_output: bool,
+) -> (Fixture, String) {
     let runtime = tokio::runtime::Builder::new_current_thread()
         .enable_all()
         .build()
         .expect("rt");
-    let source = kb(vec![card("calc", "add", "KB add description")]);
-    let rewritten = runtime.block_on(async {
+    let (source, rewritten) = runtime.block_on(async {
         let conn = connect_test_server("calc").await;
         let live = conn.list_tools().await.expect("list");
+        let (_, mut source) = harness_agent::drift::detect_drift("calc", &kb(vec![]), &live);
+        for tool in &mut source.cards {
+            if tool.name == "add" {
+                tool.description = "KB add description".to_owned();
+                tool.input_schema = card("calc", "add", "").input_schema;
+            }
+            if tool.name == "boom" {
+                // Keep the intentionally failing tool out of the unchanged control choice.
+                tool.lineage_id = "zz:boom".to_owned();
+            }
+        }
         let (_, live_kb) = harness_agent::drift::detect_drift("calc", &source, &live);
-        serde_json::to_string(&live_kb).expect("serialise")
+        (source, serde_json::to_string(&live_kb).expect("serialise"))
     });
     let mut opts = SetupOpts::new(Script::Replies(script(rewritten.clone())));
     opts.servers = vec!["calc"];
     opts.kb = Some(source);
+    opts.canary = canary;
+    opts.secret_output = secret_output;
     (spawn(opts), rewritten)
 }
 
@@ -778,6 +805,40 @@ fn canary_of(events: &[UiEvent]) -> Option<&CanarySummary> {
     })
 }
 
+fn adaptation_dir(f: &Fixture) -> std::path::PathBuf {
+    let dirs: Vec<_> = std::fs::read_dir(f.session_dir.join("adaptations"))
+        .expect("adaptation directory")
+        .map(|entry| entry.expect("entry").path())
+        .collect();
+    assert_eq!(dirs.len(), 1);
+    dirs[0].clone()
+}
+
+fn adaptation_state(dir: &std::path::Path) -> serde_json::Value {
+    serde_json::from_str(&std::fs::read_to_string(dir.join("state.json")).unwrap()).unwrap()
+}
+
+#[test]
+fn configured_reset_arguments_are_redacted_from_evidence() {
+    use harness_tui::McpLauncher;
+    let config = harness_agent::mcp::McpConfig::from_json_str(
+        r#"{
+        "mcpServers": {"calc": {"command": "unused", "canary": {
+            "isolated": true, "reset_tool": "reset", "reset_arguments": {
+                "credential": "reset_secret_123456789", "nested": ["nested_secret_987654321"]
+            }
+        }}}
+    }"#,
+    )
+    .unwrap();
+    let launcher = harness_tui::ConfigLauncher::new(config, "unused");
+    let redactor = launcher.artifact_redactor();
+    assert_eq!(
+        redactor.redact_str("reset_secret_123456789 nested_secret_987654321"),
+        "[REDACTED] [REDACTED]"
+    );
+}
+
 #[test]
 fn drift_end_to_end_diff_strategy_canary_accept_changes_the_exposed_description() {
     let (mut f, _) = drift_setup(|rewritten| vec![Scripted::text(rewritten)]);
@@ -789,7 +850,7 @@ fn drift_end_to_end_diff_strategy_canary_accept_changes_the_exposed_description(
     });
     feed(&mut app, &events);
 
-    // 1. The diff: description and schema changed, three tools are new on the server.
+    // 1. The diff: description and schema changed.
     let report = events.iter().find_map(|e| match e {
         UiEvent::DriftReady { report, .. } if !report.is_empty() => Some(report.clone()),
         _ => None,
@@ -827,6 +888,27 @@ fn drift_end_to_end_diff_strategy_canary_accept_changes_the_exposed_description(
         "{canary:?}"
     );
     assert!(!canary.probes.is_empty());
+    let artifacts = adaptation_dir(&f);
+    assert_eq!(adaptation_state(&artifacts)["state"], "awaiting_acceptance");
+    assert!(!artifacts.join("accepted.json").exists());
+    harness_core::ToolKb::read(artifacts.join("source.json")).expect("source KB contract");
+    harness_core::ToolKb::read(artifacts.join("candidate.json")).expect("candidate KB contract");
+    let logged =
+        harness_core::events::read_events(artifacts.join("events.jsonl")).expect("event contract");
+    assert!(logged.iter().any(|e| e.body.event_type() == "model_call"));
+    assert!(logged.iter().any(|e| e.body.event_type() == "mcp_action"));
+    assert!(
+        logged
+            .iter()
+            .any(|e| e.body.event_type() == "canary_result")
+    );
+    assert!(
+        !logged
+            .iter()
+            .any(|e| e.body.event_type() == "adaptation_outcome"),
+        "a canary pass is not acceptance"
+    );
+    assert!(logged.windows(2).all(|w| w[0].seq < w[1].seq));
     assert!(
         last_status(&events, "calc").is_none(),
         "running a strategy does not touch the exposed tools"
@@ -878,6 +960,144 @@ fn drift_end_to_end_diff_strategy_canary_accept_changes_the_exposed_description(
     feed(&mut app, &events);
     assert!(app.drifts.is_empty());
     assert_eq!(app.status.drift_count, 0);
+    assert_eq!(adaptation_state(&artifacts)["state"], "accepted");
+    let accepted =
+        harness_core::ToolKb::read(artifacts.join("accepted.json")).expect("accepted KB contract");
+    assert!(
+        accepted
+            .cards
+            .iter()
+            .any(|c| c.name == "add" && c.description == "LIVE add description")
+    );
+    let logged = harness_core::events::read_events(artifacts.join("events.jsonl")).unwrap();
+    assert!(logged.iter().any(|e| matches!(&e.body,
+        harness_core::events::EventBody::AdaptationOutcome(o)
+            if o.status == harness_core::events::AdaptationStatus::Promoted
+    )));
+    assert!(
+        transcript_lines(&f)
+            .iter()
+            .any(|line| line.to_string().contains("adaptation evidence"))
+    );
+    f.handle.shutdown(Duration::from_secs(5));
+}
+
+#[test]
+fn live_drift_without_reset_permission_is_inconclusive_and_never_promotes() {
+    let (mut f, _) = drift_setup_with_canary(|rewritten| vec![Scripted::text(rewritten)], false);
+    let mut events = Vec::new();
+    wait_for_drift(&mut f, &mut events);
+    events.clear();
+    f.handle.send(UiCommand::RunDrift {
+        server: "calc".into(),
+        strategy: Strategy::FullRewrite,
+    });
+    wait_until(&mut f.handle, &mut events, "blocked live canary", |e| {
+        canary_of(e).is_some()
+    });
+    let report = canary_of(&events).unwrap();
+    assert_eq!(report.status, CanaryStatus::Inconclusive);
+    assert!(!report.can_accept);
+    let dir = adaptation_dir(&f);
+    assert_eq!(adaptation_state(&dir)["state"], "blocked");
+    let events = harness_core::events::read_events(dir.join("events.jsonl")).unwrap();
+    assert!(!events.iter().any(|e| e.body.event_type() == "mcp_action"));
+    assert!(!dir.join("accepted.json").exists());
+    f.handle.shutdown(Duration::from_secs(5));
+}
+
+#[test]
+fn unwritable_adaptation_directory_blocks_the_model_call() {
+    let (mut f, _) = drift_setup(|rewritten| vec![Scripted::text(rewritten)]);
+    let mut events = Vec::new();
+    wait_for_drift(&mut f, &mut events);
+    std::fs::write(f.session_dir.join("adaptations"), "not a directory").unwrap();
+    events.clear();
+    f.handle.send(UiCommand::RunDrift {
+        server: "calc".into(),
+        strategy: Strategy::FullRewrite,
+    });
+    wait_until(&mut f.handle, &mut events, "evidence write failure", |e| {
+        e.iter().any(|e| matches!(e, UiEvent::DriftFailed { message, .. } if message.contains("cannot open adaptation evidence")))
+    });
+    assert_eq!(f.mock.call_count(), 0);
+    assert!(canary_of(&events).is_none());
+    f.handle.shutdown(Duration::from_secs(5));
+}
+
+#[test]
+fn live_canary_output_is_redacted_in_the_ui_and_saved_evidence() {
+    let (mut f, _) = drift_setup_options(|kb| vec![Scripted::text(kb)], true, true);
+    let mut events = Vec::new();
+    wait_for_drift(&mut f, &mut events);
+    events.clear();
+    f.handle.send(UiCommand::RunDrift {
+        server: "calc".into(),
+        strategy: Strategy::FullRewrite,
+    });
+    wait_until(&mut f.handle, &mut events, "redacted canary", |e| {
+        canary_of(e).is_some()
+    });
+    let summary = canary_of(&events).unwrap();
+    assert_eq!(summary.status, CanaryStatus::Pass);
+    assert!(!format!("{summary:?}").contains(TEST_MCP_SECRET));
+    assert!(summary.probes.iter().any(|p| {
+        p.actual
+            .as_deref()
+            .is_some_and(|s| s.contains("[REDACTED]"))
+    }));
+    let artifacts = adaptation_dir(&f);
+    let log = std::fs::read_to_string(artifacts.join("events.jsonl")).unwrap();
+    assert!(!log.contains(TEST_MCP_SECRET));
+    assert!(log.contains("[REDACTED]"));
+    assert!(f.handle.shutdown(Duration::from_secs(5)));
+    assert_eq!(adaptation_state(&artifacts)["state"], "rejected");
+    assert!(
+        adaptation_state(&artifacts)["reason"]
+            .as_str()
+            .unwrap()
+            .contains("session ended")
+    );
+}
+
+#[test]
+#[cfg(unix)]
+fn a_failed_new_preflight_invalidates_the_previous_passing_candidate() {
+    use std::os::unix::fs::PermissionsExt;
+    let (mut f, _) = drift_setup(|kb| vec![Scripted::text(kb)]);
+    let mut events = Vec::new();
+    wait_for_drift(&mut f, &mut events);
+    events.clear();
+    f.handle.send(UiCommand::RunDrift {
+        server: "calc".into(),
+        strategy: Strategy::FullRewrite,
+    });
+    wait_until(&mut f.handle, &mut events, "first candidate", |e| {
+        canary_of(e).is_some()
+    });
+    assert!(canary_of(&events).unwrap().can_accept);
+    let artifacts = adaptation_dir(&f);
+    let parent = f.session_dir.join("adaptations");
+    std::fs::set_permissions(&parent, std::fs::Permissions::from_mode(0o500)).unwrap();
+    events.clear();
+    f.handle.send(UiCommand::RunDrift {
+        server: "calc".into(),
+        strategy: Strategy::FullRewrite,
+    });
+    wait_until(&mut f.handle, &mut events, "preflight failure", |e| {
+        e.iter().any(|e| matches!(e, UiEvent::DriftFailed { .. }))
+    });
+    std::fs::set_permissions(&parent, std::fs::Permissions::from_mode(0o700)).unwrap();
+    assert_eq!(adaptation_state(&artifacts)["state"], "rejected");
+    events.clear();
+    f.handle.send(UiCommand::AcceptDrift {
+        server: "calc".into(),
+    });
+    wait_until(&mut f.handle, &mut events, "stale candidate refusal", |e| {
+        errors_contain(e, "no candidate KB")
+    });
+    assert!(!artifacts.join("accepted.json").exists());
+    assert_eq!(f.mock.call_count(), 1);
     f.handle.shutdown(Duration::from_secs(5));
 }
 
@@ -911,6 +1131,76 @@ fn a_rejected_candidate_leaves_the_kb_and_the_exposed_tools_alone() {
         errors_contain(e, "no candidate KB")
     });
     assert!(last_status(&events, "calc").is_none());
+    let artifacts = adaptation_dir(&f);
+    assert_eq!(adaptation_state(&artifacts)["state"], "rejected");
+    assert!(!artifacts.join("accepted.json").exists());
+    f.handle.shutdown(Duration::from_secs(5));
+}
+
+#[test]
+fn quitting_during_adaptation_finalizes_the_journal_without_a_candidate() {
+    let (mut f, _) = drift_setup(|_| vec![Scripted::Pending]);
+    let mut events = Vec::new();
+    wait_for_drift(&mut f, &mut events);
+    events.clear();
+    f.handle.send(UiCommand::RunDrift {
+        server: "calc".into(),
+        strategy: Strategy::FullRewrite,
+    });
+    let mock = f.mock.clone();
+    wait_until(
+        &mut f.handle,
+        &mut events,
+        "pending adaptation model call",
+        |_| mock.call_count() == 1,
+    );
+    let artifacts = adaptation_dir(&f);
+    assert!(f.handle.shutdown(Duration::from_secs(5)));
+    assert_eq!(adaptation_state(&artifacts)["state"], "cancelled");
+    assert!(!artifacts.join("accepted.json").exists());
+    let events = harness_core::events::read_events(artifacts.join("events.jsonl")).unwrap();
+    assert!(events.iter().any(|e| e.body.event_type() == "error"));
+    assert!(!events.iter().any(|e| e.body.event_type() == "mcp_action"));
+}
+
+#[test]
+fn acceptance_does_not_overwrite_or_delete_an_existing_export() {
+    let (mut f, _) = drift_setup(|kb| vec![Scripted::text(kb)]);
+    let mut events = Vec::new();
+    wait_for_drift(&mut f, &mut events);
+    events.clear();
+    f.handle.send(UiCommand::RunDrift {
+        server: "calc".into(),
+        strategy: Strategy::FullRewrite,
+    });
+    wait_until(&mut f.handle, &mut events, "candidate", |e| {
+        canary_of(e).is_some()
+    });
+    assert!(canary_of(&events).unwrap().can_accept);
+    let artifacts = adaptation_dir(&f);
+    let existing = "existing export must be preserved";
+    std::fs::write(artifacts.join("accepted.json"), existing).unwrap();
+    events.clear();
+    f.handle.send(UiCommand::AcceptDrift {
+        server: "calc".into(),
+    });
+    wait_until(&mut f.handle, &mut events, "export collision", |e| {
+        errors_contain(e, "acceptance blocked")
+    });
+    assert_eq!(
+        std::fs::read_to_string(artifacts.join("accepted.json")).unwrap(),
+        existing
+    );
+    assert_eq!(adaptation_state(&artifacts)["state"], "failed");
+    assert!(
+        !harness_core::events::read_events(artifacts.join("events.jsonl"))
+            .unwrap()
+            .iter()
+            .any(
+                |e| matches!(&e.body, harness_core::events::EventBody::AdaptationOutcome(o)
+            if o.status == harness_core::events::AdaptationStatus::Promoted)
+            )
+    );
     f.handle.shutdown(Duration::from_secs(5));
 }
 

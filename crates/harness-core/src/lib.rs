@@ -11,6 +11,7 @@ pub mod cost;
 pub mod diff;
 pub mod error;
 pub mod events;
+pub mod handoff;
 pub mod mcpevol;
 pub mod model;
 pub mod patch;

@@ -11,7 +11,8 @@
 //!
 //! 0. Tasks whose footprint says `resolved == false` (a server or tool the Tool KB cannot
 //!    represent) are not eligible. They are listed in [`PilotSelection::excluded_unresolved`].
-//!    Everything below uses eligible tasks only.
+//!    Tasks whose id is in `exclude` are not eligible either. They are listed in
+//!    [`PilotSelection::excluded_for_cause`]. Everything below uses eligible tasks only.
 //! 1. Cells are the non-empty (stage, class) cells. They are processed scarcest first (fewest
 //!    member tasks), ties broken by stage then class order.
 //! 2. For each cell, tasks already selected count toward the target of
@@ -194,6 +195,9 @@ pub struct PilotSelection {
     pub short_cells: Vec<ShortCell>,
     /// Ids of tasks left out because they name an unresolved server or tool (numeric order).
     pub excluded_unresolved: Vec<String>,
+    /// Ids left out because the caller listed them in `exclude` (numeric order). An unresolved
+    /// task is listed only in [`Self::excluded_unresolved`].
+    pub excluded_for_cause: Vec<String>,
     /// Whether the total reached `min_total`.
     pub reached_min_total: bool,
     /// Coverage matrix of the selected tasks.
@@ -224,11 +228,13 @@ fn footprint_of(task: &TaskSpec, footprints: &BTreeMap<String, TaskFootprint>) -
 }
 
 /// Select the proposed pilot. `footprints` is keyed by task id; a task without an entry is
-/// costed as its listed servers and zero tools.
+/// costed as its listed servers and zero tools. `exclude` lists task ids left out for cause,
+/// such as a task whose external server crashes. Ids that are not in `tasks` are ignored.
 pub fn select_pilot(
     tasks: &[TaskSpec],
     footprints: &BTreeMap<String, TaskFootprint>,
     rule: PilotRule,
+    exclude: &BTreeSet<String>,
 ) -> PilotSelection {
     let cost = |t: &TaskSpec| {
         let f = footprint_of(t, footprints);
@@ -241,7 +247,7 @@ pub fn select_pilot(
     let all_tasks = tasks;
     let eligible: Vec<TaskSpec> = tasks
         .iter()
-        .filter(|t| footprint_of(t, footprints).resolved)
+        .filter(|t| footprint_of(t, footprints).resolved && !exclude.contains(&t.task_id))
         .cloned()
         .collect();
     let tasks = eligible.as_slice();
@@ -380,12 +386,19 @@ pub fn select_pilot(
         .map(|t| t.task_id.clone())
         .collect();
     excluded_unresolved.sort_by_key(|id| id_key(id));
+    let mut excluded_for_cause: Vec<String> = all_tasks
+        .iter()
+        .filter(|t| exclude.contains(&t.task_id) && footprint_of(t, footprints).resolved)
+        .map(|t| t.task_id.clone())
+        .collect();
+    excluded_for_cause.sort_by_key(|id| id_key(id));
     let reached_min_total = ids.len() >= rule.min_total;
     PilotSelection {
         ids,
         reasons,
         controls: control_count,
         excluded_unresolved,
+        excluded_for_cause,
         short_cells,
         reached_min_total,
         matrix,
@@ -435,7 +448,32 @@ mod tests {
             min_total: 3,
             ..PilotRule::default()
         };
-        let sel = select_pilot(&tasks, &BTreeMap::new(), rule);
+        let sel = select_pilot(&tasks, &BTreeMap::new(), rule, &BTreeSet::new());
         assert_eq!(sel.toml_ids_line(), r#"ids = ["9", "10", "100"]"#);
+        assert!(sel.excluded_for_cause.is_empty());
+    }
+
+    #[test]
+    fn excluded_ids_are_skipped_and_the_next_task_fills_the_cell() {
+        let tasks = vec![
+            task("1", VersionStage::Middle, &[ChangeClass::Tool]),
+            task("2", VersionStage::Middle, &[ChangeClass::Tool]),
+            task("3", VersionStage::Early, &[]),
+        ];
+        let rule = PilotRule {
+            min_per_cell: 1,
+            min_total: 2,
+            max_total: 2,
+            controls: 1,
+        };
+        let exclude = BTreeSet::from(["1".to_owned()]);
+        let sel = select_pilot(&tasks, &BTreeMap::new(), rule, &exclude);
+        assert_eq!(sel.ids, vec!["2".to_owned(), "3".to_owned()]);
+        assert_eq!(sel.excluded_for_cause, vec!["1".to_owned()]);
+        assert_eq!(
+            sel.reasons["2"],
+            PilotReason::Cell(VersionStage::Middle, ChangeClass::Tool)
+        );
+        assert_eq!(sel.reasons["3"], PilotReason::Control);
     }
 }

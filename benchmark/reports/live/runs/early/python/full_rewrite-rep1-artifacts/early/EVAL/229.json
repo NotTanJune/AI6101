@@ -1,0 +1,355 @@
+{
+  "response": "```xml\n<response>\n  <workflow_analysis>\n    This scenario involves visualizing sales trends across Chinese provinces while simultaneously documenting the analysis process. The chart server will generate geographic visualizations of sales data, while the Draw.io server creates a flowchart documenting the analysis methodology. Both outputs will be combined into a presentation-ready report.\n  </workflow_analysis>\n  <target_servers>\n    <server name=\"@umengfe/mcp-server-chart\">\n      <tool>generate_district_map</tool>\n    </server>\n    <server name=\"@next-ai-drawio/mcp-server\">\n      <tool>create_new_diagram</tool>\n    </server>\n  </target_servers>\n  <question>\n    \"I need to analyze our sales performance across different regions in China for last quarter. Can you create a geographic visualization showing sales distribution by province, with darker colors indicating higher sales volumes? Also, I'd like a companion flowchart illustrating our sales analysis methodology - starting with data collection, moving through cleaning and analysis, and ending with visualization.\"\n  </question>\n</response>\n```",
+  "question": "\"I need to analyze our sales performance across different regions in China for last quarter. Can you create a geographic visualization showing sales distribution by province, with darker colors indicating higher sales volumes? Also, I'd like a companion flowchart illustrating our sales analysis methodology - starting with data collection, moving through cleaning and analysis, and ending with visualization.\"",
+  "tool_calls": [
+    {
+      "tool_name": "generate_district_map",
+      "parameters": {}
+    },
+    {
+      "tool_name": "create_new_diagram",
+      "parameters": {}
+    }
+  ],
+  "servers": {
+    "@umengfe/mcp-server-chart": [
+      "generate_district_map"
+    ],
+    "@next-ai-drawio/mcp-server": [
+      "create_new_diagram"
+    ]
+  },
+  "answer": "已生成按省展示的销售分布地图，颜色深浅可表示销售额高低。不过当前没有提供上季度各省销售数据，因此地图中的数值暂以 0 占位，不能反映真实分布。\n\n流程图创建未完成：绘图工具当前没有活动会话，因此无法保存图表。流程内容已按“数据收集 → 数据清洗 → 销售分析 → 地理可视化”规划。",
+  "trajectory_messages": [
+    {
+      "role": "system",
+      "content": "You are an AI agent connected to the MCP (Model Context Protocol) server. Based on the user's request, select and invoke tools to fulfill the task accurately and efficiently. \nNote that do not to ask any questions to the user, just call the tool to complete the task.\n\nConsidering real-time performance, the time is set to be around `2026-10-27 (星期二)`.\n\nThese files are stored in the local file system and serve as relevant resources for tool utilization. Use the absolute resource directory \"/Users/nottanjune/Code-Projects/AI6101/benchmark/anotation_path\" for the following files:\n`anotation_path/\n  code/\n    log_analysis.py\n    new_aggregator.py\n  csv/\n    customers-100.csv\n    products-100.csv\n  excel/\n    goods.xlsx\n    Local_Electronic_Sales.xlsx\n    people_data.xlsx\n  figs/\n  files/\n  html/\n    time.html\n  markdown/\n    work.md\n  music/\n    mixkit-retro-game-emergency-alarm-1000.wav\n  pdf/\n    embodied_ai_papers/\n      PaLM-E, An Embodied Multimodal Language Model, Danny Driess et al., 2023, v1_compressed.pdf\n      RT-2, Vision-Language-Action Models Transfer Web Knowledge to Robotic Control, Anthony Brohan et al., 2023, v1_compressed.pdf\n      Voyager, An Open-Ended Embodied Agent with Large Language Models, Guanzhi Wang et al., 2023, v2_compressed.pdf\n    WebArena.pdf\n  picture/\n    clock.png\n  ppt/\n    build_effective_agents.pptx\n  tasks/\n    ableton_crash_log_analysis.md\n    log_analysis_improvement.md\n  txt/\n    Android.txt\n    log_today.txt\n    log_yesterday.txt\n    paper_list.bib\n  word/\n    CV.docx\n    exchange.docx\n    Report_Card.docx\n  llms-full.txt`\n\nDatabase Configuration (if applicable):\n- Host: 127.0.0.1\n- Port: 3305\n- User: root\n- Password: 123456\n- Database Name: mydb\n"
+    },
+    {
+      "role": "user",
+      "content": "\"I need to analyze our sales performance across different regions in China for last quarter. Can you create a geographic visualization showing sales distribution by province, with darker colors indicating higher sales volumes? Also, I'd like a companion flowchart illustrating our sales analysis methodology - starting with data collection, moving through cleaning and analysis, and ending with visualization.\""
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_gBWtAGPmi9Q0BN8uDi1uhyib",
+          "function": {
+            "arguments": "{\"title\":\"上季度各省销售额\",\"data\":{\"name\":\"中国\",\"dataType\":\"number\",\"dataLabel\":\"销售额\",\"dataValueUnit\":\"万元\",\"colors\":[\"#F28C28\"],\"style\":{\"fillColor\":\"#F1F3F5\"},\"subdistricts\":[{\"name\":\"北京市\",\"dataValue\":\"0\"},{\"name\":\"天津市\",\"dataValue\":\"0\"},{\"name\":\"上海市\",\"dataValue\":\"0\"},{\"name\":\"重庆市\",\"dataValue\":\"0\"},{\"name\":\"河北省\",\"dataValue\":\"0\"},{\"name\":\"山西省\",\"dataValue\":\"0\"},{\"name\":\"辽宁省\",\"dataValue\":\"0\"},{\"name\":\"吉林省\",\"dataValue\":\"0\"},{\"name\":\"黑龙江省\",\"dataValue\":\"0\"},{\"name\":\"江苏省\",\"dataValue\":\"0\"},{\"name\":\"浙江省\",\"dataValue\":\"0\"},{\"name\":\"安徽省\",\"dataValue\":\"0\"},{\"name\":\"福建省\",\"dataValue\":\"0\"},{\"name\":\"江西省\",\"dataValue\":\"0\"},{\"name\":\"山东省\",\"dataValue\":\"0\"},{\"name\":\"河南省\",\"dataValue\":\"0\"},{\"name\":\"湖北省\",\"dataValue\":\"0\"},{\"name\":\"湖南省\",\"dataValue\":\"0\"},{\"name\":\"广东省\",\"dataValue\":\"0\"},{\"name\":\"海南省\",\"dataValue\":\"0\"},{\"name\":\"四川省\",\"dataValue\":\"0\"},{\"name\":\"贵州省\",\"dataValue\":\"0\"},{\"name\":\"云南省\",\"dataValue\":\"0\"},{\"name\":\"陕西省\",\"dataValue\":\"0\"},{\"name\":\"甘肃省\",\"dataValue\":\"0\"},{\"name\":\"青海省\",\"dataValue\":\"0\"},{\"name\":\"台湾省\",\"dataValue\":\"0\"},{\"name\":\"内蒙古自治区\",\"dataValue\":\"0\"},{\"name\":\"广西壮族自治区\",\"dataValue\":\"0\"},{\"name\":\"西藏自治区\",\"dataValue\":\"0\"},{\"name\":\"宁夏回族自治区\",\"dataValue\":\"0\"},{\"name\":\"新疆维吾尔自治区\",\"dataValue\":\"0\"}],\"showAllSubdistricts\":true},\"width\":1200,\"height\":800}",
+            "name": "generate_district_map"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_gBWtAGPmi9Q0BN8uDi1uhyib",
+      "content": "[TextContent(type='text', text='```vis-chart\\n{\"type\":\"district-map\",\"title\":\"上季度各省销售额\",\"data\":{\"name\":\"中国\",\"dataType\":\"number\",\"dataLabel\":\"销售额\",\"dataValueUnit\":\"万元\",\"colors\":[\"#F28C28\"],\"style\":{\"fillColor\":\"#F1F3F5\"},\"subdistricts\":[{\"name\":\"北京市\",\"dataValue\":\"0\"},{\"name\":\"天津市\",\"dataValue\":\"0\"},{\"name\":\"上海市\",\"dataValue\":\"0\"},{\"name\":\"重庆市\",\"dataValue\":\"0\"},{\"name\":\"河北省\",\"dataValue\":\"0\"},{\"name\":\"山西省\",\"dataValue\":\"0\"},{\"name\":\"辽宁省\",\"dataValue\":\"0\"},{\"name\":\"吉林省\",\"dataValue\":\"0\"},{\"name\":\"黑龙江省\",\"..."
+    },
+    {
+      "role": "assistant",
+      "annotations": [],
+      "tool_calls": [
+        {
+          "id": "call_BItUD7o3y8yrjRTyA6Q2Awrl",
+          "function": {
+            "arguments": "{\"xml\":\"<mxCell id=\\\"2\\\" value=\\\"销售分析方法\\\" style=\\\"text;html=1;fontSize=20;fontStyle=1;align=center;verticalAlign=middle;\\\" x=\\\"270\\\" y=\\\"25\\\" w=\\\"260\\\" h=\\\"40\\\"/><mxCell id=\\\"3\\\" value=\\\"数据收集&lt;br&gt;销售记录、地区、日期、金额\\\" style=\\\"rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=14;\\\" x=\\\"280\\\" y=\\\"90\\\" w=\\\"240\\\" h=\\\"70\\\"/><mxCell id=\\\"4\\\" value=\\\"数据清洗&lt;br&gt;去重、处理缺失值、统一省份名称及金额单位\\\" style=\\\"rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=14;\\\" x=\\\"250\\\" y=\\\"220\\\" w=\\\"300\\\" h=\\\"80\\\"/><mxCell id=\\\"5\\\" value=\\\"销售分析&lt;br&gt;筛选上季度数据；按省汇总销售额并校验结果\\\" style=\\\"rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=14;\\\" x=\\\"250\\\" y=\\\"365\\\" w=\\\"300\\\" h=\\\"80\\\"/><mxCell id=\\\"6\\\" value=\\\"地理可视化&lt;br&gt;按省映射汇总销售额；颜色深浅表示销量高低\\\" style=\\\"rounded=1;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;fontSize=14;\\\" x=\\\"250\\\" y=\\\"510\\\" w=\\\"300\\\" h=\\\"70\\\"/><mxCell id=\\\"7\\\" style=\\\"endArrow=block;html=1;strokeWidth=2;\\\" edge=\\\"1\\\" parent=\\\"1\\\" source=\\\"3\\\" target=\\\"4\\\"><mxGeometry relative=\\\"1\\\" as=\\\"geometry\\\"/></mxCell><mxCell id=\\\"8\\\" style=\\\"endArrow=block;html=1;strokeWidth=2;\\\" edge=\\\"1\\\" parent=\\\"1\\\" source=\\\"4\\\" target=\\\"5\\\"><mxGeometry relative=\\\"1\\\" as=\\\"geometry\\\"/></mxCell><mxCell id=\\\"9\\\" style=\\\"endArrow=block;html=1;strokeWidth=2;\\\" edge=\\\"1\\\" parent=\\\"1\\\" source=\\\"5\\\" target=\\\"6\\\"><mxGeometry relative=\\\"1\\\" as=\\\"geometry\\\"/></mxCell>\"}",
+            "name": "create_new_diagram"
+          },
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_BItUD7o3y8yrjRTyA6Q2Awrl",
+      "content": "[TextContent(type='text', text='Error: No active session. Please call start_session first.', annotations=None, meta=None)]..."
+    },
+    {
+      "content": "已生成按省展示的销售分布地图，颜色深浅可表示销售额高低。不过当前没有提供上季度各省销售数据，因此地图中的数值暂以 0 占位，不能反映真实分布。\n\n流程图创建未完成：绘图工具当前没有活动会话，因此无法保存图表。流程内容已按“数据收集 → 数据清洗 → 销售分析 → 地理可视化”规划。",
+      "role": "assistant",
+      "annotations": []
+    }
+  ],
+  "stop": true,
+  "exceeded": false,
+  "idx": 229,
+  "eval_result": {
+    "runs": [
+      {
+        "dimension_order": [
+          1,
+          0,
+          2
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "共 2 项明确要求：按省展示上季度销售分布且深色代表较高销售，以及创建所述方法流程图。完美完成 0/2：地图各省均填 0，不能呈现真实销售分布；流程图调用因无活动会话失败，未创建。缺陷率为 2/2 = 100%。",
+          "grounding_reasoning": "最终答复有 8 项原子事实主张。6 项可由工具调用/结果或任务输入支持；“已生成销售分布地图”把全省均为 0 的地图说成销售分布，以及“0 是占位值”作为其用途说明，未被工具输出明确证实，共 2 项不完全有据。缺陷率为 2/8 = 25%。",
+          "planning_efficiency_reasoning": "共 2 次工具调用：生成地图和尝试创建流程图，均对应用户目标；没有重复调用或无关调用。冗余/不必要调用为 0/2，缺陷率为 0%。创建流程图前未建立活动会话导致失败，但该调用本身仍是必要尝试，不计为冗余或不必要调用。",
+          "task_fulfillment": 1,
+          "grounding": 7,
+          "planning_and_efficiency": 10
+        }
+      },
+      {
+        "dimension_order": [
+          2,
+          1,
+          0
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "Counted 3 requirements: a province-level visualization reflecting actual last-quarter sales, darker colors for higher sales, and a created flowchart covering collection, cleaning, analysis, and visualization. 0/3 were perfectly completed: the map uses zero for every province, so it cannot show real distribution or meaningful color differences, and the diagram call failed. Defect rate: 3/3 = 100%.",
+          "grounding_reasoning": "Counted 8 factual claims in the final response. 0/8 are unsupported: the map call returned a chart, the submitted map parameters show all-zero values and numeric coloring, and the diagram call returned the no-active-session error; the proposed flow steps are present in the submitted XML. Defect rate: 0/8 = 0%.",
+          "planning_efficiency_reasoning": "There were 2 tool calls. The map call was needed; the diagram call was also aimed at a requested goal, but was made without first starting the required session and failed. Counted that premature call as 1 inefficient call. Defect rate: 1/2 = 50%.",
+          "task_fulfillment": 1,
+          "grounding": 10,
+          "planning_and_efficiency": 5
+        }
+      },
+      {
+        "dimension_order": [
+          0,
+          2,
+          1
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "Counted 4 explicit requirements: analyze last-quarter sales, show the distribution geographically by province, encode higher sales with darker colors, and create a flowchart from data collection through cleaning and analysis to visualization. 0/4 were perfectly met: the map used zero placeholders rather than actual sales data, so it does not show the requested distribution; the flowchart call failed and no diagram was created. Defect rate: 4/4 = 100%.",
+          "grounding_reasoning": "Counted 7 atomic claims in the final response: that a provincial map was generated, that its colors can show sales differences, that sales data was not supplied, that zeros were used as placeholders, that the map cannot reflect real distribution, that flowchart creation failed because there was no active session, and that the listed stages were planned. All 7 are supported by the tool call/result, the prompt, or the failed tool result. Unsupported claims: 0/7. Defect rate: 0%.",
+          "planning_efficiency_reasoning": "There were 2 tool calls. The map call was relevant to the map goal. The diagram call was relevant to the flowchart goal, but it failed because no active session had been started, and the agent did not recover. Counted that failed call as 1 imperfect call. Defect rate: 1/2 = 50%.",
+          "task_fulfillment": 1,
+          "grounding": 10,
+          "planning_and_efficiency": 5
+        }
+      },
+      {
+        "dimension_order": [
+          1,
+          0,
+          2
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "共计 3 项主要要求：分析上季度销售表现、展示按省份且颜色深浅反映销售量的地图、创建包含数据收集—清洗—分析—可视化的流程图。严格按完整且准确执行计，0/3 完成：地图虽生成，但所有省份都填为 0，不能展示真实销售分布；流程图调用因没有活动会话失败，未创建成功。缺陷率为 3/3 = 100%，因此评分为 2。",
+          "grounding_reasoning": "最终答复有 8 项可核查的事实陈述：地图已生成、颜色深浅可表示销售额、未提供销售数据、数值以 0 占位、地图不能反映真实分布、流程图未完成、工具因无活动会话而失败、流程内容按所述顺序规划。这些均与工具调用/返回或任务输入一致；不支持陈述为 0/8，缺陷率为 0%，评分为 10。",
+          "planning_efficiency_reasoning": "共进行 2 次工具调用：地图生成和流程图创建，分别对应用户的两个可视化目标。没有重复调用或明显与目标无关的调用；流程图调用虽失败，但它本身是必要尝试。冗余/不必要调用为 0/2，缺陷率为 0%，评分为 10。",
+          "task_fulfillment": 2,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        }
+      },
+      {
+        "dimension_order": [
+          1,
+          0,
+          2
+        ],
+        "result": {
+          "task_fulfillment_reasoning": "Counted 6 requirements: analyze last-quarter sales, create a geographic visualization, show provinces, represent real provincial sales distribution, use darker colors for higher sales, and deliver a flowchart with the requested methodology sequence. The map and province-level coverage were provided (2/6 met); the all-zero placeholders do not show real sales or meaningful variation, and the flowchart was not created (4/6 failed). Defect rate: 4/6 = 66.7%, corresponding to a score of 2.",
+          "grounding_reasoning": "Counted 8 factual claims in the final response: map creation, province-level display, color encoding capability, missing sales data, zero placeholders, inability to reflect real distribution, flowchart failure, and the stated reason and planned sequence. All are supported by the tool input/output or task context; 0/8 unsupported. Defect rate: 0%.",
+          "planning_efficiency_reasoning": "There were 2 tool calls and 0 were redundant or unnecessary: one map call and one diagram call were each relevant to a requested deliverable. Defect rate: 0/2 = 0%.",
+          "task_fulfillment": 2,
+          "grounding": 10,
+          "planning_and_efficiency": 10
+        }
+      }
+    ],
+    "aggregate": {
+      "successful_runs": 5,
+      "total_runs": 5,
+      "task_fulfillment_mean": 1.4,
+      "grounding_mean": 9.4,
+      "planning_and_efficiency_mean": 8.0,
+      "task_fulfillment_reasoning_runs": [
+        "共 2 项明确要求：按省展示上季度销售分布且深色代表较高销售，以及创建所述方法流程图。完美完成 0/2：地图各省均填 0，不能呈现真实销售分布；流程图调用因无活动会话失败，未创建。缺陷率为 2/2 = 100%。",
+        "Counted 3 requirements: a province-level visualization reflecting actual last-quarter sales, darker colors for higher sales, and a created flowchart covering collection, cleaning, analysis, and visualization. 0/3 were perfectly completed: the map uses zero for every province, so it cannot show real distribution or meaningful color differences, and the diagram call failed. Defect rate: 3/3 = 100%.",
+        "Counted 4 explicit requirements: analyze last-quarter sales, show the distribution geographically by province, encode higher sales with darker colors, and create a flowchart from data collection through cleaning and analysis to visualization. 0/4 were perfectly met: the map used zero placeholders rather than actual sales data, so it does not show the requested distribution; the flowchart call failed and no diagram was created. Defect rate: 4/4 = 100%.",
+        "共计 3 项主要要求：分析上季度销售表现、展示按省份且颜色深浅反映销售量的地图、创建包含数据收集—清洗—分析—可视化的流程图。严格按完整且准确执行计，0/3 完成：地图虽生成，但所有省份都填为 0，不能展示真实销售分布；流程图调用因没有活动会话失败，未创建成功。缺陷率为 3/3 = 100%，因此评分为 2。",
+        "Counted 6 requirements: analyze last-quarter sales, create a geographic visualization, show provinces, represent real provincial sales distribution, use darker colors for higher sales, and deliver a flowchart with the requested methodology sequence. The map and province-level coverage were provided (2/6 met); the all-zero placeholders do not show real sales or meaningful variation, and the flowchart was not created (4/6 failed). Defect rate: 4/6 = 66.7%, corresponding to a score of 2."
+      ],
+      "grounding_reasoning_runs": [
+        "最终答复有 8 项原子事实主张。6 项可由工具调用/结果或任务输入支持；“已生成销售分布地图”把全省均为 0 的地图说成销售分布，以及“0 是占位值”作为其用途说明，未被工具输出明确证实，共 2 项不完全有据。缺陷率为 2/8 = 25%。",
+        "Counted 8 factual claims in the final response. 0/8 are unsupported: the map call returned a chart, the submitted map parameters show all-zero values and numeric coloring, and the diagram call returned the no-active-session error; the proposed flow steps are present in the submitted XML. Defect rate: 0/8 = 0%.",
+        "Counted 7 atomic claims in the final response: that a provincial map was generated, that its colors can show sales differences, that sales data was not supplied, that zeros were used as placeholders, that the map cannot reflect real distribution, that flowchart creation failed because there was no active session, and that the listed stages were planned. All 7 are supported by the tool call/result, the prompt, or the failed tool result. Unsupported claims: 0/7. Defect rate: 0%.",
+        "最终答复有 8 项可核查的事实陈述：地图已生成、颜色深浅可表示销售额、未提供销售数据、数值以 0 占位、地图不能反映真实分布、流程图未完成、工具因无活动会话而失败、流程内容按所述顺序规划。这些均与工具调用/返回或任务输入一致；不支持陈述为 0/8，缺陷率为 0%，评分为 10。",
+        "Counted 8 factual claims in the final response: map creation, province-level display, color encoding capability, missing sales data, zero placeholders, inability to reflect real distribution, flowchart failure, and the stated reason and planned sequence. All are supported by the tool input/output or task context; 0/8 unsupported. Defect rate: 0%."
+      ],
+      "planning_efficiency_reasoning_runs": [
+        "共 2 次工具调用：生成地图和尝试创建流程图，均对应用户目标；没有重复调用或无关调用。冗余/不必要调用为 0/2，缺陷率为 0%。创建流程图前未建立活动会话导致失败，但该调用本身仍是必要尝试，不计为冗余或不必要调用。",
+        "There were 2 tool calls. The map call was needed; the diagram call was also aimed at a requested goal, but was made without first starting the required session and failed. Counted that premature call as 1 inefficient call. Defect rate: 1/2 = 50%.",
+        "There were 2 tool calls. The map call was relevant to the map goal. The diagram call was relevant to the flowchart goal, but it failed because no active session had been started, and the agent did not recover. Counted that failed call as 1 imperfect call. Defect rate: 1/2 = 50%.",
+        "共进行 2 次工具调用：地图生成和流程图创建，分别对应用户的两个可视化目标。没有重复调用或明显与目标无关的调用；流程图调用虽失败，但它本身是必要尝试。冗余/不必要调用为 0/2，缺陷率为 0%，评分为 10。",
+        "There were 2 tool calls and 0 were redundant or unnecessary: one map call and one diagram call were each relevant to a requested deliverable. Defect rate: 0/2 = 0%."
+      ],
+      "task_fulfillment": 1,
+      "grounding": 9,
+      "planning_and_efficiency": 8
+    },
+    "judge_metadata": {
+      "integration_version": "ai6101-judge/1",
+      "model": "gpt-6-luna",
+      "requested_temperature": 0.0,
+      "max_tokens": 65536,
+      "num_runs": 5,
+      "tool_context_source": "saved_involved_tools",
+      "rubric_sha256": "59ede33bfddfe91138d07ac97fcac9e16b64fad99c13d58d85990944e6649bee"
+    },
+    "task_fulfillment": 1,
+    "grounding": 9,
+    "planning_and_efficiency": 8
+  },
+  "forced_finalization": false,
+  "involved_tools": [
+    {
+      "name": "generate_district_map",
+      "description": "Generates regional distribution maps, which are usually used to show the administrative divisions and coverage of a dataset. It is not suitable for showing the distribution of specific locations, such as urban administrative divisions, GDP distribution maps of provinces and cities across the country, etc. This tool is limited to generating data maps within China.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "properties": {
+          "data": {
+            "description": "Administrative division data, lower-level administrative divisions are optional. There are usually two scenarios: one is to simply display the regional composition, only `fillColor` needs to be configured, and all administrative divisions are consistent, representing that all blocks are connected as one; the other is the regional data distribution scenario, first determine the `dataType`, `dataValueUnit` and `dataLabel` configurations, `dataValue` should be a meaningful value and consistent with the meaning of dataType, and then determine the style configuration. The `fillColor` configuration represents the default fill color for areas without data. Lower-level administrative divisions do not need `fillColor` configuration, and their fill colors are determined by the `colors` configuration (If `dataType` is \"number\", only one base color (warm color) is needed in the list to calculate the continuous data mapping color band; if `dataType` is \"enum\", the number of color values in the list is equal to the number of enumeration values (contrast colors)). If `subdistricts` has a value, `showAllSubdistricts` must be set to true. For example, {\"title\": \"陕西省地级市分布图\", \"data\": {\"name\": \"陕西省\", \"showAllSubdistricts\": true, \"dataLabel\": \"城市\", \"dataType\": \"enum\", \"colors\": [\"#4ECDC4\", \"#A5D8FF\"], \"subdistricts\": [{\"name\": \"西安市\", \"dataValue\": \"省会\"}, {\"name\": \"宝鸡市\", \"dataValue\": \"地级市\"}, {\"name\": \"咸阳市\", \"dataValue\": \"地级市\"}, {\"name\": \"铜川市\", \"dataValue\": \"地级市\"}, {\"name\": \"渭南市\", \"dataValue\": \"地级市\"}, {\"name\": \"延安市\", \"dataValue\": \"地级市\"}, {\"name\": \"榆林市\", \"dataValue\": \"地级市\"}, {\"name\": \"汉中市\", \"dataValue\": \"地级市\"}, {\"name\": \"安康市\", \"dataValue\": \"地级市\"}, {\"name\": \"商洛市\", \"dataValue\": \"地级市\"}]}, \"width\": 1000, \"height\": 1000}.",
+            "properties": {
+              "colors": {
+                "default": [
+                  "#1783FF",
+                  "#00C9C9",
+                  "#F0884D",
+                  "#D580FF",
+                  "#7863FF",
+                  "#60C42D",
+                  "#BD8F24",
+                  "#FF80CA",
+                  "#2491B3",
+                  "#17C76F"
+                ],
+                "description": "Data color list, in rgb or rgba format.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "dataLabel": {
+                "description": "Data label, such as \"GDP\"",
+                "type": "string"
+              },
+              "dataType": {
+                "description": "The type of the data value, numeric or enumeration type",
+                "enum": [
+                  "number",
+                  "enum"
+                ],
+                "type": "string"
+              },
+              "dataValue": {
+                "description": "Data value, numeric string or enumeration string.",
+                "type": "string"
+              },
+              "dataValueUnit": {
+                "description": "Data unit, such as \"万亿\"",
+                "type": "string"
+              },
+              "name": {
+                "description": "Keywords for the Chinese name of an administrative region (must be within China), and must be one of China, province, city, district, or county. The name should be more specific and add attributive descriptions, for example, \"西安市\" is better than \"西安\", \"杭州西湖区\" is better than \"西湖区\". It cannot be a specific place name or a vague name, such as \"其它\".",
+                "type": "string"
+              },
+              "showAllSubdistricts": {
+                "default": false,
+                "description": "Whether to display all subdistricts.",
+                "type": "boolean"
+              },
+              "style": {
+                "description": "Style settings.",
+                "properties": {
+                  "fillColor": {
+                    "description": "Fill color, rgb or rgba format.",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "subdistricts": {
+                "description": "Sub-administrative regions are used to display the regional composition or regional distribution of related data.",
+                "items": {
+                  "properties": {
+                    "dataValue": {
+                      "description": "Data value, numeric string or enumeration string.",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Keywords for the Chinese name of an administrative region (must be within China), and must be one of China, province, city, district, or county. The name should be more specific and add attributive descriptions, for example, \"西安市\" is better than \"西安\", \"杭州西湖区\" is better than \"西湖区\". It cannot be a specific place name or a vague name, such as \"其它\".",
+                      "type": "string"
+                    },
+                    "style": {
+                      "description": "Style settings.",
+                      "properties": {
+                        "fillColor": {
+                          "description": "Fill color, rgb or rgba format.",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "height": {
+            "default": 1000,
+            "description": "Set the height of map, default is 1000.",
+            "type": "number"
+          },
+          "title": {
+            "description": "The map title should not exceed 16 characters. The content should be consistent with the information the map wants to convey and should be accurate, rich, creative, and attractive.",
+            "type": "string"
+          },
+          "width": {
+            "default": 1600,
+            "description": "Set the width of map, default is 1600.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "title",
+          "data"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "create_new_diagram",
+      "description": "Create a NEW diagram, REPLACING the whole document: every page and any unsaved user changes (the previous state stays in History). To add a tab use add_page; to change cells use edit_diagram.\n\nBefore using icon shapes (AWS, Azure, GCP, Kubernetes, Cisco...), call get_shape_library first. Follow the drawing guide returned by start_session (call get_drawing_guide if it is no longer in your context). Pass screenshot: true on the last call of a complex diagram to check the result.\n\nAccepted xml:\n1) Only the mxCell elements of one page (recommended). The server adds <mxfile>, <mxGraphModel>, <root> and the root cells \"0\" and \"1\":\n<mxCell id=\"2\" value=\"Shape\" style=\"rounded=1;\" x=\"40\" y=\"40\" w=\"120\" h=\"60\"/>\n2) A bare <mxGraphModel> with <root> (one page).\n3) A full <mxfile> with one or more <diagram> pages. Every page's <root> must start with <mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/>.\n\nRules: cells are siblings (never nested), ids are unique per page and start from \"2\", parent only for shapes inside a container, no XML comments, and shapes stay within x 0 to 800 and y 0 to 600. A style used by several cells is defined once with <mxStyle name=\"...\" value=\"...\"/> before the cells and used by name (see the drawing guide); html=1 and whiteSpace=wrap are added automatically.\n\nTo clear the canvas to one blank page, send only the two root cells <mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/>; the previous diagram stays in History.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "properties": {
+          "screenshot": {
+            "description": "Also return a PNG of the result so you can check it for overlaps and edges crossing shapes. Needs the preview tab open and in front; adds 2 to 10 s. Default: the DRAWIO_AUTO_SCREENSHOT environment variable.",
+            "type": "boolean"
+          },
+          "xml": {
+            "description": "REQUIRED: the mxCell elements of one page, a bare <mxGraphModel>, or a full <mxfile> with one or more <diagram> pages.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "xml"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "harness_strategy": "full_rewrite",
+  "source_version": "early",
+  "stage": "early",
+  "run_id": "mcpevol-live-early",
+  "judge_version": "ai6101-judge/1"
+}

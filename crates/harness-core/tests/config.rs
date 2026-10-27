@@ -211,6 +211,13 @@ fn empty_and_duplicate_lists_are_problems() {
 fn identical_source_and_target_versions_are_a_problem() {
     let problems = problems_of(&mock_toml().replace("target = \"late\"", "target = \"early\""));
     assert_problem(&problems, "versions.target");
+
+    let baseline = mock_toml().replace("target = \"late\"", "target = \"early\"\nbaseline = true");
+    let problems = problems_of(&baseline);
+    assert!(
+        !problems.iter().any(|p| p.contains("versions.target")),
+        "{problems:?}"
+    );
 }
 
 #[test]

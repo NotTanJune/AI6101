@@ -89,6 +89,51 @@ pub struct McpServerConfig {
     /// URL of a streamable HTTP server.
     #[serde(default)]
     pub url: Option<String>,
+    /// Explicit permission and reset contract for disposable live canary calls.
+    #[serde(default)]
+    pub canary: Option<McpCanaryConfig>,
+}
+
+/// Per-server contract required before a live canary can call any MCP tool.
+///
+/// Set `isolated` only when every state touched by the probes is disposable. The reset
+/// tool must restore that state before each probe. These settings are an operator
+/// attestation, not an automatic guarantee about an external server's implementation.
+#[derive(Clone, PartialEq, Eq, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct McpCanaryConfig {
+    /// Operator attestation that all probe state is disposable and isolated.
+    #[serde(default)]
+    pub isolated: bool,
+    /// Live tool that restores the disposable baseline before every probe.
+    #[serde(default)]
+    pub reset_tool: String,
+    /// JSON object passed to the reset tool. Values may contain secrets.
+    #[serde(default = "empty_arguments")]
+    pub reset_arguments: Value,
+}
+
+impl Default for McpCanaryConfig {
+    fn default() -> Self {
+        Self {
+            isolated: false,
+            reset_tool: String::new(),
+            reset_arguments: empty_arguments(),
+        }
+    }
+}
+
+fn empty_arguments() -> Value {
+    Value::Object(Default::default())
+}
+
+impl fmt::Debug for McpCanaryConfig {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("McpCanaryConfig")
+            .field("isolated", &self.isolated)
+            .field("reset_tool", &self.reset_tool)
+            .finish_non_exhaustive()
+    }
 }
 
 impl fmt::Debug for McpServerConfig {
@@ -99,6 +144,7 @@ impl fmt::Debug for McpServerConfig {
             .field("args", &self.args)
             .field("env_names", &self.env.keys().collect::<Vec<_>>())
             .field("url", &self.url)
+            .field("canary", &self.canary)
             .finish()
     }
 }
