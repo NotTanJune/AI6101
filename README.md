@@ -29,7 +29,47 @@ Report: [`docs/report/report.pdf`](docs/report/report.pdf).
 4. Validate the candidate. Unchanged cards must stay byte-identical.
 5. Run a canary of targeted and control probes. Promote the candidate only if it passes.
 
+## Terminal agent (`mcpe`)
+
+`mcpe` is a terminal coding agent built on Ratatui. It reads, edits and writes files, runs shell
+commands, and calls MCP tools. Writes and shell commands wait for approval, and the approval modal
+shows the exact diff. It also connects to live MCP servers, flags drift against its stored Tool
+KB, and lets the user review a patch before it is promoted. All screenshots come from live
+sessions.
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/report/figures/tui-session.png" alt="Agent session with an expanded tool card"><br><sub>Agent session. Tool cards show arguments, output and latency; Tab expands them.</sub></td>
+    <td width="50%"><img src="docs/report/figures/tui-approval.png" alt="Approval modal with a diff"><br><sub>Approval modal. Allow once, allow the class for the session, or deny.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/report/figures/tui-commands.png" alt="Command palette"><br><sub>Typing <code>/</code> opens the command palette with completion.</sub></td>
+    <td><img src="docs/report/figures/tui-help.png" alt="Help overlay"><br><sub><code>?</code> opens the help overlay.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/report/figures/tui-themes.png" alt="Theme picker"><br><sub><code>/theme</code> previews 20 built-in themes live.</sub></td>
+    <td><img src="docs/report/figures/tui-light.png" alt="Light theme"><br><sub>The same session in <code>catppuccin-latte</code>.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/report/figures/tui-welcome.png" alt="Welcome screen"><br><sub>Welcome screen and status bar: model, tokens, cost against the cap, MCP servers, drift.</sub></td>
+    <td><img src="docs/report/figures/tui-model.png" alt="Model picker"><br><sub><code>/model</code> switches between OpenAI and Gemini models mid-session.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/report/figures/tui-drift.png" alt="Drift review"><br><sub><code>/drift</code> lists Tool-, Parameter- and Description-level changes on real <code>iter5</code> drift.</sub></td>
+    <td><img src="docs/report/figures/tui-canary.png" alt="Canary gate"><br><sub>A selective patch candidate and its canary decision.</sub></td>
+  </tr>
+</table>
+
 ## Results
+
+There are two experiments, run on the same 20 tasks and the same Python agent and judge:
+
+- **Pilot (Python):** the teammate's original run. The strategies are implemented in Python
+  (`benchmark/src/custom/real_mcp/selective_patch_runner.py`), and full rewrite copies the
+  current server's tool definitions without a model call.
+- **Live (Rust):** this harness. The Rust strategies (`crates/harness-core/src/strategy.rs`)
+  build each KB from the real servers' `tools/list`, and full rewrite uses the model to rewrite
+  every card. The Rust pipeline passes the promoted KB to the Python runner through `--tool-kb`.
 
 Each experiment ran 20 tasks with `gpt-6-luna` as agent and judge, one run per task, and five
 judgments per run. TF and PE are judge scores on a 1 to 10 scale. ECS is the mean TF across the
@@ -48,7 +88,7 @@ three versions minus its spread.
 - **Recovery:** on live tasks whose tools changed, Late PE rises from 7.09 (no update) to 9.11
   (selective patch), because calls are no longer built from stale parameters.
 - **Failure modes:** under-update (a `start_session` prerequisite lost from a description, task
-  229) and over-update (full rewrite disturbing working behavior, tasks 21 and 281).
+  229) and over-update (full rewrite disturbing working behavior, task 281).
 
 The full live run (180 judged task runs) cost about USD 1.41. Tables:
 [`benchmark/reports/live/summary.md`](benchmark/reports/live/summary.md). Pilot audit:
